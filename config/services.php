@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'vlgportal' => [
+        'key'    => env('VLGPORTAL_KEY'),
+        'secret' => env('VLGPORTAL_SECRET'),
+    ],
+
 ];

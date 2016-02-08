@@ -12,7 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
+});
+
+Route::get('common/header', function () {
+    return view('common.header');
+});
+
+Route::get('common/footer', function () {
+    return view('common.footer');
+});
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+});
+
+Route::get('project_details', function () {
+    return view('project_details');
 });
 
 /*

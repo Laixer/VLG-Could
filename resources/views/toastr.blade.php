@@ -16,10 +16,7 @@
                 <h2>Toastr notification</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        Miscellaneous
+                        <a ui-sref="dashboard">Home</a>
                     </li>
                     <li class="active">
                         <strong>Toastr notification</strong>

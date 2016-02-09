@@ -31,6 +31,32 @@ Route::get('project_details', function () {
     return view('project_details');
 });
 
+Route::get('validation', function () {
+    return view('validation');
+});
+
+Route::get('toastr', function () {
+    return view('toastr');
+});
+
+Route::get('sweet_alert', function () {
+    return view('sweet_alert');
+});
+
+Route::get('loading_buttons', function () {
+    return view('loading_buttons');
+});
+
+Route::get('modal_window', function () {
+    return view('modal_window');
+});
+
+Route::group(['prefix' => 'api/v1'], function () {
+    Route::get('projects', 'ApiController@getProjects');
+    Route::get('project/{id}', 'ApiController@getProjectFromId');
+    Route::post('new_project', 'ApiController@doNewProject');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

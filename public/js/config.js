@@ -7,8 +7,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     $urlRouterProvider.otherwise("/dashboard");
 
     $ocLazyLoadProvider.config({
-        // Set to true if you want to see what and when is dynamically loaded
-        debug: true
+        debug: false
     });
 
     $stateProvider
@@ -29,15 +28,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             files: ['js/plugins/chartJs/angles.js', 'js/plugins/chartJs/Chart.min.js']
                         },
                         {
-                            name: 'angular-peity',
-                            files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
-                        }
+                            insertBefore: '#loadBefore',
+                            name: 'toaster',
+                            files: ['js/plugins/toastr/toastr.min.js', 'css/plugins/toastr/toastr.min.css']
+                        },
                     ]);
                 }
             }
         })
         .state('project', {
-            url: "/project/:name",
+            url: "/project/:id/:name",
             templateUrl: "/project_details",
             data: { pageTitle: 'Project detail' },
             resolve: {
@@ -53,12 +53,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('modal_window', {
             url: "/modal_window",
-            templateUrl: "views/modal_window.html",
+            templateUrl: "/modal_window",
             data: { pageTitle: 'Modal window' }
         })
         .state('sweet_alert', {
             url: "/sweet_alert",
-            templateUrl: "views/sweet_alert.html",
+            templateUrl: "/sweet_alert",
             data: { pageTitle: 'Sweet alert' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -76,18 +76,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('validation', {
             url: "/validation",
-            templateUrl: "views/validation.html",
+            templateUrl: "/validation",
             data: { pageTitle: 'Validation' }
         })
         .state('toastr', {
             url: "/toastr",
-            templateUrl: "views/toastr.html",
+            templateUrl: "/toastr",
             data: { pageTitle: 'Toastr' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            insertBefore: '#loadBefore',
+                            // insertBefore: '#loadBefore',
                             name: 'toaster',
                             files: ['js/plugins/toastr/toastr.min.js', 'css/plugins/toastr/toastr.min.css']
                         }
@@ -97,7 +97,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('loading_buttons', {
             url: "/loading_buttons",
-            templateUrl: "views/loading_buttons.html",
+            templateUrl: "/loading_buttons",
             data: { pageTitle: 'Loading buttons' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {

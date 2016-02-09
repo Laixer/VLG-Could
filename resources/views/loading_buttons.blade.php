@@ -14,10 +14,7 @@
                 <h2>Loading buttons</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a>Miscellaneous</a>
+                        <a ui-sref="dashboard">Home</a>
                     </li>
                     <li class="active">
                         <strong>Loading buttons</strong>
@@ -50,7 +47,7 @@
                                     <button ladda="loading" ng-click="runLoading()" class="ladda-button btn btn-primary"  data-style="expand-left">Submit</button>
                                 </div>
                                 <div class="col-sm-3">
-                                    <h4>expand-right</h4>
+                                    <h4>expand-rightX</h4>
                                     <button ladda="loading1" ng-click="runLoading1()" class="ladda-button btn btn-primary" data-style="expand-right">Submit</button>
                                 </div>
                                 <div class="col-sm-3">
@@ -118,20 +115,6 @@
                                     <button ladda="loadingDemo" ng-click="runLoadingDemo()" class="ladda-button ladda-button-demo btn btn-primary"  data-style="zoom-in">Submit</button>
                                 </div>
                                 <div class="col-sm-9">
-        <pre>
-        &lt;button ladda="loadingDemo" ng-click="runLoadingDemo()" class="ladda-button ladda-button-demo btn btn-primary"  data-style="zoom-in"&gt;Submit&lt;/button&gt;
-        </pre>
-        <pre>
-            $scope.runLoadingDemo = function() {
-                // start loading
-                $scope.loadingDemo = true;
-
-                $timeout(function(){
-                    // Simulate some service and stop loading
-                    $scope.loadingDemo = false;
-                },2000)
-            };
-        </pre>
                                 </div>
                             </div>
 

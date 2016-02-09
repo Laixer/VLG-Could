@@ -11,9 +11,9 @@ class StaticSeeder extends Seeder
      */
     public function run()
     {
-        $project_status_voi         = App\ProjectStatus::create(['name' => 'verzoek om informatie']);
-        $project_status_concept     = App\ProjectStatus::create(['name' => 'concept']);
-        $project_status_definitief  = App\ProjectStatus::create(['name' => 'definitief']);
-        $project_status_gesloten    = App\ProjectStatus::create(['name' => 'gesloten']);
+        App\ProjectStatus::create(['priority' => 1, 'name' => 'verzoek om informatie']);
+        App\ProjectStatus::create(['priority' => 2, 'name' => 'concept']);
+        App\ProjectStatus::create(['priority' => 3, 'name' => 'definitief']);
+        App\ProjectStatus::create(['priority' => 4, 'name' => 'gesloten']);
     }
 }

@@ -3,16 +3,18 @@
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg @{{$state.current.name}}">
+    <div id="page-wrapper" class="gray-bg @{{ $state.current.name }}">
 
         <!-- Page wrapper -->
         <div ng-include="'/common/header'"></div>
 
         <!-- Content -->
+        <toaster-container></toaster-container>
+
         <div class="row  border-bottom white-bg dashboard-header">
             <div class="col-sm-3">
                 <h2>Haai Kaas</h2>
-                <small>@{{ 'MESSAGEINFO' | translate }}</small>
+                <small>You have 42 messages and 6 notifications.</small>
                 <ul class="list-group clear-list m-t">
                     <li class="list-group-item fist-item">
                                         <span class="pull-right">09:00 pm</span>
@@ -96,18 +98,15 @@
         </div>
         <div class="row">
         <div class="col-lg-12">
-        <div class="wrapper wrapper-content">
+        <div class="wrapper wrapper-content" ng-controller="projectCtrl">
         <div class="row">
-
-            <!-- <div class="col-lg-12"> -->
-            <!-- <div class="wrapper wrapper-content animated fadeInUp"> -->
 
             <div class="ibox">
             <div class="ibox-title">
                 <h5>Alle projecten</h5>
 
                 <div class="ibox-tools">
-                    <a href="" class="btn btn-primary btn-xs">Nieuw project</a>
+                    <button class="btn btn-primary btn-xs" ng-click="open1()">Nieuw project</button>
                 </div>
             </div>
             <div class="ibox-content">
@@ -126,27 +125,27 @@
 
             <table class="table table-hover">
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="project in projects">
                         <td class="project-status">
-                            <span class="label label-default">$project->status->name</span>
+                            <span class="label @{{ project.status.label }}">@{{ project.status.name }}</span>
                         </td>
                         <td class="project-title">
-                            <a ui-sref="project_detail">$project->name</a>
+                            <a ui-sref="project({ name: project.name, id: project.id })">@{{ project.name }}</a>
                             <br/>
-                            <small>$project->number ($project->reference)</small>
+                            <small>@{{ project.number }} (@{{ project.reference }})</small>
                         </td>
                         <td class="project-completion">
-                            <small>Voortgang: 2/4</small>
+                            <small>Voortgang: @{{ project.status.priority }}/4</small>
                             <div class="progress progress-mini">
-                                <div style="width: 50%;" class="progress-bar"></div>
+                                <div style="width: @{{ project.status.priority * 25 }}%;" class="progress-bar"></div>
                             </div>
                         </td>
                         <td class="text-right">
-                            <small>Gemaakt op: $project->created_at->format('d M Y')</small><br />
-                            <small>Gewijzigd op: $project->updated_at->format('d M Y')</small>
+                            <small>Gemaakt op: @{{ project.created_at | date: 'd MMMM, yyyy' }}</small><br />
+                            <small>Gewijzigd op: @{{ project.updated_at | date: 'd MMMM, yyyy' }}</small>
                         </td>
                         <td class="project-actions">
-                            <a ui-sref="project({ name: '$project->name' })" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Project details </a>
+                            <a ui-sref="project({ name: project.name, id: project.id })" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Project details </a>
                         </td>
                     </tr>
                 </tbody>
@@ -170,4 +169,4 @@
     <!-- End page wrapper-->
 
 </div>
-<!-- End wrapper-->
+<!-- End wrapper

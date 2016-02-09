@@ -3,7 +3,7 @@
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
-    <div id="page-wrapper" class="gray-bg @{{$state.current.name}}">
+    <div id="page-wrapper" class="gray-bg @{{ $state.current.name }}">
 
         <!-- Page wrapper -->
         <div ng-include="'/common/header'"></div>
@@ -24,13 +24,13 @@
         </div>
         <div class="row">
         <div class="col-lg-9">
-        <div class="wrapper wrapper-content ">
+        <div class="wrapper wrapper-content" ng-controller="projectDetailCtrl">
         <div class="ibox">
         <div class="ibox-content">
-        <div class="row" ng-controller="projectCtrl">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="m-b-md">
-                    <h2>Project @{{ name }}</h2>
+                    <h2>Project @{{ project.name }}</h2>
                 </div>
                 <dl class="dl-horizontal">
                     <dt>Status:</dt>
@@ -43,9 +43,9 @@
                 <dl class="dl-horizontal">
 
                     <dt>Nummer:</dt>
-                    <dd>2016-34</dd>
+                    <dd>@{{ project.number }}</dd>
                     <dt>Referentie:</dt>
-                    <dd>98735-45S</dd>
+                    <dd>@{{ project.reference }}</dd>
                     <dt>Eigenaar:</dt>
                     <dd>Alex Smith</dd>
                     <dt>Opdrachtgever:</dt>
@@ -211,13 +211,14 @@
                             <textarea class="form-control" placeholder="Bericht..."></textarea>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"><strong>Versturen</strong></button>
+                            <!-- <button type="submit" class="ladda-button btn btn-sm btn-primary m-t-n-xs" ladda="loading1" ng-click="runLoading1()" data-style="expand-right"><strong>Versturen</strong></button> -->
+                            <button ladda="loading1" ng-click="runLoading1()" class="ladda-button btn btn-primary" data-style="expand-right">Submit</button>
                         </div>
                     </form>
                 </div>
             </tab>
             <tab heading="Notities">
-                <div summernote class="summernote"  ng-model="main.summernoteText">
+                <div summernote class="summernote" ng-model="main.summernoteText">
                     <h3>Hello Jonathan! </h3>
                     dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
                     when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
@@ -448,7 +449,7 @@
                     &nbsp;
                 </p>
                 <h3>Upload bestanden</h3>
-                <form action="" class="dropzone dz-message" drop-zone="" id="file-dropzone">
+                <form action="" class="dropzone" drop-zone="" id="file-dropzone">
                    <div class="dz-message text-center" data-dz-message>
                         <span style="font-size:100px;"><i class="fa fa-cloud-upload"></i></span>
                         <div style="font-size:20px;font-weight:lighter;">Sleep of klik</div>

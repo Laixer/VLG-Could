@@ -14,10 +14,7 @@
                 <h2>Sweet Alert</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a>Miscellaneous</a>
+                        <a ui-sref="dashboard">Home</a>
                     </li>
                     <li class="active">
                         <strong>Sweet Alert</strong>

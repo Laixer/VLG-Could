@@ -18,11 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('name', 30);
         });
 
-        Schema::create('report_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 80);
-        });
-
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30);
@@ -38,11 +33,11 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name', 60);
             $table->string('location', 120);
+            $table->string('mime', 60);
             $table->boolean('done')->default(0);
-            $table->integer('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('report_types');
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
+            $table->timestamps();
         });
 
         Schema::create('project_user', function (Blueprint $table) {
@@ -72,9 +67,8 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('project_threads');
         Schema::dropIfExists('project_user');
-        Schema::dropIfExists('projects');
         Schema::dropIfExists('reports');
-        Schema::dropIfExists('report_types');
+        Schema::dropIfExists('projects');
         Schema::dropIfExists('project_statuses');
     }
 }

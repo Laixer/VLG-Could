@@ -98,7 +98,7 @@
         </div>
         <div class="row">
         <div class="col-lg-12">
-        <div class="wrapper wrapper-content" ng-controller="projectCtrl">
+        <div class="wrapper wrapper-content" ng-controller="projectCtrl" ng-init="init()">
         <div class="row">
 
             <div class="ibox">
@@ -125,7 +125,7 @@
 
             <table class="table table-hover">
                 <tbody>
-                    <tr ng-repeat="project in projects">
+                    <tr ng-repeat="project in projects | orderBy: '-updated_at'">
                         <td class="project-status">
                             <span class="label @{{ project.status.label }}">@{{ project.status.name }}</span>
                         </td>

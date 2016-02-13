@@ -89,24 +89,28 @@ function icheck($timeout) {
  * dropZone - Directive for Drag and drop zone file upload plugin
  */
 function dropZone() {
+    var accept = ".pdf,.doc,.docx,.odt,.xls,.xlsx,.txt,.zip";
     return function(scope, element, attrs) {
         element.dropzone({
-            url: "/upload",
+            url: "/api/v1/upload",
             maxFilesize: 100,
             paramName: "uploadfile",
             maxThumbnailFilesize: 5,
+            acceptedFiles: accept,
             init: function() {
-                // scope.files.push({file: 'added'});
+                this.on('sending', function(file, xhr, formData) {
+                    formData.append("project", attrs.id);
+                });
                 this.on('success', function(file, json) {
+                    scope.addReport(json);
+                    scope.$apply();
                 });
                 this.on('addedfile', function(file) {
-                    scope.$apply(function(){
-                        alert(file);
-                        scope.files.push({file: 'added'});
-                    });
+                    $('.dz-message').hide();
                 });
-                this.on('drop', function(file) {
-                    alert('file');
+                this.on("error", function(file) {
+                    if (!file.accepted)
+                        this.removeFile(file);
                 });
             }
         });

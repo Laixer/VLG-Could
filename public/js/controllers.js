@@ -87,9 +87,9 @@ function MainCtrl() {
     /**
      * summernoteText - used for Summernote plugin
      */
-    this.summernoteText = ['<h3>Hello Jonathan! </h3>',
-    '<p>dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the dustrys</strong> standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more',
-        'recently with</p>'].join('');
+    // this.summernoteText = ['<h3>Hello Jonathan! </h3>',
+    // '<p>dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the dustrys</strong> standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more',
+    //     'recently with</p>'].join('');
 
     /**
      * General variables for Peity Charts
@@ -327,7 +327,7 @@ function modalDemoCtrl($scope, $modal) {
     };
 };
 
-function ModalInstanceCtrl($scope, $modalInstance, $http, toaster) {
+function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectService) {
 
     $scope.ok = function () {
         data = {
@@ -338,6 +338,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster) {
 
         $http.post("/api/v1/new_project", data).then(function(response) {
             if (response.data.id > 0) {
+                projectService.addProject(response.data);
                 $modalInstance.close();
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
             }
@@ -730,53 +731,220 @@ function chartJsCtrl() {
     };
 };
 
-function projectCtrl($scope,$modal,$http) {
+function projectCtrl($scope,$modal,$http,projectService) {
 
-    $scope.open1 = function () {
+    $scope.open1 = function() {
         var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example1.html',
+            templateUrl: '/new_project_window',
             controller: ModalInstanceCtrl
         });
     };
 
-    $http.get("/api/v1/projects").then(function(response) {
-        $scope.projects = response.data;
+    $scope.init = function() {
 
-        angular.forEach(response.data, function(value, key) {
-            value.updated_at = new Date(value.updated_at);
-            value.created_at = new Date(value.created_at);
-            
-            if (value.status.priority < 3)
-                value.status.label = 'label-default';
-            else
-                value.status.label = 'label-primary';
+        if (projectService.getProjects().length)
+            return;
+
+        $http.get("/api/v1/projects").then(function(response) {
+
+            angular.forEach(response.data, function(value, key) {
+                value.updated_at = new Date(value.updated_at);
+                value.created_at = new Date(value.created_at);
+                
+                if (value.status.priority < 3)
+                    value.status.label = 'label-default';
+                else
+                    value.status.label = 'label-primary';
+
+                projectService.addProject(value);
+            });
+
         });
 
-    });
+    };
 
+    $scope.projects = projectService.getProjects();
 };
 
-function projectDetailCtrl($scope,$stateParams,$http,$timeout) {
-
-    // $scope.name = $stateParams.name;
+function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
 
     $http.get("/api/v1/project/" + $stateParams.id).then(function(response) {
         $scope.project = response.data;
-        // console.log($scope.project);
 
-        // angular.forEach(response.data, function(value, key) {
-        //     value.updated_at = new Date(value.updated_at);
-        //     value.created_at = new Date(value.created_at);
-            
-        //     if (value.status.priority < 3)
-        //         value.status.label = 'label-default';
-        //     else
-        //         value.status.label = 'label-primary';
-        // });
-
+        if (!$scope.project.id)
+            $window.location.href = '/#/dashboard';
+        
+        $scope.project.updated_at = new Date($scope.project.updated_at);
+        $scope.project.created_at = new Date($scope.project.created_at);
+        
+        if ($scope.project.status.priority < 3)
+            $scope.project.status.label = 'label-default';
+        else
+            $scope.project.status.label = 'label-primary';
+    
     });
 
+
+    $scope.addReport = function(json) {
+        reportService.addReport(json);
+    }
+
+    $scope.blur = function(e) {
+        console.log('Saving... ' + $scope.project.note);
+
+        data = {
+            project: $scope.project.id,
+            note: $scope.project.note,
+        };
+
+        $http.post("/api/v1/update_note", data);
+    };
+
 };
+
+function reportCtrl($scope,$stateParams,$http,reportService) {
+
+    $scope.init = function() {
+
+        if (reportService.getReport().length)
+            return;
+
+        $http.get("/api/v1/project/" + $stateParams.id + "/reports").then(function(response) {
+
+            angular.forEach(response.data, function(value, key) {
+                reportService.addReport(value);
+            });
+
+        });
+
+    };
+
+    $scope.reports = reportService.getReport();
+
+    // Based on an implementation here: web.student.tuwien.ac.at/~e0427417/jsdownload.html
+    $scope.downloadFile = function(httpPath) {
+        // Use an arraybuffer
+        $http.get(httpPath, { responseType: 'arraybuffer' })
+        .success( function(data, status, headers) {
+
+            var octetStreamMime = 'application/octet-stream';
+            var success = false;
+
+            // Get the headers
+            headers = headers();
+
+            // Get the filename from the x-filename header or default to "download.bin"
+            var filename = headers['x-filename'] || 'download.bin';
+
+            // Determine the content type from the header or default to "application/octet-stream"
+            var contentType = headers['content-type'] || octetStreamMime;
+
+            try {
+                // Try using msSaveBlob if supported
+                var blob = new Blob([data], { type: contentType });
+                if(navigator.msSaveBlob)
+                    navigator.msSaveBlob(blob, filename);
+                else {
+                    // Try using other saveBlob implementations, if available
+                    var saveBlob = navigator.webkitSaveBlob || navigator.mozSaveBlob || navigator.saveBlob;
+                    if(saveBlob === undefined) throw "Not supported";
+                    saveBlob(blob, filename);
+                }
+                success = true;
+            } catch(ex) {
+                // console.log(ex);
+            }
+
+            if(!success) {
+                // Get the blob url creator
+                var urlCreator = window.URL || window.webkitURL || window.mozURL || window.msURL;
+                if(urlCreator) {
+                    // Try to use a download link
+                    var link = document.createElement('a');
+                    if('download' in link) {
+                        // Try to simulate a click
+                        try {
+                            // Prepare a blob URL
+                            var blob = new Blob([data], { type: contentType });
+                            var url = urlCreator.createObjectURL(blob);
+                            link.setAttribute('href', url);
+
+                            // Set the download attribute (Supported in Chrome 14+ / Firefox 20+)
+                            link.setAttribute("download", filename);
+
+                            // Simulate clicking the download link
+                            var event = document.createEvent('MouseEvents');
+                            event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+                            link.dispatchEvent(event);
+                            success = true;
+
+                        } catch(ex) {
+                            console.log(ex);
+                        }
+                    }
+
+                    if(!success) {
+                        // Fallback to window.location method
+                        try {
+                            // Prepare a blob URL
+                            // Use application/octet-stream when using window.location to force download
+                            var blob = new Blob([data], { type: octetStreamMime });
+                            var url = urlCreator.createObjectURL(blob);
+                            window.location = url;
+                            success = true;
+                        } catch(ex) {
+                            console.log(ex);
+                        }
+                    }
+
+                }
+            }
+
+            if(!success) {
+                // Fallback to window.open method
+                window.open(httpPath, '_blank', '');
+            }
+        })
+        .error(function(data, status) {
+            console.log("Request failed with status: " + status);
+
+            // Optionally write the error out to scope
+            $scope.errorDetails = "Request failed with status: " + status;
+        });
+    };
+
+    $scope.download = function ($id) {
+        $scope.downloadFile('/api/v1/report/' + $id + '/download');
+    }
+
+};
+
+function threadCtrl($scope,$stateParams,$http) {
+
+    $scope.init = function() {
+
+        $http.get("/api/v1/project/" + $stateParams.id + "/thread").then(function(response) {
+
+            $scope.thread = response.data;
+            // angular.forEach(response.data, function(value, key) {
+            //     reportService.addReport(value);
+            // });
+
+        });
+
+    };
+
+    $scope.post = function() {
+        var obj = {
+            message: $scope.message,
+            created_at: new Date,
+        };
+
+        $scope.thread.push(obj);
+        $scope.message = '';
+    }
+
+}
 
 /**
  *
@@ -793,5 +961,6 @@ angular
     .controller('sweetAlertCtrl', sweetAlertCtrl)
     .controller('toastrCtrl', toastrCtrl)
     .controller('projectCtrl', projectCtrl)
-    .controller('projectDetailCtrl', projectDetailCtrl);
-
+    .controller('projectDetailCtrl', projectDetailCtrl)
+    .controller('reportCtrl', reportCtrl)
+    .controller('threadCtrl', threadCtrl);

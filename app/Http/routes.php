@@ -51,10 +51,19 @@ Route::get('modal_window', function () {
     return view('modal_window');
 });
 
+Route::get('new_project_window', function () {
+    return view('new_project_window');
+});
+
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('projects', 'ApiController@getProjects');
     Route::get('project/{id}', 'ApiController@getProjectFromId');
+    Route::get('project/{id}/reports', 'ApiController@getProjectReports');
+    Route::get('project/{id}/thread', 'ApiController@getProjectThread');
+    Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
+    Route::post('upload', 'ApiController@doNewFile');
     Route::post('new_project', 'ApiController@doNewProject');
+    Route::post('update_note', 'ApiController@doUpdateNote');
 });
 
 /*

@@ -4808,6 +4808,9 @@ a.compose-mail {
 .feed-element > .pull-left {
   margin-right: 10px;
 }
+.feed-element > .pull-right {
+  margin-left: 10px;
+}
 .feed-element img.img-circle,
 .dropdown-messages-box img.img-circle {
   width: 38px;

@@ -1,5 +1,5 @@
 <!-- Wrapper-->
-<div id="wrapper">
+<div id="wrapper" ng-controller="projectDetailCtrl">
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->
@@ -8,7 +8,7 @@
         <!-- Page wrapper -->
         <div ng-include="'/common/header'"></div>
 
-        <!-- Content -->
+        {{-- Content --}}
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
                 <h2>Project detail</h2>
@@ -24,7 +24,7 @@
         </div>
         <div class="row">
         <div class="col-lg-9">
-        <div class="wrapper wrapper-content" ng-controller="projectDetailCtrl">
+        <div class="wrapper wrapper-content">
         <div class="ibox">
         <div class="ibox-content">
         <div class="row">
@@ -34,7 +34,7 @@
                 </div>
                 <dl class="dl-horizontal">
                     <dt>Status:</dt>
-                    <dd><span class="label label-primary">Definitief</span></dd>
+                    <dd><span class="label @{{ project.status.label }}">@{{ project.status.name }}</span></dd>
                 </dl>
             </div>
         </div>
@@ -47,23 +47,21 @@
                     <dt>Referentie:</dt>
                     <dd>@{{ project.reference }}</dd>
                     <dt>Eigenaar:</dt>
-                    <dd>Alex Smith</dd>
+                    <dd>-</dd>
                     <dt>Opdrachtgever:</dt>
-                    <dd><a href="" class="text-navy"> Zender Company</a></dd>
+                    <dd><a href="" class="text-navy"> -</a></dd>
                 </dl>
             </div>
             <div class="col-lg-7" id="cluster_info">
                 <dl class="dl-horizontal">
 
                     <dt>Aangemaakt:</dt>
-                    <dd>4 Feb, 2016</dd>
+                    <dd>@{{ project.created_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Laatst aangepast:</dt>
-                    <dd>6 Feb, 2016</dd>
+                    <dd>@{{ project.updated_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Betrokkenen:</dt>
                     <dd>
-                        <a href="">Henk</a>, 
-                        <a href="">Sjaak</a>,
-                        <a href="">Piet</a>
+                        <a href="">-</a>
                     </dd>
                 </dl>
             </div>
@@ -74,9 +72,9 @@
                     <dt>Voortgang:</dt>
                     <dd>
                         <div class="progress active m-b-sm">
-                            <div style="width: 50%;" class="progress-bar"></div>
+                            <div style="width: @{{ project.status.priority * 25 }}%;" class="progress-bar"></div>
                         </div>
-                        <small>Project is voor <strong>50%</strong> compleet.</small>
+                        <small>Project is voor <strong>@{{ project.status.priority * 25 }}%</strong> compleet.</small>
                     </dd>
                 </dl>
             </div>
@@ -86,149 +84,75 @@
         <div class="panel blank-panel ui-tab">
 
         <tabset>
-            <tab heading="Projectbestanden" active="tab.active">
+            <tab heading="Projectbestanden" active="tab.active" ng-controller="reportCtrl" ng-init="init()">
 
                 <div class="forum-title">
-                    <h3>3 Bestanden beschikbaar</h3>
+                    <h3>@{{ reports.length }} Bestanden beschikbaar</h3>
                 </div>
 
-                <div class="forum-item active">
+                <div class="forum-item @{{ report.label }}" ng-repeat="report in reports | orderBy: '-updated_at'">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="forum-icon">
-                                <i class="fa fa-file-pdf-o"></i>
+                                <i class="fa @{{ report.icon }}"></i>
                             </div>
-                            <a ui-sref="miscellaneous.forum_post_view" class="forum-item-title">Rapport 2016-23</a>
-                            <div class="forum-sub-title">Talk about sports, entertainment, music, movies, your favorite color, talk about enything.</div>
+                            <a ng-click="download( report.id )" class="forum-item-title">@{{ report.name }}</a>
+                            <div class="forum-sub-title">@{{ report.created_at | date: 'd MMMM, yyyy' }}</div>
                         </div>
                         <div class="col-md-3 text-right">
-                            <button class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="forum-item">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="forum-icon">
-                                <i class="fa fa-file-excel-o"></i>
-                            </div>
-                            <a ui-sref="miscellaneous.forum_post_view" class="forum-item-title">Resultaten 1</a>
-                            <div class="forum-sub-title">New to the community? Please stop by, say hi and tell us a bit about yourself. </div>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <button class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="forum-item">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="forum-icon">
-                                <i class="fa fa-file-word-o"></i>
-                            </div>
-                            <a ui-sref="miscellaneous.forum_post_view" class="forum-item-title">Concept opzet 5</a>
-                            <div class="forum-sub-title">This forum features announcements from the community staff. If there is a new post in this forum, please check it out. </div>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <button class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
+                            <button ng-click="download( report.id )" class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
                         </div>
                     </div>
                 </div>
 
             </tab>
-            <tab heading="Conversatie" class="dsads">
+            <tab heading="Conversatie" class="dsads" ng-controller="threadCtrl" ng-init="init()">
+
                 <div class="feed-activity-list">
-                    <div class="feed-element">
+
+                    <div class="feed-element" ng-repeat="message in thread">
                         <a href="" class="pull-left">
                             <img alt="image" class="img-circle" src="img/a2.jpg">
                         </a>
 
                         <div class="media-body ">
-                            <small class="pull-right">2h ago</small>
-                            <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                            <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                            <strong>Mark Johnson</strong> voegde het volgende bericht toe <br>
+                            <small class="text-muted">@{{ message.created_at }}</small>
                             <div>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                @{{ message.message }}
                             </div>
                         </div>
                     </div>
-                    <div class="feed-element">
-                        <a href="" class="pull-left">
-                            <img alt="image" class="img-circle" src="img/a3.jpg">
-                        </a>
-
-                        <div class="media-body ">
-                            <small class="pull-right">2h ago</small>
-                            <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
-                            <small class="text-muted">2 days ago at 8:30am</small>
-                            <div>Oke</div>
-                        </div>
-                    </div>
-                    <div class="feed-element">
-                        <a href="" class="pull-left">
+                    <div class="feed-element right">
+                        <a href="#" class="pull-right">
                             <img alt="image" class="img-circle" src="img/a4.jpg">
                         </a>
-
-                        <div class="media-body ">
-                            <small class="pull-right text-navy">5h ago</small>
-                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                            <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
-                        </div>
-                    </div>
-                    <div class="feed-element">
-                        <a href="" class="pull-left">
-                            <img alt="image" class="img-circle" src="img/a5.jpg">
-                        </a>
-
-                        <div class="media-body ">
-                            <small class="pull-right">2h ago</small>
-                            <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                            <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                        <div class="media-body text-right">
+                            <strong>Ik</strong> <br/>
+                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
                             <div>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                Lorem Ipsum is simply dummy text of the printing.
                             </div>
                         </div>
                     </div>
-                    <div class="feed-element">
-                        <a href="" class="pull-left">
-                            <img alt="image" class="img-circle" src="img/profile.jpg">
-                        </a>
 
-                        <div class="media-body ">
-                            <small class="pull-right">23h ago</small>
-                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                            <div>Gaan we doen</div>
-                        </div>
-                    </div>
                 </div>
+
                 <div class="chat-form">
                     <form role="form">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Bericht..."></textarea>
+                            <textarea class="form-control" ng-model="message" placeholder="Bericht..."></textarea>
                         </div>
                         <div class="text-right">
-                            <!-- <button type="submit" class="ladda-button btn btn-sm btn-primary m-t-n-xs" ladda="loading1" ng-click="runLoading1()" data-style="expand-right"><strong>Versturen</strong></button> -->
-                            <button ladda="loading1" ng-click="runLoading1()" class="ladda-button btn btn-primary" data-style="expand-right">Submit</button>
+                            <button class="btn btn-primary" ng-click="post()">Plaats</button>
                         </div>
                     </form>
                 </div>
             </tab>
             <tab heading="Notities">
-                <div summernote class="summernote" ng-model="main.summernoteText">
-                    <h3>Hello Jonathan! </h3>
-                    dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                    typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                    <br/>
-                    <br/>
-
-                </div>
+                <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
-            <tab heading="Log">
+            <!-- <tab heading="Log">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -423,7 +347,7 @@
 
                     </tbody>
                 </table>
-            </tab>
+            </tab> -->
 
         </tabset>
 
@@ -449,7 +373,7 @@
                     &nbsp;
                 </p>
                 <h3>Upload bestanden</h3>
-                <form action="" class="dropzone" drop-zone="" id="file-dropzone">
+                <form action="" class="dropzone" data-id="@{{ project.id }}" drop-zone="" id="file-dropzone">
                    <div class="dz-message text-center" data-dz-message>
                         <span style="font-size:100px;"><i class="fa fa-cloud-upload"></i></span>
                         <div style="font-size:20px;font-weight:lighter;">Sleep of klik</div>
@@ -468,4 +392,4 @@
     <!-- End page wrapper-->
 
 </div>
-<!-- End wrapper-->
+<!-- End wrapper

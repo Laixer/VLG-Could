@@ -61,6 +61,7 @@
 <script src="/js/translations.js"></script>
 <script src="/js/directives.js"></script>
 <script src="/js/controllers.js"></script>
+<script src="/js/services.js"></script>
 
 </body>
 </html>

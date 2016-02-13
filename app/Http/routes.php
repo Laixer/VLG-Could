@@ -63,6 +63,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
     Route::post('upload', 'ApiController@doNewFile');
     Route::post('new_project', 'ApiController@doNewProject');
+    Route::post('new_message', 'ApiController@doNewMessage');
     Route::post('update_note', 'ApiController@doUpdateNote');
 });
 

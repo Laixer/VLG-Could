@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Storage;
 use App\Project;
+use App\ProjectThread;
 use App\Report;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -98,6 +99,23 @@ class ApiController extends Controller
 		$project['status'] = $project->status;
 
 		return response()->json($project);
+	}
+
+	public function doNewMessage(Request $request)
+	{
+		$this->validate($request, [
+			'project' => 'required',
+			'message' => 'required',
+		]);
+
+		$message = new ProjectThread;
+		$message->message = $request->input('message');
+		$message->project_id = $request->input('project');
+		$message->user_id = 1;
+
+		$message->save();
+
+		return response()->json($message);
 	}
 
 	public function doNewFile(Request $request)

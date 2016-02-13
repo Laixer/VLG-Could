@@ -30,7 +30,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="m-b-md">
+
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-white dropdown-toggle" type="button" data-toggle="dropdown">Status <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Maak concept</a></li>
+                            <li><a href="#">Maak definitief</a></li>
+                            <li><a href="#">Sluiten</a></li>
+                            </ul>
+                    </div>
                     <h2>Project @{{ project.name }}</h2>
+
                 </div>
                 <dl class="dl-horizontal">
                     <dt>Status:</dt>
@@ -109,33 +119,19 @@
             <tab heading="Conversatie" class="dsads" ng-controller="threadCtrl" ng-init="init()">
 
                 <div class="feed-activity-list">
-
                     <div class="feed-element" ng-repeat="message in thread">
-                        <a href="" class="pull-left">
+                        <a href="" class="@{{ message.pull }}">
                             <img alt="image" class="img-circle" src="img/a2.jpg">
                         </a>
 
-                        <div class="media-body ">
+                        <div class="media-body @{{ message.text }}">
                             <strong>Mark Johnson</strong> voegde het volgende bericht toe <br>
-                            <small class="text-muted">@{{ message.created_at }}</small>
+                            <small class="text-muted">@{{ message.created_at | date: 'd MMMM, yyyy' }}</small>
                             <div>
                                 @{{ message.message }}
                             </div>
                         </div>
                     </div>
-                    <div class="feed-element right">
-                        <a href="#" class="pull-right">
-                            <img alt="image" class="img-circle" src="img/a4.jpg">
-                        </a>
-                        <div class="media-body text-right">
-                            <strong>Ik</strong> <br/>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                            <div>
-                                Lorem Ipsum is simply dummy text of the printing.
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="chat-form">

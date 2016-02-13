@@ -926,22 +926,32 @@ function threadCtrl($scope,$stateParams,$http) {
         $http.get("/api/v1/project/" + $stateParams.id + "/thread").then(function(response) {
 
             $scope.thread = response.data;
-            // angular.forEach(response.data, function(value, key) {
-            //     reportService.addReport(value);
-            // });
+            angular.forEach($scope.thread, function(value, key) {
+                value.updated_at = new Date(value.updated_at);
+                value.created_at = new Date(value.created_at);
+                value.pull = 'pull-left';
+                value.text = '';
+
+            });
 
         });
 
     };
 
     $scope.post = function() {
-        var obj = {
+
+        var data = {
+            project: $stateParams.id,
             message: $scope.message,
-            created_at: new Date,
         };
 
-        $scope.thread.push(obj);
-        $scope.message = '';
+        $http.post("/api/v1/new_message", data).then(function(response) {
+            response.data.pull = 'pull-right';
+            response.data.text = 'text-right';
+            $scope.thread.push(response.data);
+        });
+
+        $scope.message = '';        
     }
 
 }

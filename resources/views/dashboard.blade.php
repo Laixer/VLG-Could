@@ -47,7 +47,7 @@
                 </ul>
             </div>
             <div class="col-sm-6">
-                <div class="flot-chart dashboard-chart" ng-controller="dashboardFlotOne as chart">
+                <div class="flot-chart dashboard-chart">
                     <div flot class="flot-chart-content" dataset="chart.flotData" options="chart.flotOptions"></div>
                 </div>
                 <div class="row text-left">
@@ -78,7 +78,7 @@
                         You have two project with not compleated task.
                     </p>
 
-                    <div class="row text-center" ng-controller="chartJsCtrl as chart">
+                    <div class="row text-center">
                         <div class="col-lg-6" >
                                 <canvas polarchart options="chart.polarOptions" data="chart.polarData" width="80" height="80"></canvas>
                             <h5>Kolter</h5>

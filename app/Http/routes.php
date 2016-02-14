@@ -65,6 +65,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('new_project', 'ApiController@doNewProject');
     Route::post('new_message', 'ApiController@doNewMessage');
     Route::post('update_note', 'ApiController@doUpdateNote');
+    Route::post('update_status', 'ApiController@doUpdateStatus');
 });
 
 /*

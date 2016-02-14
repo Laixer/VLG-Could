@@ -65,9 +65,14 @@ function reportService() {
         return reportList;
     };
 
+    var clear = function(){
+        reportList = [];
+    };
+
     return {
         addReport: addReport,
-        getReport: getReport
+        getReport: getReport,
+        clear: clear
     };
 };
 

@@ -34,9 +34,9 @@
                     <div class="dropdown pull-right">
                         <button class="btn btn-white dropdown-toggle" type="button" data-toggle="dropdown">Status <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Maak concept</a></li>
-                            <li><a href="#">Maak definitief</a></li>
-                            <li><a href="#">Sluiten</a></li>
+                            <li><a href="javascript:void(0);" ng-click="setStatus(2)">Maak concept</a></li>
+                            <li><a href="javascript:void(0);" ng-click="setStatus(3)">Maak definitief</a></li>
+                            <li><a href="javascript:void(0);" ng-click="setStatus(4)">Sluiten</a></li>
                             </ul>
                     </div>
                     <h2>Project @{{ project.name }}</h2>

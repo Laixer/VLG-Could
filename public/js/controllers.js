@@ -784,6 +784,31 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
     
     });
 
+    $scope.setStatus = function(code) {
+        console.log('set status to ' + code);
+
+        switch (code) {
+            case 2:
+                $scope.project.status.id = code;
+                $scope.project.status.priority = code;
+                $scope.project.status.name = 'Concept';
+                $scope.project.status.label = 'label-default';
+                break;
+            case 3:
+                $scope.project.status.id = code;
+                $scope.project.status.priority = code;
+                $scope.project.status.name = 'Definitief';
+                $scope.project.status.label = 'label-primary';
+                break;
+            case 4:
+                $scope.project.status.id = code;
+                $scope.project.status.priority = code;
+                $scope.project.status.name = 'Gesloten';
+                $scope.project.status.label = 'label-primary';
+                break;
+        }
+
+    }
 
     $scope.addReport = function(json) {
         reportService.addReport(json);
@@ -806,8 +831,7 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
 
     $scope.init = function() {
 
-        if (reportService.getReport().length)
-            return;
+        $scope.reports.splice(0,$scope.reports.length);
 
         $http.get("/api/v1/project/" + $stateParams.id + "/reports").then(function(response) {
 

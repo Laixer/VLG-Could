@@ -140,6 +140,9 @@
                                 <div style="width: @{{ project.status.priority * 20 }}%;" class="progress-bar"></div>
                             </div>
                         </td>
+                        <td>
+                            <small>@{{ project.field.name }}</small>
+                        </td>
                         <td class="text-right">
                             <small>Gemaakt op: @{{ project.created_at | date: 'd MMMM, yyyy' }}</small><br />
                             <small>Gewijzigd op: @{{ project.updated_at | date: 'd MMMM, yyyy' }}</small>

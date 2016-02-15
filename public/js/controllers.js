@@ -234,6 +234,7 @@ function projectCtrl($scope,$modal,$http,projectService) {
                 projectService.addProject(value);
             });
 
+        console.log(projectService.getProjects());
         });
     };
 

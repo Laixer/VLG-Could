@@ -39,6 +39,7 @@ class ApiController extends Controller
 		foreach (Project::all() as $project) {
 			$obj = $project;
 			$obj['status'] = $project->status;
+			$obj['field'] = $obj->field;
 			array_push($arr, $obj);
 		}
 

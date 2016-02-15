@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('main');
+    return view('common.main');
 });
 
 Route::get('common/header', function () {
@@ -56,6 +56,7 @@ Route::get('new_project_window', function () {
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
+	Route::get('auth/check', 'ApiController@getAuthStatus');
     Route::get('projects', 'ApiController@getProjects');
     Route::get('project/{id}', 'ApiController@getProjectFromId');
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');

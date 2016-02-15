@@ -2,6 +2,15 @@ function projectService() {
     var projectList = [];
 
     var addProject = function(newObj) {
+
+        newObj.updated_at = new Date(newObj.updated_at);
+        newObj.created_at = new Date(newObj.created_at);
+        
+        if (newObj.status.priority < 3)
+            newObj.status.label = 'label-default';
+        else
+            newObj.status.label = 'label-primary';
+
         projectList.push(newObj);
     };
 

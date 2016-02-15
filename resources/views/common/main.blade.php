@@ -43,9 +43,6 @@
 {{-- Peace JS -}}
 <script src="/js/plugins/pace/pace.min.js"></script>
 
-{{-- Custom and plugin javascript -}}
-<script src="/js/cloud.js"></script>
-
 {{-- Main Angular scripts--}}
 <script src="/js/angular/angular.min.js"></script>
 <script src="/js/angular/angular-sanitize.js"></script>
@@ -58,7 +55,6 @@
 {{-- Anglar App Script --}}
 <script src="/js/app.js"></script>
 <script src="/js/config.js"></script>
-<script src="/js/translations.js"></script>
 <script src="/js/directives.js"></script>
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>

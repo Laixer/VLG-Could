@@ -1,34 +1,4 @@
 /**
- * INSPINIA - Responsive Admin Theme
- *
- * Main directives.js file
- * Define directives for used plugin
- *
- *
- * Functions (directives)
- *  - sideNavigation
- *  - iboxTools
- *  - minimalizaSidebar
- *  - vectorMap
- *  - sparkline
- *  - icheck
- *  - ionRangeSlider
- *  - dropZone
- *  - responsiveVideo
- *  - chatSlimScroll
- *  - customValid
- *  - fullScroll
- *  - closeOffCanvas
- *  - clockPicker
- *  - landingScrollspy
- *  - fitHeight
- *  - iboxToolsFullScreen
- *  - slimScroll
- *  - resizeable
- *
- */
-
-/**
  * pageTitle - Directive for set Page title - mata title
  */
 function pageTitle($rootScope, $timeout) {
@@ -36,13 +6,16 @@ function pageTitle($rootScope, $timeout) {
         link: function(scope, element) {
             var listener = function(event, toState, toParams, fromState, fromParams) {
                 // Default title - load on Dashboard 1
-                var title = 'INSPINIA | Responsive Admin Theme';
+                var title = 'RotterdamCloud';
                 // Create your own title pattern
-                if (toState.data && toState.data.pageTitle) title = 'INSPINIA | ' + toState.data.pageTitle;
+                if (toState.data && toState.data.pageTitle)
+                    title = 'RotterdamCloud | ' + toState.data.pageTitle;
+
                 $timeout(function() {
                     element.text(title);
                 });
             };
+
             $rootScope.$on('$stateChangeStart', listener);
         }
     }
@@ -67,19 +40,18 @@ function icheck($timeout) {
                 return $(element).iCheck({
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green'
-
                 }).on('ifChanged', function(event) {
-                        if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
-                            $scope.$apply(function() {
-                                return ngModel.$setViewValue(event.target.checked);
-                            });
-                        }
-                        if ($(element).attr('type') === 'radio' && $attrs['ngModel']) {
-                            return $scope.$apply(function() {
-                                return ngModel.$setViewValue(value);
-                            });
-                        }
-                    });
+                    if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
+                        $scope.$apply(function() {
+                            return ngModel.$setViewValue(event.target.checked);
+                        });
+                    }
+                    if ($(element).attr('type') === 'radio' && $attrs['ngModel']) {
+                        return $scope.$apply(function() {
+                            return ngModel.$setViewValue(value);
+                        });
+                    }
+                });
             });
         }
     };

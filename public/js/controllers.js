@@ -3,127 +3,16 @@
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl() {
+function MainCtrl($interval, $http) {
 
-    /**
-     * randomStacked - used for progress bar (stacked type) in Badges adn Labels view
-     */
-    this.randomStacked = function() {
-        this.stacked = [];
-        var types = ['success', 'info', 'warning', 'danger'];
-
-        for (var i = 0, n = Math.floor((Math.random() * 4) + 1); i < n; i++) {
-            var index = Math.floor((Math.random() * 4));
-            this.stacked.push({
-                value: Math.floor((Math.random() * 30) + 1),
-                type: types[index]
-            });
-        }
-    };
     /**
      * initial run for random stacked value
      */
-    this.randomStacked();
-
-    /**
-     * General variables for Peity Charts
-     * used in many view so this is in Main controller
-     */
-    this.BarChart = {
-        data: [5, 3, 9, 6, 5, 9, 7, 3, 5, 2, 4, 7, 3, 2, 7, 9, 6, 4, 5, 7, 3, 2, 1, 0, 9, 5, 6, 8, 3, 2, 1],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"],
-            width: 100
-        }
-    };
-
-    this.BarChart2 = {
-        data: [5, 3, 9, 6, 5, 9, 7, 3, 5, 2],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-
-    this.BarChart3 = {
-        data: [5, 3, 2, -1, -3, -2, 2, 3, 5, 2],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-
-    this.LineChart = {
-        data: [5, 9, 7, 3, 5, 2, 5, 3, 9, 6, 5, 9, 4, 7, 3, 2, 9, 8, 7, 4, 5, 1, 2, 9, 5, 4, 7],
-        options: {
-            fill: '#1ab394',
-            stroke: '#169c81',
-            width: 64
-        }
-    };
-
-    this.LineChart2 = {
-        data: [3, 2, 9, 8, 47, 4, 5, 1, 2, 9, 5, 4, 7],
-        options: {
-            fill: '#1ab394',
-            stroke: '#169c81',
-            width: 64
-        }
-    };
-
-    this.LineChart3 = {
-        data: [5, 3, 2, -1, -3, -2, 2, 3, 5, 2],
-        options: {
-            fill: '#1ab394',
-            stroke: '#169c81',
-            width: 64
-        }
-    };
-
-    this.LineChart4 = {
-        data: [5, 3, 9, 6, 5, 9, 7, 3, 5, 2],
-        options: {
-            fill: '#1ab394',
-            stroke: '#169c81',
-            width: 64
-        }
-    };
-
-    this.PieChart = {
-        data: [1, 5],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-
-    this.PieChart2 = {
-        data: [226, 360],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-    this.PieChart3 = {
-        data: [0.52, 1.561],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-    this.PieChart4 = {
-        data: [1, 4],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-    this.PieChart5 = {
-        data: [226, 134],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
-    this.PieChart6 = {
-        data: [0.52, 1.041],
-        options: {
-            fill: ["#1ab394", "#d7d7d7"]
-        }
-    };
+    $interval(function() {
+        $http.get("/api/v1/auth/check").then(function(response) {
+            console.log(response);
+        });
+    }, 30000);
 };
 
 /**
@@ -184,12 +73,11 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
         $http.post("/api/v1/new_project", data).then(function(response) {
             if (response.data.id > 0) {
                 projectService.addProject(response.data);
-                $modalInstance.close();
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
+                $modalInstance.close();
             }
         });
 
-        // $modalInstance.close();
     };
 
     $scope.cancel = function () {
@@ -335,20 +223,11 @@ function projectCtrl($scope,$modal,$http,projectService) {
 
     $scope.init = function() {
 
-        if (projectService.getProjects().length)
-            return;
+        $scope.projects.splice(0,$scope.projects.length);
 
         $http.get("/api/v1/projects").then(function(response) {
 
             angular.forEach(response.data, function(value, key) {
-                value.updated_at = new Date(value.updated_at);
-                value.created_at = new Date(value.created_at);
-                
-                if (value.status.priority < 3)
-                    value.status.label = 'label-default';
-                else
-                    value.status.label = 'label-primary';
-
                 projectService.addProject(value);
             });
 
@@ -370,7 +249,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
         $scope.project.updated_at = new Date($scope.project.updated_at);
         $scope.project.created_at = new Date($scope.project.created_at);
         
-        if ($scope.project.status.priority < 3)
+        if ($scope.project.status.priority < 4)
             $scope.project.status.label = 'label-default';
         else
             $scope.project.status.label = 'label-primary';
@@ -386,7 +265,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
         $http.post("/api/v1/update_status", data).then(function(response) {
             $scope.project.status = response.data;
 
-            if ($scope.project.status.priority < 3)
+            if ($scope.project.status.priority < 4)
                 $scope.project.status.label = 'label-default';
             else
                 $scope.project.status.label = 'label-primary';
@@ -572,6 +451,48 @@ function threadCtrl($scope,$stateParams,$http) {
 
 }
 
+function todoCtrl($scope) {
+
+    // console.log($scope.check1);
+    $scope.check1 = true;
+    // $scope.check1 = function() {
+    //     console.log('woei');
+    // }
+    // $scope.init = function() {
+
+    //     $http.get("/api/v1/project/" + $stateParams.id + "/thread").then(function(response) {
+
+    //         $scope.thread = response.data;
+    //         angular.forEach($scope.thread, function(value, key) {
+    //             value.updated_at = new Date(value.updated_at);
+    //             value.created_at = new Date(value.created_at);
+    //             value.pull = 'pull-left';
+    //             value.text = '';
+
+    //         });
+
+    //     });
+
+    // };
+
+    // $scope.post = function() {
+
+    //     var data = {
+    //         project: $stateParams.id,
+    //         message: $scope.message,
+    //     };
+
+    //     $http.post("/api/v1/new_message", data).then(function(response) {
+    //         response.data.pull = 'pull-right';
+    //         response.data.text = 'text-right';
+    //         $scope.thread.push(response.data);
+    //     });
+
+    //     $scope.message = '';        
+    // }
+
+}
+
 /**
  *
  * Pass all functions into module
@@ -587,4 +508,5 @@ angular
     .controller('projectCtrl', projectCtrl)
     .controller('projectDetailCtrl', projectDetailCtrl)
     .controller('reportCtrl', reportCtrl)
-    .controller('threadCtrl', threadCtrl);
+    .controller('threadCtrl', threadCtrl)
+    .controller('todoCtrl', todoCtrl);

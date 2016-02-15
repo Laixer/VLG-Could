@@ -113,7 +113,7 @@
             <div class="row m-b-sm m-t-sm">
                 <div class="col-md-12">
                     <div class="input-group">
-                        <input type="text" placeholder="Zoek in projecten" class="input-sm form-control">
+                        <input type="text" placeholder="Zoek in projecten" ng-model="query" class="input-sm form-control">
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-sm btn-primary"> Zoeken</button>
                         </span>
@@ -125,7 +125,7 @@
 
             <table class="table table-hover">
                 <tbody>
-                    <tr ng-repeat="project in projects | orderBy: '-updated_at'">
+                    <tr ng-repeat="project in projects | filter: query | orderBy: '-updated_at' as resultsx">
                         <td class="project-status">
                             <span class="label @{{ project.status.label }}">@{{ project.status.name }}</span>
                         </td>
@@ -135,9 +135,9 @@
                             <small>@{{ project.number }} (@{{ project.reference }})</small>
                         </td>
                         <td class="project-completion">
-                            <small>Voortgang: @{{ project.status.priority }}/4</small>
+                            <small>Voortgang: @{{ project.status.priority }}/5</small>
                             <div class="progress progress-mini">
-                                <div style="width: @{{ project.status.priority * 25 }}%;" class="progress-bar"></div>
+                                <div style="width: @{{ project.status.priority * 20 }}%;" class="progress-bar"></div>
                             </div>
                         </td>
                         <td class="text-right">
@@ -147,6 +147,9 @@
                         <td class="project-actions">
                             <a ui-sref="project({ name: project.name, id: project.id })" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Project details </a>
                         </td>
+                    </tr>
+                    <tr ng-if="resultsx.length == 0">
+                        <td colspan="5"> Geen projecten gevonden</td>
                     </tr>
                 </tbody>
             </table>

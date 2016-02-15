@@ -1,8 +1,4 @@
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider) {
-
-    // Configure Idle settings
-    IdleProvider.idle(5); // in seconds
-    IdleProvider.timeout(120); // in seconds
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
     $urlRouterProvider.otherwise("/dashboard");
 
@@ -11,7 +7,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     });
 
     $stateProvider
-
         .state('dashboard', {
             url: "/dashboard",
             templateUrl: "/dashboard",
@@ -39,13 +34,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('project', {
             url: "/project/:id/:name",
             templateUrl: "/project_details",
-            data: { pageTitle: 'Project detail' },
+            data: { pageTitle: 'Project details' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'summernote',
                             files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js','css/plugins/dropzone/basic.css','css/plugins/dropzone/dropzone.css','js/plugins/dropzone/dropzone.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
                         }
                     ]);
                 }
@@ -118,4 +116,4 @@ angular
     .config(config)
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;
-});
+    });

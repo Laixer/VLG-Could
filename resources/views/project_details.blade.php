@@ -11,13 +11,13 @@
         {{-- Content --}}
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>Project detail</h2>
+                <h2>Project details</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a ui-sref="dashboard">Home</a>
                     </li>
                     <li class="active">
-                        <strong>Project detail</strong>
+                        <strong>Project details</strong>
                     </li>
                 </ol>
             </div>
@@ -34,9 +34,10 @@
                     <div class="dropdown pull-right">
                         <button class="btn btn-white dropdown-toggle" type="button" data-toggle="dropdown">Status <span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li ng-if="showStatus(2)"><a href="javascript:void(0);" ng-click="setStatus(2)">Maak concept</a></li>
-                            <li ng-if="showStatus(3)"><a href="javascript:void(0);" ng-click="setStatus(3)">Maak definitief</a></li>
-                            <li ng-if="showStatus(4)"><a href="javascript:void(0);" ng-click="setStatus(4)">Sluiten</a></li>
+                            <li ng-if="showStatus(2)"><a href="javascript:void(0);" ng-click="setStatus(2)">Verzoek om informatie</a></li>
+                            <li ng-if="showStatus(3)"><a href="javascript:void(0);" ng-click="setStatus(3)">Maak concept</a></li>
+                            <li ng-if="showStatus(4)"><a href="javascript:void(0);" ng-click="setStatus(4)">Maak definitief</a></li>
+                            <li ng-if="showStatus(5)"><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
                     <h2>Project @{{ project.name }}</h2>
@@ -82,9 +83,9 @@
                     <dt>Voortgang:</dt>
                     <dd>
                         <div class="progress active m-b-sm">
-                            <div style="width: @{{ project.status.priority * 25 }}%;" class="progress-bar"></div>
+                            <div style="width: @{{ project.status.priority * 20 }}%;" class="progress-bar"></div>
                         </div>
-                        <small>Project is voor <strong>@{{ project.status.priority * 25 }}%</strong> compleet.</small>
+                        <small>Project is voor <strong>@{{ project.status.priority * 20 }}%</strong> compleet.</small>
                     </dd>
                 </dl>
             </div>
@@ -127,9 +128,7 @@
                         <div class="media-body @{{ message.text }}">
                             <strong>Mark Johnson</strong> voegde het volgende bericht toe <br>
                             <small class="text-muted">@{{ message.created_at | date: 'd MMMM, yyyy' }}</small>
-                            <div>
-                                @{{ message.message }}
-                            </div>
+                            <div>@{{ message.message }}</div>
                         </div>
                     </div>
                 </div>
@@ -148,93 +147,36 @@
             <tab heading="Notities">
                 <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
-            <tab heading="Todo">
-
-                <div id="vertical-timeline" class="vertical-container light-timeline">
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Meeting</h2>
-                            <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                            <span class="vertical-date">
-                                Today <br>
-                                <small>Dec 24</small>
+            <tab heading="Todo" ng-controller="todoCtrl" ng-if="project.status.id == 2">
+                <ul class="todo-list m-t">
+                    <li>
+                        <input icheck type="checkbox" ng-model="check1">
+                        <span class="m-l-xs">Buy a milk</span>
+                    </li>
+                    <li>
+                        <input icheck type="checkbox" ng-model="main.checkOne">
+                        <span class="m-l-xs">Go to shop and find some products.</span>
+                    </li>
+                    <li>
+                        <input icheck type="checkbox" ng-model="check2">
+                        <span class="m-l-xs">Send documents to Mike</span>
+                    </li>
+                    <li>
+                        <input icheck type="checkbox" ng-model="check3">
+                        <span class="m-l-xs">Go to the doctor dr Smith</span>
+                    </li>
+                    <li>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nieuw todo item...">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary">Opslaan</button>
                             </span>
                         </div>
-                    </div>
 
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon blue-bg">
-                            <i class="fa fa-file-text"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Send documents to Mike</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <a href="#" class="btn btn-sm btn-success"> Download document </a>
-                            <span class="vertical-date">
-                                Today <br>
-                                <small>Dec 24</small>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon lazur-bg">
-                            <i class="fa fa-coffee"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Coffee Break</h2>
-                            <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                            <a href="#" class="btn btn-sm btn-info">Read more</a>
-                            <span class="vertical-date"> Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon yellow-bg">
-                            <i class="fa fa-phone"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Phone with Jeronimo</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-                            <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon lazur-bg">
-                            <i class="fa fa-user-md"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Go to the doctor dr Smith</h2>
-                            <p>Find some issue and go to doctor. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-                            <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-comments"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Chat with Monica and Sandra</h2>
-                            <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
-                            <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-                </div>
-
-
+                        <!-- <input icheck type="checkbox"> -->
+                        <!-- <span class="m-l-xs">Go to the doctor dr Smith</span> -->
+                    </li>
+                </ul>
             </tab>
             <!-- <tab heading="Log">
                 <table class="table table-striped">

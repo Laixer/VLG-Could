@@ -24,7 +24,7 @@ function pageTitle($rootScope, $timeout) {
 /**
  * icheck - Directive for custom checkbox icheck
  */
-function icheck($timeout) {
+function icheck($timeout,$http) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -42,6 +42,7 @@ function icheck($timeout) {
                     radioClass: 'iradio_square-green'
                 }).on('ifChanged', function(event) {
                     if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
+                        $http.post("/api/v1/update_todo", {todo: element.data('id')});
                         $scope.$apply(function() {
                             return ngModel.$setViewValue(event.target.checked);
                         });

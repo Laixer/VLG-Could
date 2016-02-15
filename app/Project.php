@@ -48,4 +48,11 @@ class Project extends Model
     public function thread() {
         return $this->hasMany('App\ProjectThread');
     }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function todo() {
+        return $this->hasMany('App\ProjectTodo');
+    }
 }

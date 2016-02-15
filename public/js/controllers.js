@@ -417,7 +417,6 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
 function threadCtrl($scope,$stateParams,$http) {
 
     $scope.init = function() {
-
         $http.get("/api/v1/project/" + $stateParams.id + "/thread").then(function(response) {
 
             $scope.thread = response.data;
@@ -430,11 +429,9 @@ function threadCtrl($scope,$stateParams,$http) {
             });
 
         });
-
     };
 
     $scope.post = function() {
-
         var data = {
             project: $stateParams.id,
             message: $scope.message,
@@ -451,45 +448,37 @@ function threadCtrl($scope,$stateParams,$http) {
 
 }
 
-function todoCtrl($scope) {
+function todoCtrl($scope,$stateParams,$http) {
 
-    // console.log($scope.check1);
-    $scope.check1 = true;
-    // $scope.check1 = function() {
-    //     console.log('woei');
-    // }
-    // $scope.init = function() {
+    $scope.init = function() {
+        $http.get("/api/v1/project/" + $stateParams.id + "/todo").then(function(response) {
 
-    //     $http.get("/api/v1/project/" + $stateParams.id + "/thread").then(function(response) {
+            $scope.todos = response.data;
+            angular.forEach($scope.todos, function(value, key) {
+            //     value.updated_at = new Date(value.updated_at);
+            //     value.created_at = new Date(value.created_at);
+            //     value.pull = 'pull-left';
+            //     value.text = '';
+                if (value.done > 0)
+                    value.checked = true;
+            });
 
-    //         $scope.thread = response.data;
-    //         angular.forEach($scope.thread, function(value, key) {
-    //             value.updated_at = new Date(value.updated_at);
-    //             value.created_at = new Date(value.created_at);
-    //             value.pull = 'pull-left';
-    //             value.text = '';
+        });
+    };
 
-    //         });
+    $scope.addItem = function() {
+        data = {
+            project: $stateParams.id,
+            message: $scope.item,
+        };
 
-    //     });
+        $http.post("/api/v1/new_todo", data).then(function(response) {
+            console.log(response);
+            $scope.todos.push(response.data);
+        });
 
-    // };
-
-    // $scope.post = function() {
-
-    //     var data = {
-    //         project: $stateParams.id,
-    //         message: $scope.message,
-    //     };
-
-    //     $http.post("/api/v1/new_message", data).then(function(response) {
-    //         response.data.pull = 'pull-right';
-    //         response.data.text = 'text-right';
-    //         $scope.thread.push(response.data);
-    //     });
-
-    //     $scope.message = '';        
-    // }
+        $scope.item = '';
+    }
 
 }
 

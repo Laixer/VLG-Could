@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Storage;
 use App\Project;
 use App\ProjectThread;
+use App\ProjectTodo;
 use App\Report;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -70,6 +71,15 @@ class ApiController extends Controller
 		return response()->json($obj->thread()->orderBy('created_at')->get());
 	}
 
+	public function getProjectTodo(Request $request, $id)
+	{
+		$obj = Project::find($id);
+		if (!$obj)
+			return response()->json([]);
+
+		return response()->json($obj->todo);
+	}
+
 	public function getDownloadRaport(Request $request, $id)
 	{
 		$raport = Report::find($id);
@@ -101,6 +111,22 @@ class ApiController extends Controller
 		return response()->json($project);
 	}
 
+	public function doNewTodo(Request $request)
+	{
+		$this->validate($request, [
+			'project' => 'required',
+			'message' => 'required',
+		]);
+
+		$todo = new ProjectTodo;
+		$todo->message = $request->input('message');
+		$todo->project_id = $request->input('project');
+
+		$todo->save();
+
+		return response()->json($todo);
+	}
+
 	public function doNewMessage(Request $request)
 	{
 		$this->validate($request, [
@@ -111,7 +137,7 @@ class ApiController extends Controller
 		$message = new ProjectThread;
 		$message->message = $request->input('message');
 		$message->project_id = $request->input('project');
-		$message->user_id = 1;
+		$message->user_id = 1; //TODO
 
 		$message->save();
 
@@ -182,6 +208,22 @@ class ApiController extends Controller
 		$project->save();
 
 		return response()->json($project->status);
+	}
+
+	public function doUpdateTodo(Request $request)
+	{
+		$this->validate($request, [
+			'todo' => 'required',
+		]);
+
+		$todo = ProjectTodo::find($request->input('todo'));
+		if (!$todo)
+			return response()->json(['error' => 'invalid todo'], 406);
+
+		$todo->done = true;
+		$todo->save();
+
+		return response()->json(['saved' => true]);
 	}
 
 	public function getAuthStatus(Request $request)

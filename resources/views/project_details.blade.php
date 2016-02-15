@@ -31,13 +31,13 @@
             <div class="col-lg-12">
                 <div class="m-b-md">
 
-                    <div class="dropdown pull-right">
+                    <div class="dropdown pull-right" ng-if="showStatus(5)">
                         <button class="btn btn-white dropdown-toggle" type="button" data-toggle="dropdown">Status <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li ng-if="showStatus(2)"><a href="javascript:void(0);" ng-click="setStatus(2)">Verzoek om informatie</a></li>
                             <li ng-if="showStatus(3)"><a href="javascript:void(0);" ng-click="setStatus(3)">Maak concept</a></li>
                             <li ng-if="showStatus(4)"><a href="javascript:void(0);" ng-click="setStatus(4)">Maak definitief</a></li>
-                            <li ng-if="showStatus(5)"><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
+                            <li><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
                     <h2>Project @{{ project.name }}</h2>
@@ -147,34 +147,20 @@
             <tab heading="Notities">
                 <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
-            <tab heading="Todo" ng-controller="todoCtrl" ng-if="project.status.id == 2">
+            <tab heading="Todo" ng-controller="todoCtrl" ng-init="init()" ng-if="project.status.id == 2 || todos.length != 0">
                 <ul class="todo-list m-t">
-                    <li>
-                        <input icheck type="checkbox" ng-model="check1">
-                        <span class="m-l-xs">Buy a milk</span>
-                    </li>
-                    <li>
-                        <input icheck type="checkbox" ng-model="main.checkOne">
-                        <span class="m-l-xs">Go to shop and find some products.</span>
-                    </li>
-                    <li>
-                        <input icheck type="checkbox" ng-model="check2">
-                        <span class="m-l-xs">Send documents to Mike</span>
-                    </li>
-                    <li>
-                        <input icheck type="checkbox" ng-model="check3">
-                        <span class="m-l-xs">Go to the doctor dr Smith</span>
+                    <li ng-repeat="todo in todos">
+                        <input icheck type="checkbox" data-id="@{{ todo.id }}" ng-model="todo.checked">
+                        <span class="m-l-xs">@{{ todo.message }}</span>
                     </li>
                     <li>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nieuw todo item...">
+                            <input type="text" class="form-control" ng-model="item" placeholder="Nieuw todo item...">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary">Opslaan</button>
+                                <button type="button" class="btn btn-primary" ng-click="addItem()">Opslaan</button>
                             </span>
                         </div>
 
-                        <!-- <input icheck type="checkbox"> -->
-                        <!-- <span class="m-l-xs">Go to the doctor dr Smith</span> -->
                     </li>
                 </ul>
             </tab>

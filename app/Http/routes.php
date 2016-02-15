@@ -61,12 +61,15 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('project/{id}', 'ApiController@getProjectFromId');
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');
     Route::get('project/{id}/thread', 'ApiController@getProjectThread');
+    Route::get('project/{id}/todo', 'ApiController@getProjectTodo');
     Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
     Route::post('upload', 'ApiController@doNewFile');
     Route::post('new_project', 'ApiController@doNewProject');
     Route::post('new_message', 'ApiController@doNewMessage');
+    Route::post('new_todo', 'ApiController@doNewTodo');
     Route::post('update_note', 'ApiController@doUpdateNote');
     Route::post('update_status', 'ApiController@doUpdateStatus');
+    Route::post('update_todo', 'ApiController@doUpdateTodo');
 });
 
 /*

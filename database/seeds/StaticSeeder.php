@@ -19,7 +19,7 @@ class StaticSeeder extends Seeder
 
         App\ProjectField::create(['name' => 'asfalt']);
         App\ProjectField::create(['name' => 'beton']);
-        App\ProjectField::create(['name' => 'funcdering']);
+        App\ProjectField::create(['name' => 'fundering']);
         App\ProjectField::create(['name' => 'geolab']);
         App\ProjectField::create(['name' => 'milieu']);
         App\ProjectField::create(['name' => 'geoveldwerk']);

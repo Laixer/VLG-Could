@@ -118,42 +118,8 @@ class ApiController extends Controller
 		$project['status'] = $project->status;
 		$project['field'] = $project->field;
 
-		if ($project->field->name == 'Asfalt') {
-			$todo = new ProjectTodo;
-			$todo->message = 'Bestek (met opbouw van asfalt) ';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'Laagopbouw asfaltcilinder met de mengselcode';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'Laagdikte';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'Aantal m2 totaal project';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'CE-bladen';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'Streefdichtheid';
-			$todo->project_id = $project->id;
-			$todo->save();
-
-			$todo = new ProjectTodo;
-			$todo->message = 'Refenrentie samenstelling';
-			$todo->project_id = $project->id;
-			$todo->save();
-		}
+		if ($project->field->name == 'Asfalt')
+			$project->loadDefaultTodo();
 
 		return response()->json($project);
 	}

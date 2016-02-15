@@ -62,4 +62,41 @@ class Project extends Model
     public function todo() {
         return $this->hasMany('App\ProjectTodo');
     }
+
+    public function loadDefaultTodo() {
+        $todo = new ProjectTodo;
+        $todo->message = 'Bestek (met opbouw van asfalt) ';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'Laagopbouw asfaltcilinder met de mengselcode';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'Laagdikte';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'Aantal m2 totaal project';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'CE-bladen';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'Streefdichtheid';
+        $todo->project_id = $this->id;
+        $todo->save();
+
+        $todo = new ProjectTodo;
+        $todo->message = 'Refenrentie samenstelling';
+        $todo->project_id = $this->id;
+        $todo->save();
+    }
 }

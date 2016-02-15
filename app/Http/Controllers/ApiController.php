@@ -54,9 +54,10 @@ class ApiController extends Controller
 	public function getProjectFromId(Request $request, $id)
 	{
 		$obj = Project::find($id);
-		if ($obj)
+		if ($obj) {
 			$obj['status'] = $obj->status;
 			$obj['field'] = $obj->field;
+		}
 
 		return response()->json($obj);
 	}
@@ -86,6 +87,15 @@ class ApiController extends Controller
 			return response()->json([]);
 
 		return response()->json($obj->todo);
+	}
+
+	public function getProjectTodoAvailable(Request $request, $id)
+	{
+		$obj = Project::find($id);
+		if (!$obj)
+			return response()->json([]);
+
+		return response()->json($obj->todoAvailableForAttach);
 	}
 
 	public function getDownloadRaport(Request $request, $id)
@@ -185,6 +195,23 @@ class ApiController extends Controller
 		}
 
 		return response()->json(['error' => 'invalid resource'], 406);
+	}
+
+	public function doUpdateReport(Request $request)
+	{
+		$this->validate($request, [
+			'report' => 'required|integer',
+			'todo' => 'required|integer',
+		]);
+
+		$raport = Report::find($request->input('report'));
+		if (!$raport)
+			return response()->json(['error' => 'resource not found'], 404);
+
+		$raport->todo_id = $request->input('todo');
+		$raport->save();
+
+		return response()->json(['saved' => true]);
 	}
 
 	public function doUpdateNote(Request $request)

@@ -92,6 +92,33 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 };
 
+function ModalAttachTodoCtrl($scope, $modalInstance, $http, file) {
+
+    console.log(file);
+    $scope.report = file;
+
+    $http.get("/api/v1/project/" + file.project_id + "/todo_available").then(function(response) {
+        $scope.todos = response.data;
+    });
+
+    $scope.ok = function () {
+        data = {
+            report: file.id,
+            todo: parseInt($scope.todo),
+        };
+
+        $http.post("/api/v1/update_report", data).then(function(response) {
+            $modalInstance.close();
+        });
+
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
 /**
  * formValidation - Controller for validation example
  */
@@ -242,7 +269,7 @@ function projectCtrl($scope,$modal,$http,projectService) {
     $scope.projects = projectService.getProjects();
 };
 
-function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
+function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportService) {
 
     $scope.isActive = [{active:true},{active:false},{active:false},{active:false}];
 
@@ -302,6 +329,15 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
     }
 
     $scope.addReport = function(json) {
+        var modalInstance = $modal.open({
+            templateUrl: '/attach_todo_window',
+            controller: ModalAttachTodoCtrl,
+            resolve: {
+                file: function(){
+                    return json;
+                }
+            }
+        });
         reportService.addReport(json);
     }
 

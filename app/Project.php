@@ -63,6 +63,14 @@ class Project extends Model
         return $this->hasMany('App\ProjectTodo');
     }
 
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function todoAvailableForAttach() {
+        $used = $this->reports()->whereNotNull('todo_id')->select('todo_id')->get()->toArray();
+        return $this->todo()->whereNotIn('id', $used);
+    }
+
     public function loadDefaultTodo() {
         $todo = new ProjectTodo;
         $todo->message = 'Bestek (met opbouw van asfalt) ';

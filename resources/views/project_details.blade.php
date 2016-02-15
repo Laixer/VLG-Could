@@ -153,7 +153,7 @@
                     <li ng-repeat="todo in todos">
                         <input icheck type="checkbox" data-id="@{{ todo.id }}" ng-model="todo.checked">
                         <span class="m-l-xs">@{{ todo.message }}</span>
-                        <a href="javascript:void(0);" ng-click="gotoReport(1)" class="label label-primary"><i class="fa fa-clock-o"></i> Example.pdf</a>
+                        <a href="javascript:void(0);" ng-click="gotoReport(1)" class="label label-warning"><i class="fa fa-file-o"></i> Example.pdf</a>
                     </li>
                     <li>
                         <div class="input-group">

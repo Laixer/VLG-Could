@@ -37,17 +37,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('reports', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 60);
-            $table->string('location', 120);
-            $table->string('mime', 60);
-            $table->boolean('done')->default(0);
-            $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
-            $table->timestamps();
-        });
-
         Schema::create('project_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -74,6 +63,19 @@ class CreateUsersTable extends Migration
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create('reports', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 60);
+            $table->string('location', 120);
+            $table->string('mime', 60);
+            $table->boolean('done')->default(0);
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->integer('todo_id')->unsigned()->nullable();
+            $table->foreign('todo_id')->references('id')->on('project_todos');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -86,9 +88,9 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('project_todos');
         Schema::dropIfExists('project_threads');
         Schema::dropIfExists('project_user');
-        Schema::dropIfExists('reports');
         Schema::dropIfExists('projects');
         Schema::dropIfExists('project_statuses');
         Schema::dropIfExists('project_fields');
+        Schema::dropIfExists('reports');
     }
 }

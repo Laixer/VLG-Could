@@ -455,10 +455,6 @@ function todoCtrl($scope,$stateParams,$http) {
 
             $scope.todos = response.data;
             angular.forEach($scope.todos, function(value, key) {
-            //     value.updated_at = new Date(value.updated_at);
-            //     value.created_at = new Date(value.created_at);
-            //     value.pull = 'pull-left';
-            //     value.text = '';
                 if (value.done > 0)
                     value.checked = true;
             });
@@ -478,6 +474,19 @@ function todoCtrl($scope,$stateParams,$http) {
         });
 
         $scope.item = '';
+    }
+
+    $scope.showTodo = function(id) {
+        if (id == 2)
+            return true;
+
+        if (!$scope.todos)
+            return false;
+        
+        if ($scope.todos.length > 0)
+            return true;
+
+        return false;
     }
 
 }

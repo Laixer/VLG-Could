@@ -147,7 +147,7 @@
             <tab heading="Notities">
                 <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
-            <tab heading="Todo" ng-controller="todoCtrl" ng-init="init()" ng-if="project.status.id == 2 || todos.length != 0">
+            <tab heading="Todo" ng-controller="todoCtrl" ng-init="init()" ng-show="showTodo(project.status.id)">
                 <ul class="todo-list m-t">
                     <li ng-repeat="todo in todos">
                         <input icheck type="checkbox" data-id="@{{ todo.id }}" ng-model="todo.checked">

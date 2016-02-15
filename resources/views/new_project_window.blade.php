@@ -16,6 +16,11 @@
             <label>Referentie</label>
             <input type="text" placeholder="Referentie" ng-model="reference" class="form-control">
         </div>
+        <label>Werkveld</label>
+        <select class="form-control" ng-model="wordfield">
+            <option ng-repeat="field in fields" value="@{{ field.id }}">@{{ field.name }}</option>
+        </select>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" ng-click="cancel()">Sluiten</button>

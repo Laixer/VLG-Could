@@ -58,6 +58,7 @@ Route::get('new_project_window', function () {
 Route::group(['prefix' => 'api/v1'], function () {
 	Route::get('auth/check', 'ApiController@getAuthStatus');
     Route::get('projects', 'ApiController@getProjects');
+    Route::get('project_fields', 'ApiController@getProjectFields');
     Route::get('project/{id}', 'ApiController@getProjectFromId');
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');
     Route::get('project/{id}/thread', 'ApiController@getProjectThread');

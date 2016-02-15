@@ -8,6 +8,7 @@ use Storage;
 use App\Project;
 use App\ProjectThread;
 use App\ProjectTodo;
+use App\ProjectField;
 use App\Report;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -44,11 +45,17 @@ class ApiController extends Controller
 		return response()->json($arr);
 	}
 
+	public function getProjectFields()
+	{
+		return response()->json(ProjectField::all());
+	}
+
 	public function getProjectFromId(Request $request, $id)
 	{
 		$obj = Project::find($id);
 		if ($obj)
 			$obj['status'] = $obj->status;
+			$obj['field'] = $obj->field;
 
 		return response()->json($obj);
 	}
@@ -97,6 +104,7 @@ class ApiController extends Controller
 			'name' => 'required|unique:projects|max:30',
 			'number' => 'required|max:30',
 			'reference' => 'required|max:30',
+			'field' => 'required:integer',
 		]);
 
 		$project = new Project;
@@ -104,9 +112,48 @@ class ApiController extends Controller
 		$project->number = $request->input('number');
 		$project->reference = $request->input('reference');
 		$project->status_id = 1;
+		$project->field_id = $request->input('field');
 
 		$project->save();
 		$project['status'] = $project->status;
+		$project['field'] = $project->field;
+
+		if ($project->field->name == 'Asfalt') {
+			$todo = new ProjectTodo;
+			$todo->message = 'Bestek (met opbouw van asfalt) ';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'Laagopbouw asfaltcilinder met de mengselcode';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'Laagdikte';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'Aantal m2 totaal project';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'CE-bladen';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'Streefdichtheid';
+			$todo->project_id = $project->id;
+			$todo->save();
+
+			$todo = new ProjectTodo;
+			$todo->message = 'Refenrentie samenstelling';
+			$todo->project_id = $project->id;
+			$todo->save();
+		}
 
 		return response()->json($project);
 	}

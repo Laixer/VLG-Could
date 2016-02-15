@@ -12,6 +12,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+
+        Schema::create('project_fields', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 30);
+        });
+
         Schema::create('project_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('priority')->default(1);
@@ -24,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('number', 30);
             $table->string('reference', 30);
             $table->text('note');
+            $table->integer('field_id')->unsigned();
+            $table->foreign('field_id')->references('id')->on('project_fields');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('project_statuses');
             $table->timestamps();
@@ -81,5 +89,6 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('reports');
         Schema::dropIfExists('projects');
         Schema::dropIfExists('project_statuses');
+        Schema::dropIfExists('project_fields');
     }
 }

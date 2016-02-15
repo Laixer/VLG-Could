@@ -38,6 +38,13 @@ class Project extends Model
     /**
      * Get the phone record associated with the user.
      */
+    public function field() {
+        return $this->hasOne('App\ProjectField', 'id', 'field_id');
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
     public function reports() {
         return $this->hasMany('App\Report');
     }

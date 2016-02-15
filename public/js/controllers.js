@@ -63,11 +63,16 @@ function modalDemoCtrl($scope, $modal) {
 
 function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectService) {
 
+    $http.get("/api/v1/project_fields").then(function(response) {
+        $scope.fields = response.data;
+    });
+
     $scope.ok = function () {
         data = {
             name: $scope.name,
             number: $scope.number,
-            reference: $scope.reference
+            reference: $scope.reference,
+            field: parseInt($scope.wordfield),
         };
 
         $http.post("/api/v1/new_project", data).then(function(response) {
@@ -111,7 +116,6 @@ function formValidation($scope) {
  * sweetAlertCtrl - Function for Sweet alerts
  */
 function sweetAlertCtrl($scope, SweetAlert) {
-
 
     $scope.demo1 = function () {
         SweetAlert.swal({
@@ -222,7 +226,6 @@ function projectCtrl($scope,$modal,$http,projectService) {
     };
 
     $scope.init = function() {
-
         $scope.projects.splice(0,$scope.projects.length);
 
         $http.get("/api/v1/projects").then(function(response) {
@@ -232,7 +235,6 @@ function projectCtrl($scope,$modal,$http,projectService) {
             });
 
         });
-
     };
 
     $scope.projects = projectService.getProjects();
@@ -482,7 +484,7 @@ function todoCtrl($scope,$stateParams,$http) {
 
         if (!$scope.todos)
             return false;
-        
+
         if ($scope.todos.length > 0)
             return true;
 

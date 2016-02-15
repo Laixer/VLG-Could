@@ -65,7 +65,8 @@
             </div>
             <div class="col-lg-7" id="cluster_info">
                 <dl class="dl-horizontal">
-
+                    <dt>Werkveld:</dt>
+                    <dd>@{{ project.field.name }}</dd>
                     <dt>Aangemaakt:</dt>
                     <dd>@{{ project.created_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Laatst aangepast:</dt>

@@ -96,13 +96,13 @@
         <div class="panel blank-panel ui-tab">
 
         <tabset>
-            <tab heading="Projectbestanden" active="tab.active" ng-controller="reportCtrl" ng-init="init()">
+            <tab heading="Projectbestanden" active="isActive[0].active" ng-controller="reportCtrl" ng-init="init()">
 
                 <div class="forum-title">
                     <h3>@{{ reports.length }} Bestanden beschikbaar</h3>
                 </div>
 
-                <div class="forum-item @{{ report.label }}" ng-repeat="report in reports | orderBy: '-updated_at'">
+                <div class="forum-item @{{ report.label }} @{{ report.highlight }}" ng-repeat="report in reports | orderBy: '-updated_at'" ng-mouseenter="report.highlight=''">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="forum-icon">
@@ -118,7 +118,7 @@
                 </div>
 
             </tab>
-            <tab heading="Conversatie" class="dsads" ng-controller="threadCtrl" ng-init="init()">
+            <tab heading="Conversatie" active="isActive[1].active" ng-controller="threadCtrl" ng-init="init()">
 
                 <div class="feed-activity-list">
                     <div class="feed-element" ng-repeat="message in thread">
@@ -145,18 +145,19 @@
                     </form>
                 </div>
             </tab>
-            <tab heading="Notities">
+            <tab heading="Notities" active="isActive[2].active">
                 <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
-            <tab heading="Todo" ng-controller="todoCtrl" ng-init="init()" ng-show="showTodo(project.status.id)">
+            <tab heading="Opgevraagde informatie" active="isActive[3].active" ng-controller="todoCtrl" ng-init="init()" ng-show="showTodo(project.status.id)">
                 <ul class="todo-list m-t">
                     <li ng-repeat="todo in todos">
                         <input icheck type="checkbox" data-id="@{{ todo.id }}" ng-model="todo.checked">
                         <span class="m-l-xs">@{{ todo.message }}</span>
+                        <a href="javascript:void(0);" ng-click="gotoReport(1)" class="label label-primary"><i class="fa fa-clock-o"></i> Example.pdf</a>
                     </li>
                     <li>
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="item" placeholder="Nieuw todo item...">
+                            <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary" ng-click="addItem()">Opslaan</button>
                             </span>

@@ -13,6 +13,7 @@ function MainCtrl($interval, $http) {
             console.log(response);
         });
     }, 30000);
+
 };
 
 /**
@@ -81,7 +82,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
                 $modalInstance.close();
             }
-        });
+        }); //TODO handle err
 
     };
 
@@ -242,6 +243,20 @@ function projectCtrl($scope,$modal,$http,projectService) {
 };
 
 function projectDetailCtrl($scope,$stateParams,$http,$window,reportService) {
+
+    $scope.isActive = [{active:true},{active:false},{active:false},{active:false}];
+
+    $scope.gotoReport = function(id) {
+        $scope.isActive[0].active = true;
+
+        angular.forEach(reportService.getReport(), function(value, key) {
+            if (value.id == id) {
+                console.log(value);
+                value.highlight = 'forum-highlight';
+            }
+        });
+
+    };
 
     $http.get("/api/v1/project/" + $stateParams.id).then(function(response) {
         $scope.project = response.data;

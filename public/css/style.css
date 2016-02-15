@@ -2567,6 +2567,9 @@ label.error {
   color: #999;
   margin-left: 50px;
 }
+.forum-highlight {
+  background-color: #FFF8DC;
+}
 .forum-title {
   margin: 15px 0 15px 0;
 }

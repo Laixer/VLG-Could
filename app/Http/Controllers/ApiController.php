@@ -272,21 +272,6 @@ class ApiController extends Controller
 
 	public function getAuthStatus(Request $request)
 	{
-		// $this->validate($request, [
-		// 	'project' => 'required',
-		// 	'status' => 'required|integer',
-		// ]);
-
-		// $project = Project::find($request->input('project'));
-		// if (!$project)
-		// 	return response()->json(['error' => 'invalid project'], 406);
-
-		// // if ($project->status->priority > $request->input('status'))
-		// 	// return response()->json(['error' => 'invalid status'], 406);
-
-		// $project->status_id = $request->input('status');
-		// $project->save();
-
 		return response()->json(['auth' => true]);
 	}
 

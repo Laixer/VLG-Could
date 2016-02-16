@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"print",
+				"print_r"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"sta",
+				"status"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
 				"bo",
 				"border"
 			],
@@ -56,20 +76,12 @@
 				"iserror"
 			],
 			[
-				"mar",
-				"marshall_count"
-			],
-			[
 				"from_b",
 				"from_be64"
 			],
 			[
 				"seq",
 				"sequence"
-			],
-			[
-				"con",
-				"continue"
 			],
 			[
 				"new",
@@ -183,47 +195,39 @@
 			"file": "app/Http/routes.php",
 			"settings":
 			{
-				"buffer_size": 1215,
+				"buffer_size": 3169,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "public/js/config.js",
+			"file": "app/Http/Controllers/AuthController.php",
 			"settings":
 			{
-				"buffer_size": 4896,
-				"line_ending": "Windows"
+				"buffer_size": 1828,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "public/js/controllers.js",
+			"file": "app/Http/Kernel.php",
 			"settings":
 			{
-				"buffer_size": 19816,
-				"line_ending": "Windows"
+				"buffer_size": 1446,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "public/views/modal_example1.html",
+			"file": "app/Http/Middleware/Authenticate.php",
 			"settings":
 			{
-				"buffer_size": 1439,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/directives.js",
-			"settings":
-			{
-				"buffer_size": 5871,
-				"line_ending": "Windows"
+				"buffer_size": 927,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "resources/views/dashboard.blade.php",
 			"settings":
 			{
-				"buffer_size": 7603,
+				"buffer_size": 3957,
 				"line_ending": "Unix"
 			}
 		},
@@ -231,23 +235,15 @@
 			"file": "resources/views/project_details.blade.php",
 			"settings":
 			{
-				"buffer_size": 20893,
+				"buffer_size": 17745,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "public/views/validation.html",
+			"file": "app/Http/Controllers/ViewController.php",
 			"settings":
 			{
-				"buffer_size": 12286,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "database/migrations/2014_10_12_000000_create_users_table.php",
-			"settings":
-			{
-				"buffer_size": 2796,
+				"buffer_size": 787,
 				"line_ending": "Unix"
 			}
 		}
@@ -315,26 +311,71 @@
 	[
 		"/home/eve/cloud",
 		"/home/eve/cloud/app",
+		"/home/eve/cloud/app/Http",
+		"/home/eve/cloud/app/Http/Controllers",
+		"/home/eve/cloud/app/Http/Middleware",
 		"/home/eve/cloud/config",
 		"/home/eve/cloud/database",
-		"/home/eve/cloud/database/factories",
-		"/home/eve/cloud/database/migrations",
 		"/home/eve/cloud/database/seeds",
 		"/home/eve/cloud/public",
-		"/home/eve/cloud/public/js",
-		"/home/eve/cloud/public/views",
+		"/home/eve/cloud/public/css",
 		"/home/eve/cloud/resources",
-		"/home/eve/cloud/resources/views"
+		"/home/eve/cloud/resources/views",
+		"/home/eve/cloud/vendor",
+		"/home/eve/cloud/vendor/laravel",
+		"/home/eve/cloud/vendor/vlg",
+		"/home/eve/cloud/vendor/vlg/gssauth",
+		"/home/eve/cloud/vendor/vlg/gssauth/src"
 	],
 	"file_history":
 	[
-		"/home/eve/cloud/resources/views/project_details.blade.php",
-		"/home/eve/cloud/public/views/loading_buttons.html",
+		"/home/eve/cloud/config/auth.php",
+		"/home/eve/cloud/config/app.php",
+		"/home/eve/cloud/app/Http/Middleware/RedirectIfAuthenticated.php",
+		"/home/eve/cloud/public/js/config.js",
+		"/home/eve/cloud/public/js/directives.js",
+		"/home/eve/cloud/public/js/services.js",
+		"/home/eve/cloud/app/Http/Controllers/ApiController.php",
+		"/home/eve/cloud/app/Http/Kernel.php",
+		"/home/eve/cloud/public/js/controllers.js",
+		"/home/eve/cloud/app/Http/Middleware/AuthenticateEdit.php",
+		"/home/eve/cloud/resources/views/common/footer.blade.php",
+		"/home/eve/cloud/app/QuickGit.php",
+		"/home/eve/cloud/resources/views/new_project_window.blade.php",
+		"/home/eve/cloud/resources/views/common/main.blade.php",
+		"/home/eve/cloud/app/ProjectTodo.php",
 		"/home/eve/cloud/public/js/app.js",
-		"/home/eve/cloud/resources/views/main.blade.php",
 		"/home/eve/cloud/resources/views/dashboard.blade.php",
-		"/home/eve/cloud/public/views/toastr.html",
+		"/home/eve/cloud/app/Project.php",
+		"/home/eve/cloud/resources/views/attach_todo_window.blade.php",
+		"/home/eve/cloud/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/home/eve/cloud/public/css/style.css",
+		"/home/eve/cloud/database/seeds/StaticSeeder.php",
+		"/home/eve/cloud/app/ProjectField.php",
+		"/home/eve/cloud/app/Http/ProjectField.php",
+		"/home/eve/cloud/resources/views/main.blade.php",
+		"/home/eve/cloud/public/robots.txt",
+		"/home/eve/cloud/resources/views/projects.blade.php",
+		"/home/eve/cloud/public/js/cloud.js",
+		"/home/eve/.kodi/addons/plugin.audio.kiisfm/default.py",
+		"/home/eve/plugin.audio.kiisfm/default.py",
+		"/home/eve/KIISFM/default.py",
+		"/home/eve/KIISFM/addon.xml",
+		"/home/eve/cloud/app/Report.php",
+		"/home/eve/cloud/vendor/laravel/framework/src/Illuminate/Filesystem/FilesystemServiceProvider.php",
+		"/home/eve/cloud/vendor/laravel/framework/src/Illuminate/Support/Facades/Storage.php",
+		"/home/eve/cloud/resources/views/toastr.blade.php",
+		"/home/eve/cloud/public/js/service.js",
+		"/home/eve/cloud/public/views/modal_example1.html",
+		"/home/eve/cloud/public/js/plugins/dropzone/dropzone.js",
+		"/home/eve/cloud/resources/views/project_details.blade.php",
+		"/home/eve/cloud/resources/views/loading_buttons.blade.php",
+		"/home/eve/cloud/resources/views/modal_window.blade.php",
+		"/home/eve/cloud/resources/views/sweet_alert.blade.php",
+		"/home/eve/cloud/resources/views/validation.blade.php",
 		"/home/eve/cloud/public/views/validation.html",
+		"/home/eve/cloud/public/views/loading_buttons.html",
+		"/home/eve/cloud/public/views/toastr.html",
 		"/home/eve/cloud/public/views/sweet_alert.html",
 		"/home/eve/cloud/public/views/modal_window.html",
 		"/home/eve/cloud/resources/views/common/header.blade.php",
@@ -342,36 +383,24 @@
 		"/home/eve/cloud/public/views/common/topnavbar.html",
 		"/home/eve/cloud/public/views/common/content.html",
 		"/home/eve/cloud/public/views/project_detail.html",
-		"/home/eve/cloud/resources/views/projects.blade.php",
 		"/home/eve/cloud/resources/views/project_detail.blade.php",
 		"/home/eve/cloud/public/views/dashboard_1.html",
-		"/home/eve/cloud/public/js/cloud.js",
 		"/home/eve/cloud/resources/views/dashboard.php",
-		"/home/eve/cloud/resources/views/common/footer.blade.php",
 		"/home/eve/cloud/public/views/forum_view.html",
 		"/home/eve/cloud/public/css/plugins/dropzone/dropzone.css",
 		"/home/eve/cloud/public/views/form_file_upload.html",
-		"/home/eve/cloud/public/css/style.css",
-		"/home/eve/cloud/public/js/plugins/dropzone/dropzone.js",
-		"/home/eve/cloud/public/js/controllers.js",
 		"/home/eve/cloud/public/views/widgets.html",
-		"/home/eve/cloud/app/Project.php",
-		"/home/eve/cloud/database/migrations/2014_10_12_000000_create_users_table.php",
 		"/home/eve/cloud/vendor/vlg/gssauth/src/VLGPortalProvider.php",
 		"/home/eve/cloud/public/views/projects.html",
-		"/home/eve/cloud/database/seeds/StaticSeeder.php",
 		"/home/eve/cloud/app/ProjectThread.php",
-		"/home/eve/cloud/app/Report.php",
 		"/home/eve/cloud/app/ReportType.php",
 		"/home/eve/cloud/app/ProjectStatus.php",
 		"/home/eve/cloud/database/seeds/DatabaseSeeder.php",
 		"/home/eve/cloud/composer.json",
-		"/home/eve/cloud/config/app.php",
 		"/home/eve/cloud/config/session.php",
 		"/home/eve/cloud/config/services.php",
 		"/home/eve/cloud/public/views/common/footer.html",
 		"/home/eve/cloud/public/views/common/top_navigation.html",
-		"/home/eve/cloud/public/js/config.js",
 		"/home/eve/cloud/public/js/inspinia.js",
 		"/home/eve/cloud/public/ang/index.html",
 		"/home/eve/cloud/.env",
@@ -427,39 +456,11 @@
 		"/home/eve/quantica/src/csv_marshall.h",
 		"/home/eve/quantica/src/csv_marshall.c",
 		"/home/eve/quantica/src/marshall.h",
-		"/home/eve/quantica/src/slay_marshall.c",
-		"/home/eve/ltc_scrypt.c",
-		"/home/eve/ltc_scrypt.",
-		"/home/eve/quantica/src/index_list.c",
-		"/home/eve/quantica/src/hashtable.c",
-		"/home/eve/djb2a.c",
-		"/home/eve/quantica/src/scrypt.c",
-		"/home/eve/quantica/src/dict_marshall.c",
-		"/home/eve/quantica/src/main.c",
-		"/home/eve/quantica/src/hmac.c",
-		"/home/eve/quantica/src/slay_marshall.h",
-		"/home/eve/quantica/src/resolv.c",
-		"/home/eve/quantica/src/resolv.h",
-		"/home/eve/quantica/src/base64.h",
-		"/home/eve/quantica/src/base64.c",
-		"/home/eve/quantica/src/common.c",
-		"/home/eve/quantica/src/engine.h",
-		"/home/eve/quantica/src/dict_marshall.h",
-		"/home/eve/quantica/src/vector.h",
-		"/home/eve/quantz_roadmap",
-		"/home/eve/quantica/include/config.h",
-		"/home/eve/quantica/src/quid.c",
-		"/home/eve/quantica/src/webapi.c",
-		"/home/eve/quantica/util/genquid.c",
-		"/home/eve/quantica/src/time.c",
-		"/home/eve/quantica/src/quid.h",
-		"/home/eve/quantica/Makefile",
-		"/home/eve/quantica/src/time.h",
-		"/home/eve/quantica/src/history.h"
+		"/home/eve/quantica/src/slay_marshall.c"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 46.0
 	},
 	"find_in_files":
 	{
@@ -501,6 +502,31 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			" \n",
+			"MainCtrl",
+			"SweetAlert",
+			"\n        ",
+			"message",
+			"toaster",
+			"iCh",
+			"tra",
+			"contr",
+			"status",
+			"xbmcaddon",
+			"message",
+			"feed-element",
+			"Hello",
+			"summer",
+			"sum",
+			"contr",
+			"control",
+			"getPa",
+			"loca",
+			"loc",
+			"prod",
+			"open1",
+			"loadBefore",
+			"message",
 			"mode",
 			"moe",
 			"mod",
@@ -603,32 +629,7 @@
 			"alias_size",
 			"itoa",
 			"->size",
-			"->si",
-			"incr_be16",
-			"cnt",
-			"->size",
-			"strtoquid",
-			"],",
-			"marshall_separate",
-			"fre",
-			"stresc",
-			"escape",
-			"esca",
-			"esc",
-			"engine_delete",
-			"engine_get",
-			"lookup_key",
-			"zero_free_size",
-			"__STDC_VERSION__",
-			"postda",
-			"http_request_t",
-			"header",
-			"http_request_t",
-			"postdata",
-			"getdata",
-			"headdata",
-			"getdata",
-			"postdata"
+			"->si"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -656,7 +657,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -665,15 +666,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1215,
+						"buffer_size": 3169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								459,
-								459
+								1245,
+								1245
 							]
 						],
 						"settings":
@@ -684,209 +685,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "public/js/config.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4896,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2484,
-								2484
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 15.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "public/js/controllers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19816,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8005,
-								8005
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4386.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "public/views/modal_example1.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1439,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								838,
-								838
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "public/js/directives.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5871,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5588,
-								5588
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2833.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "resources/views/dashboard.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7603,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								296,
-								296
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "resources/views/project_details.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 20893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10640,
-								10640
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 2753.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "public/views/validation.html",
-					"semi_transient": true,
+					"buffer": 1,
+					"file": "app/Http/Controllers/AuthController.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12286,
+						"buffer_size": 1828,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2180,
-								2180
+								1324,
+								1324
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -898,25 +719,25 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "database/migrations/2014_10_12_000000_create_users_table.php",
+					"buffer": 2,
+					"file": "app/Http/Kernel.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2796,
+						"buffer_size": 1446,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5,
-								5
+								1171,
+								1171
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -924,7 +745,125 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/Http/Middleware/Authenticate.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								401,
+								401
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "resources/views/dashboard.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3957,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								61,
+								61
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/views/project_details.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17745,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17153,
+								17153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5490.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/Http/Controllers/ViewController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 787,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								775,
+								775
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -1019,7 +958,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 341.0,
+	"side_bar_width": 340.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

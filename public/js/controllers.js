@@ -18,11 +18,10 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
     });
 
     function checkLogin() {
-        $http.get("/api/v1/auth/check").then(function(response) {
-            console.log(response);
-        },function(response){
+        $http.get("/api/v1/auth/check").then(function(){},
+        function(response){
             $interval.cancel($scope.checkAuth);
-            if (response.status == 403) {
+            if (response.status == 401) {
                 $scope.SweetAlert.swal({
                     title: "Sessie verlopen",
                     type: "error",
@@ -33,7 +32,20 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
                     closeOnCancel: false
                 },
                 function () {
-                    $window.location.href = '/kaas';
+                    $window.location.href = '/auth';
+                });
+            } else if (response.status == 403) {
+                $scope.SweetAlert.swal({
+                    title: "Geen toegang",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Naar Portal",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function () {
+                    $window.location.href = 'https://portal.rotterdam-vlg.com/';
                 });
             } else {
                 $scope.SweetAlert.swal({

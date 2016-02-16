@@ -11,55 +11,35 @@
 |
 */
 
-Route::get('/', function () {
-    return view('common.main');
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| This route group applies the "web" middleware group to every route
+| it contains. The "web" middleware group is defined in your HTTP
+| kernel and includes session state, CSRF protection, and more.
+|
+*/
+
+Route::group(['middleware' => ['web']], function () {
+	Route::get('auth', 'AuthController@redirectToProvider');
+	Route::get('auth/callback', 'AuthController@handleProviderCallback');
+	Route::get('unauth', 'AuthController@unauth');
 });
 
-Route::get('common/header', function () {
-    return view('common.header');
+Route::group(['middleware' => ['web', 'auth']], function () {
+	Route::get('/', 'HomeController@getCommonMain');
+	Route::get('common/header', 'HomeController@getCommonHeader');
+	Route::get('common/footer', 'HomeController@getCommonFooter');
+	Route::get('dashboard', 'HomeController@getDashboard');
+	Route::get('project_details', 'HomeController@getProjectDetails');
+	Route::get('new_project_window', 'HomeController@getNewProjectWindow');
+	Route::get('attach_todo_window', 'HomeController@getAttachTodoWindow');
+	Route::get('principal', 'HomeController@about');
 });
 
-Route::get('common/footer', function () {
-    return view('common.footer');
-});
-
-Route::get('dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('project_details', function () {
-    return view('project_details');
-});
-
-Route::get('validation', function () {
-    return view('validation');
-});
-
-Route::get('toastr', function () {
-    return view('toastr');
-});
-
-Route::get('sweet_alert', function () {
-    return view('sweet_alert');
-});
-
-Route::get('loading_buttons', function () {
-    return view('loading_buttons');
-});
-
-Route::get('modal_window', function () {
-    return view('modal_window');
-});
-
-Route::get('new_project_window', function () {
-    return view('new_project_window');
-});
-
-Route::get('attach_todo_window', function () {
-    return view('attach_todo_window');
-});
-
-Route::group(['prefix' => 'api/v1'], function () {
+Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function () {
 	Route::get('auth/check', 'ApiController@getAuthStatus');
     Route::get('projects', 'ApiController@getProjects');
     Route::get('project_fields', 'ApiController@getProjectFields');
@@ -77,19 +57,4 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('update_note', 'ApiController@doUpdateNote');
     Route::post('update_status', 'ApiController@doUpdateStatus');
     Route::post('update_todo', 'ApiController@doUpdateTodo');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
-Route::group(['middleware' => ['web']], function () {
-    //
 });

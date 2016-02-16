@@ -2,17 +2,16 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class AuthenticateEdit
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
@@ -43,6 +42,10 @@ class Authenticate
             } else {
                 return redirect()->guest('/unauth');
             }
+        }
+
+        if (!Auth::guard($guard)->user()->canWrite()) {
+            return redirect('/');
         }
 
         return $next($request);

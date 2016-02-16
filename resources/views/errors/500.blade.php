@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RotterdamCloud | 503 Error</title>
+    <title>RotterdamCloud | 500 Error</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -20,11 +20,11 @@
 
 
     <div class="middle-box text-center">
-        <h1>503</h1>
-        <h3 class="font-bold">Applicatie down</h3>
+        <h1>500</h1>
+        <h3 class="font-bold">Applicatieprobleem</h3>
 
         <div class="error-desc">
-            Deze applicatie is tijdelijk niet beschikbaar, probeer later nog eens.
+            De actie kon niet worden verwerkt. Probeer later nog eens.
         </div>
         <a href="/"><small>Home</small></a>
     </div>

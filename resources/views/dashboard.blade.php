@@ -2,7 +2,6 @@
 <div id="wrapper">
 
     <!-- Page wraper -->
-    <!-- ng-class with current state name give you the ability to extended customization your view -->
     <div id="page-wrapper" class="gray-bg @{{ $state.current.name }}">
 
         <!-- Page wrapper -->
@@ -15,11 +14,8 @@
             <div class="col-sm-4">
                 <h2>Dashboard</h2>
                 <ol class="breadcrumb">
-                    <li>
-                        <a ui-sref="dashboard">Home</a>
-                    </li>
                     <li class="active">
-                        <strong>Project details</strong>
+                        <strong>Home</strong>
                     </li>
                 </ol>
             </div>

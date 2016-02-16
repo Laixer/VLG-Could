@@ -389,7 +389,7 @@
                     &nbsp;
                 </p>
                 <h3>Upload bestanden</h3>
-                <form action="" class="dropzone" data-id="@{{ project.id }}" drop-zone="" id="file-dropzone">
+                <form action="" class="dropzone" projectid="@{{ project.id }}" drop-zone="" id="file-dropzone">
                    <div class="dz-message text-center" data-dz-message>
                         <span style="font-size:100px;"><i class="fa fa-cloud-upload"></i></span>
                         <div style="font-size:20px;font-weight:lighter;">Sleep of klik</div>

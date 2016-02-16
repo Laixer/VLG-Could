@@ -72,8 +72,7 @@ function dropZone() {
             acceptedFiles: accept,
             init: function() {
                 this.on('sending', function(file, xhr, formData) {
-                    // console.log( $attrs.id );
-                    formData.append("project", $attrs.id);
+                    formData.append("project", $attrs['projectid']);
                 });
                 this.on('success', function(file, json) {
                     scope.addReport(json);

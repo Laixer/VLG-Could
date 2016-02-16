@@ -63,7 +63,7 @@ function icheck($timeout,$http) {
  */
 function dropZone() {
     var accept = ".pdf,.doc,.docx,.odt,.xls,.xlsx,.txt,.zip";
-    return function(scope, element, attrs) {
+    return function(scope, element, $attrs) {
         element.dropzone({
             url: "/api/v1/upload",
             maxFilesize: 100,
@@ -72,7 +72,8 @@ function dropZone() {
             acceptedFiles: accept,
             init: function() {
                 this.on('sending', function(file, xhr, formData) {
-                    formData.append("project", attrs.id);
+                    // console.log( $attrs.id );
+                    formData.append("project", $attrs.id);
                 });
                 this.on('success', function(file, json) {
                     scope.addReport(json);

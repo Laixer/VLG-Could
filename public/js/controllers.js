@@ -3,16 +3,60 @@
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($interval, $http) {
+function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
+
+    $ocLazyLoad.load([
+        {
+            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+        },
+        {
+            name: 'oitozero.ngSweetAlert',
+            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+        },
+    ]).then(function(){
+        $scope.SweetAlert = $injector.get('SweetAlert');
+    });
+
+    function checkLogin() {
+        $http.get("/api/v1/auth/check").then(function(response) {
+            console.log(response);
+        },function(response){
+            $interval.cancel($scope.checkAuth);
+            if (response.status == 403) {
+                $scope.SweetAlert.swal({
+                    title: "Sessie verlopen",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Opnieuw inloggen",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function () {
+                    $window.location.href = '/kaas';
+                });
+            } else {
+                $scope.SweetAlert.swal({
+                    title: "Applicatiefout",
+                    type: "error",
+                    "text": "Er is een fout ontstaan in de applicatie",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Probeer opnieuw",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function () {
+                    $window.location.href = '/';
+                });
+            }
+        });
+    };
 
     /**
      * initial run for random stacked value
      */
-    $interval(function() {
-        $http.get("/api/v1/auth/check").then(function(response) {
-            console.log(response);
-        });
-    }, 60000);
+    $scope.checkAuth = $interval(checkLogin, 60000);
 
 };
 
@@ -289,7 +333,6 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
 
         angular.forEach(reportService.getReport(), function(value, key) {
             if (value.id == id) {
-                console.log(value);
                 value.highlight = 'forum-highlight';
             }
         });
@@ -351,7 +394,6 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
                 }
             });
         }
-        console.log('XXX> ' + todoService.getUnattachedCount());
 
         reportService.addReport(json);
     }

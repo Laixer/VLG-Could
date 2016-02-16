@@ -159,7 +159,6 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
 
-    console.log(file);
     $scope.report = file;
 
     $http.get("/api/v1/project/" + file.project_id + "/todo_available").then(function(response) {
@@ -497,7 +496,7 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
                             success = true;
 
                         } catch(ex) {
-                            console.log(ex);
+                            // console.log(ex);
                         }
                     }
 
@@ -511,7 +510,7 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
                             window.location = url;
                             success = true;
                         } catch(ex) {
-                            console.log(ex);
+                            // console.log(ex);
                         }
                     }
 
@@ -524,8 +523,6 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
             }
         })
         .error(function(data, status) {
-            console.log("Request failed with status: " + status);
-
             // Optionally write the error out to scope
             $scope.errorDetails = "Request failed with status: " + status;
         });

@@ -70,6 +70,9 @@ function dropZone() {
             paramName: "uploadfile",
             maxThumbnailFilesize: 5,
             acceptedFiles: accept,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
             init: function() {
                 this.on('sending', function(file, xhr, formData) {
                     formData.append("project", $attrs['projectid']);

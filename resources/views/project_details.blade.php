@@ -153,15 +153,17 @@
                     <li ng-repeat="todo in todos">
                         <input icheck type="checkbox" data-id="@{{ todo.id }}" ng-model="todo.checked">
                         <span class="m-l-xs">@{{ todo.message }}</span>
-                        <a href="javascript:void(0);" ng-click="gotoReport(1)" class="label label-warning"><i class="fa fa-file-o"></i> Example.pdf</a>
+                        <a ng-show="todo.report" href="javascript:void(0);" ng-click="gotoReport(todo.report.id)" class="label label-warning"><i class="fa fa-file-o"></i> @{{ todo.report.name }}</a>
                     </li>
                     <li>
-                        <div class="input-group">
-                            <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" ng-click="addItem()">Opslaan</button>
-                            </span>
-                        </div>
+                        <form ng-submit="addItem()">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                                </span>
+                            </div>
+                        </form>
 
                     </li>
                 </ul>

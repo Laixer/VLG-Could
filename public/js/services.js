@@ -85,6 +85,36 @@ function reportService() {
     };
 };
 
+function todoService() {
+    var todoList = [];
+
+    var addTodo = function(newObj) {
+
+        if (newObj.done > 0)
+            newObj.checked = true;
+
+        todoList.push(newObj);
+    };
+
+    var getTodos = function(){
+        return todoList;
+    };
+
+    var attach = function(id, report) {
+        for (var i in todoList) {
+            if (todoList[i].id == id) {
+                todoList[i].report = report;
+            }
+        }
+    }
+
+    return {
+        addTodo: addTodo,
+        getTodos: getTodos,
+        attach: attach
+    };
+};
+
 /**
  *
  * Pass all functions into module
@@ -92,4 +122,5 @@ function reportService() {
 angular
     .module('inspinia')
     .service('projectService', projectService)
-    .service('reportService', reportService);
+    .service('reportService', reportService)
+    .service('todoService', todoService);

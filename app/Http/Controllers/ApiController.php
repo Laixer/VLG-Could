@@ -82,11 +82,14 @@ class ApiController extends Controller
 
 	public function getProjectTodo(Request $request, $id)
 	{
-		$obj = Project::find($id);
-		if (!$obj)
-			return response()->json([]);
+		$arr = [];
+		foreach (Project::find($id)->todo as $todo) {
+			$obj = $todo;
+			$obj['report'] = $todo->report()->select(['id','name'])->first();
+			array_push($arr, $obj);
+		}
 
-		return response()->json($obj->todo);
+		return response()->json($arr);
 	}
 
 	public function getProjectTodoAvailable(Request $request, $id)
@@ -211,7 +214,7 @@ class ApiController extends Controller
 		$raport->todo_id = $request->input('todo');
 		$raport->save();
 
-		return response()->json(['saved' => true]);
+		return response()->json($raport);
 	}
 
 	public function doUpdateNote(Request $request)

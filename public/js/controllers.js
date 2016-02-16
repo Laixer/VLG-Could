@@ -12,7 +12,7 @@ function MainCtrl($interval, $http) {
         $http.get("/api/v1/auth/check").then(function(response) {
             console.log(response);
         });
-    }, 30000);
+    }, 60000);
 
 };
 
@@ -82,7 +82,16 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
                 $modalInstance.close();
             }
-        }); //TODO handle err
+        },function(response){
+            if (response.data.name)
+                $scope.error = response.data.name[0];
+            if (response.data.number)
+                $scope.error = response.data.number[0];
+            if (response.data.reference)
+                $scope.error = response.data.number[0];
+            if (response.data.field)
+                $scope.error = response.data.field[0];
+        });
 
     };
 
@@ -92,7 +101,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 };
 
-function ModalAttachTodoCtrl($scope, $modalInstance, $http, file) {
+function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
 
     console.log(file);
     $scope.report = file;
@@ -102,12 +111,15 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file) {
     });
 
     $scope.ok = function () {
+        var todo_id = parseInt($scope.todo);
+
         data = {
             report: file.id,
-            todo: parseInt($scope.todo),
+            todo: todo_id,
         };
 
         $http.post("/api/v1/update_report", data).then(function(response) {
+            todoService.attach(todo_id, response.data);
             $modalInstance.close();
         });
 
@@ -262,7 +274,6 @@ function projectCtrl($scope,$modal,$http,projectService) {
                 projectService.addProject(value);
             });
 
-        console.log(projectService.getProjects());
         });
     };
 
@@ -502,19 +513,20 @@ function threadCtrl($scope,$stateParams,$http) {
 
 }
 
-function todoCtrl($scope,$stateParams,$http) {
+function todoCtrl($scope,$stateParams,$http,todoService) {
 
     $scope.init = function() {
-        $http.get("/api/v1/project/" + $stateParams.id + "/todo").then(function(response) {
+        $scope.todos.splice(0,$scope.todos.length);
 
-            $scope.todos = response.data;
-            angular.forEach($scope.todos, function(value, key) {
-                if (value.done > 0)
-                    value.checked = true;
+        $http.get("/api/v1/project/" + $stateParams.id + "/todo").then(function(response) {
+            angular.forEach(response.data, function(value, key) {
+                todoService.addTodo(value);
             });
 
         });
     };
+
+    $scope.todos = todoService.getTodos();
 
     $scope.addItem = function() {
         data = {
@@ -523,7 +535,6 @@ function todoCtrl($scope,$stateParams,$http) {
         };
 
         $http.post("/api/v1/new_todo", data).then(function(response) {
-            console.log(response);
             $scope.todos.push(response.data);
         });
 

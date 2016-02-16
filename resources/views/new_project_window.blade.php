@@ -2,6 +2,7 @@
     <div class="modal-header">
         <h4 class="modal-title">Nieuw project</h4>
         <small class="font-bold">Voeg een nieuw project toe.</small>
+        <div class="text-danger" ng-show="error">@{{ error }}</div>
     </div>
     <div class="modal-body">
         <div class="form-group">

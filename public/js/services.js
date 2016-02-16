@@ -100,6 +100,18 @@ function todoService() {
         return todoList;
     };
 
+    var getUnattachedCount = function(){
+        var count = 0;
+
+        for (var i in todoList) {
+            if (!todoList[i].report) {
+                count++;
+            }
+        }
+
+        return count;
+    };
+
     var attach = function(id, report) {
         for (var i in todoList) {
             if (todoList[i].id == id) {
@@ -111,6 +123,7 @@ function todoService() {
     return {
         addTodo: addTodo,
         getTodos: getTodos,
+        getUnattachedCount: getUnattachedCount,
         attach: attach
     };
 };

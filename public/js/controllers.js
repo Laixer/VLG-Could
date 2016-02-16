@@ -280,7 +280,7 @@ function projectCtrl($scope,$modal,$http,projectService) {
     $scope.projects = projectService.getProjects();
 };
 
-function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportService) {
+function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportService,todoService) {
 
     $scope.isActive = [{active:true},{active:false},{active:false},{active:false}];
 
@@ -340,15 +340,19 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
     }
 
     $scope.addReport = function(json) {
-        var modalInstance = $modal.open({
-            templateUrl: '/attach_todo_window',
-            controller: ModalAttachTodoCtrl,
-            resolve: {
-                file: function(){
-                    return json;
+        if (todoService.getUnattachedCount() > 0) {
+            var modalInstance = $modal.open({
+                templateUrl: '/attach_todo_window',
+                controller: ModalAttachTodoCtrl,
+                resolve: {
+                    file: function(){
+                        return json;
+                    }
                 }
-            }
-        });
+            });
+        }
+        console.log('XXX> ' + todoService.getUnattachedCount());
+
         reportService.addReport(json);
     }
 

@@ -10,6 +10,16 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getCommonMain()
     {
     	return view('common.main');

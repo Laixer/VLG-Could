@@ -29,6 +29,16 @@ class ApiController extends Controller
 		'multipart/x-zip',
 	];
 
+    /**
+     * Instantiate a new UserController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	private function uniqueId($l = 8) {
 		return substr(md5(uniqid(mt_rand(), true)), 0, $l);
 	}

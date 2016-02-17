@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use Storage;
+use Portal;
 use App\Project;
 use App\ProjectThread;
 use App\ProjectTodo;
@@ -61,12 +63,29 @@ class ApiController extends Controller
 		return response()->json(ProjectField::all());
 	}
 
+	public function getProjectCompanies()
+	{
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        $arr = [];
+        foreach ($portal->portalCompanies()['companies'] as $company) {
+        	$obj['id'] = $company['id'];
+        	$obj['name'] = $company['name'];
+        	array_push($arr, $obj);
+        }
+
+		return response()->json($arr);
+	}
+
 	public function getProjectFromId(Request $request, $id)
 	{
 		$obj = Project::find($id);
 		if ($obj) {
 			$obj['status'] = $obj->status;
 			$obj['field'] = $obj->field;
+			$obj['owner'] = $obj->resolveOwner();
+			$obj['client'] = $obj->resolveClient();
 		}
 
 		return response()->json($obj);
@@ -129,6 +148,7 @@ class ApiController extends Controller
 			'number' => 'required|max:30',
 			'reference' => 'required|max:30',
 			'field' => 'required:integer',
+			'client' => 'required:integer',
 		]);
 
 		$project = new Project;
@@ -137,10 +157,13 @@ class ApiController extends Controller
 		$project->reference = $request->input('reference');
 		$project->status_id = 1;
 		$project->field_id = $request->input('field');
+		$project->owner_user_id = Auth::id();
+		$project->client_company_id = $request->input('client');
 
 		$project->save();
 		$project['status'] = $project->status;
 		$project['field'] = $project->field;
+		$project['owner'] = $project->resolveOwner();
 
 		if ($project->field->name == 'Asfalt')
 			$project->loadDefaultTodo();
@@ -174,7 +197,7 @@ class ApiController extends Controller
 		$message = new ProjectThread;
 		$message->message = $request->input('message');
 		$message->project_id = $request->input('project');
-		$message->user_id = 1; //TODO
+		$message->user_id = Auth::id();
 
 		$message->save();
 
@@ -231,8 +254,10 @@ class ApiController extends Controller
 	{
 		$this->validate($request, [
 			'project' => 'required',
-			'note' => 'required',
 		]);
+
+		if (!$request->input('note'))
+			return response()->json(['passed' => true]);
 
 		$project = Project::find($request->input('project'));
 		if (!$project)

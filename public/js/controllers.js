@@ -78,12 +78,17 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
         $scope.fields = response.data;
     });
 
+    $http.get("/api/v1/project_companies").then(function(response) {
+        $scope.companies = response.data;
+    });
+
     $scope.ok = function () {
         data = {
             name: $scope.name,
             number: $scope.number,
             reference: $scope.reference,
-            field: parseInt($scope.wordfield),
+            field: parseInt($scope.workfield),
+            client: parseInt($scope.client),
         };
 
         $http.post("/api/v1/new_project", data).then(function(response) {

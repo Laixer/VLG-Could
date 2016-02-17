@@ -36,13 +36,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('project_details', 'HomeController@getProjectDetails');
 	Route::get('new_project_window', 'HomeController@getNewProjectWindow');
 	Route::get('attach_todo_window', 'HomeController@getAttachTodoWindow');
-	Route::get('principal', 'HomeController@about');
+    Route::get('principal', 'HomeController@about');
 });
 
 Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function () {
 	Route::get('auth/check', 'ApiController@getAuthStatus');
     Route::get('projects', 'ApiController@getProjects');
     Route::get('project_fields', 'ApiController@getProjectFields');
+    Route::get('project_companies', 'ApiController@getProjectCompanies');
     Route::get('project/{id}', 'ApiController@getProjectFromId');
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');
     Route::get('project/{id}/thread', 'ApiController@getProjectThread');

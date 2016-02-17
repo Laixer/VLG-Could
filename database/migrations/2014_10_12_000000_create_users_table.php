@@ -30,19 +30,12 @@ class CreateUsersTable extends Migration
             $table->string('number', 30);
             $table->string('reference', 30);
             $table->text('note');
+            $table->integer('owner_user_id')->unsigned();
+            $table->integer('client_company_id')->unsigned();
             $table->integer('field_id')->unsigned();
             $table->foreign('field_id')->references('id')->on('project_fields');
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('project_statuses');
-            $table->timestamps();
-        });
-
-        Schema::create('project_user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('name');
-            $table->integer('project_id')->unsigned()->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -85,12 +78,11 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('reports');
         Schema::dropIfExists('project_todos');
         Schema::dropIfExists('project_threads');
-        Schema::dropIfExists('project_user');
         Schema::dropIfExists('projects');
         Schema::dropIfExists('project_statuses');
         Schema::dropIfExists('project_fields');
-        Schema::dropIfExists('reports');
     }
 }

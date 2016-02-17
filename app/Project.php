@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Portal;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -61,6 +63,38 @@ class Project extends Model
      */
     public function todo() {
         return $this->hasMany('App\ProjectTodo');
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function resolveOwner() {
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        foreach ($portal->portalUsers()['users'] as $user) {
+            if ($this->owner_user_id == $user['id']) {
+                return $user['name'] . ' ' . $user['last_name'];
+            }
+        }
+
+        return "Onbekend";
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function resolveClient() {
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        foreach ($portal->portalCompanies()['companies'] as $company) {
+            if ($this->client_company_id == $company['id']) {
+                return $company['name'];
+            }
+        }
+
+        return "Onbekend";
     }
 
     /**

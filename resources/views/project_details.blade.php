@@ -1,11 +1,11 @@
-<!-- Wrapper-->
+{{-- Wrapper--}}
 <div id="wrapper" ng-controller="projectDetailCtrl">
 
-    <!-- Page wraper -->
-    <!-- ng-class with current state name give you the ability to extended customization your view -->
+    {{-- Page wraper --}}
+    {{-- ng-class with current state name give you the ability to extended customization your view --}}
     <div id="page-wrapper" class="gray-bg @{{ $state.current.name }}">
 
-        <!-- Page wrapper -->
+        {{-- Page wrapper --}}
         <div ng-include="'/common/header'"></div>
 
         {{-- Content --}}
@@ -58,9 +58,9 @@
                     <dt>Referentie:</dt>
                     <dd>@{{ project.reference }}</dd>
                     <dt>Eigenaar:</dt>
-                    <dd>-</dd>
+                    <dd>@{{ project.owner }}</dd>
                     <dt>Opdrachtgever:</dt>
-                    <dd><a href="" class="text-navy"> -</a></dd>
+                    <dd><span class="text-navy">@{{ project.client }}</span></dd>
                 </dl>
             </div>
             <div class="col-lg-7" id="cluster_info">
@@ -180,18 +180,6 @@
         </div>
         <div class="col-lg-3">
             <div class="wrapper wrapper-content project-manager animated fadeInUp">
-                <h4>Opdrachtgever</h4>
-                <img src="img/zender_logo.png" class="img-responsive">
-
-                <p class="small">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
-                    even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                </p>
-
-                <p class="small font-bold">
-                    <!-- <span><i class="fa fa-circle text-warning"></i> High priority</span> -->
-                    &nbsp;
-                </p>
                 <h3>Upload bestanden</h3>
                 <form action="" class="dropzone" projectid="@{{ project.id }}" drop-zone="" id="file-dropzone">
                    <div class="dz-message text-center" data-dz-message>
@@ -203,13 +191,13 @@
             </div>
         </div>
         </div>
-        <!-- /Content -->
+        {{-- /Content --}}
 
-        <!-- Footer -->
+        {{-- Footer --}}
         <div ng-include="'/common/footer'"></div>
 
     </div>
-    <!-- End page wrapper-->
+    {{-- End page wrapper--}}
 
 </div>
-<!-- End wrapper
+{{-- End wrapper --}}

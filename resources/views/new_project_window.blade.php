@@ -17,10 +17,18 @@
             <label>Referentie</label>
             <input type="text" placeholder="Referentie" ng-model="reference" class="form-control">
         </div>
-        <label>Werkveld</label>
-        <select class="form-control" ng-model="wordfield">
-            <option ng-repeat="field in fields" value="@{{ field.id }}">@{{ field.name }}</option>
-        </select>
+        <div class="form-group">
+            <label>Werkveld</label>
+            <select class="form-control" ng-model="workfield">
+                <option ng-repeat="field in fields" value="@{{ field.id }}">@{{ field.name }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Opdrachtgever</label>
+            <select class="form-control" ng-model="client">
+                <option ng-repeat="company in companies" value="@{{ company.id }}">@{{ company.name }}</option>
+            </select>
+        </div>
 
     </div>
     <div class="modal-footer">

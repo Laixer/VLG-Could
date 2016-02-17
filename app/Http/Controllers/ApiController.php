@@ -46,7 +46,7 @@ class ApiController extends Controller
 	public function getProjects()
 	{
 		$arr = [];
-		foreach (Project::all() as $project) {
+		foreach (Project::where('status_id', '!=', 5)->get() as $project) {
 			$obj = $project;
 			$obj['status'] = $project->status;
 			$obj['field'] = $obj->field;

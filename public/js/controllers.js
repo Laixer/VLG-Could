@@ -72,52 +72,6 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
 
 };
 
-/**
- * modalDemoCtrl - Controller used to run modal view
- * used in Basic form view
- */
-function modalDemoCtrl($scope, $modal) {
-
-    $scope.open = function () {
-
-        var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example.html',
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open1 = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example1.html',
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open2 = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example2.html',
-            controller: ModalInstanceCtrl,
-            windowClass: "animated fadeIn"
-        });
-    };
-
-    $scope.open3 = function (size) {
-        var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example3.html',
-            size: size,
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open4 = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'views/modal_example2.html',
-            controller: ModalInstanceCtrl,
-            windowClass: "animated flipInY"
-        });
-    };
-};
-
 function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectService) {
 
     $http.get("/api/v1/project_fields").then(function(response) {
@@ -206,96 +160,6 @@ function formValidation($scope) {
     }
 
 };
-
-/**
- * sweetAlertCtrl - Function for Sweet alerts
- */
-function sweetAlertCtrl($scope, SweetAlert) {
-
-    $scope.demo1 = function () {
-        SweetAlert.swal({
-            title: "Welcome in Alerts",
-            text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        });
-    }
-
-    $scope.demo2 = function () {
-        SweetAlert.swal({
-            title: "Good job!",
-            text: "You clicked the button!",
-            type: "success"
-        });
-    }
-
-    $scope.demo3 = function () {
-        SweetAlert.swal({
-                title: "Are you sure?",
-                text: "Your will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function () {
-                SweetAlert.swal("Ok!");
-            });
-    }
-
-    $scope.demo4 = function () {
-        SweetAlert.swal({
-                title: "Are you sure?",
-                text: "Your will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel plx!",
-                closeOnConfirm: false,
-                closeOnCancel: false },
-            function (isConfirm) {
-                if (isConfirm) {
-                    SweetAlert.swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                } else {
-                    SweetAlert.swal("Cancelled", "Your imaginary file is safe :)", "error");
-                }
-            });
-    }
-
-}
-
-function toastrCtrl($scope, toaster){
-
-    $scope.demo1 = function(){
-        toaster.success({ body:"Hi, welcome to Inspinia. This is example of Toastr notification box."});
-    };
-
-    $scope.demo2 = function(){
-        toaster.warning({ title: "Title example", body:"This is example of Toastr notification box."});
-    };
-
-    $scope.demo3 = function(){
-        toaster.pop({
-            type: 'info',
-            title: 'Title example',
-            body: 'This is example of Toastr notification box.',
-            showCloseButton: true
-
-        });
-    };
-
-    $scope.demo4 = function(){
-        toaster.pop({
-            type: 'error',
-            title: 'Title example',
-            body: 'This is example of Toastr notification box.',
-            showCloseButton: true,
-            timeout: 600
-        });
-    };
-
-}
 
 function loadingCtrl($scope, $timeout){
 
@@ -618,11 +482,8 @@ function todoCtrl($scope,$stateParams,$http,todoService) {
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
-    .controller('modalDemoCtrl', modalDemoCtrl)
     .controller('loadingCtrl', loadingCtrl)
     .controller('formValidation', formValidation)
-    .controller('sweetAlertCtrl', sweetAlertCtrl)
-    .controller('toastrCtrl', toastrCtrl)
     .controller('projectCtrl', projectCtrl)
     .controller('projectDetailCtrl', projectDetailCtrl)
     .controller('reportCtrl', reportCtrl)

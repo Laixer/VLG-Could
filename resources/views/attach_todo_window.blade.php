@@ -4,10 +4,22 @@
         <small class="font-bold">Voeg informatie aanvraag toe aan bestand.</small>
     </div>
     <div class="modal-body">
-        <label>Opgevraagde informatie</label>
-        <select class="form-control" ng-model="todo">
-            <option ng-repeat="todo in todos" value="@{{ todo.id }}">@{{ todo.message }}</option>
-        </select>
+
+        <!--<div class="form-group">
+            <input icheck type="checkbox" ng-model="done">
+            <label>Definitief</label>
+        </div>-->
+        
+        <div class="form-group">
+            <label>Versie</label>
+            <input type="number" min="1" placeholder="Documentversie" ng-model="version" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Opgevraagde informatie</label>
+            <select class="form-control" ng-model="todo">
+                <option ng-repeat="todo in todos" value="@{{ todo.id }}">@{{ todo.message }}</option>
+            </select>
+        </div>
 
     </div>
     <div class="modal-footer">

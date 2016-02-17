@@ -86,6 +86,7 @@ class ApiController extends Controller
 			$obj['field'] = $obj->field;
 			$obj['owner'] = $obj->resolveOwner();
 			$obj['client'] = $obj->resolveClient();
+			$obj['involved'] = $obj->resolveInvolved();
 		}
 
 		return response()->json($obj);
@@ -175,7 +176,6 @@ class ApiController extends Controller
 		$project->save();
 		$project['status'] = $project->status;
 		$project['field'] = $project->field;
-		$project['owner'] = $project->resolveOwner();
 
 		if ($project->field->name == 'Asfalt')
 			$project->loadDefaultTodo();

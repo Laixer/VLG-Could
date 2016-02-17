@@ -97,7 +97,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
                 $modalInstance.close();
             }
-        },function(response){
+        }, function(response){
             if (response.data.name)
                 $scope.error = response.data.name[0];
             if (response.data.number)
@@ -110,7 +110,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
@@ -124,7 +124,7 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
         $scope.todos = response.data;
     });
 
-    $scope.ok = function () {
+    $scope.ok = function() {
         var todo_id = parseInt($scope.todo);
 
         data = {
@@ -139,7 +139,7 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
 
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
@@ -231,8 +231,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         if ($scope.project.status.priority < 4)
             $scope.project.status.label = 'label-default';
         else
-            $scope.project.status.label = 'label-primary';
-    
+            $scope.project.status.label = 'label-primary';    
     });
 
     $scope.setStatus = function(code) {

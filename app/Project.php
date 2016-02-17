@@ -100,6 +100,20 @@ class Project extends Model
     /**
      * Get the phone record associated with the user.
      */
+    public function resolveInvolved() {
+        $arr = [];
+        foreach ($this->thread()->get() as $user) {
+            $username = $user->resolveUser();
+            if (!in_array($username, $arr))
+                array_push($arr, $user->resolveUser());
+        }
+
+        return $arr;
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
     public function todoAvailableForAttach() {
         $used = $this->reports()->whereNotNull('todo_id')->select('todo_id')->get()->toArray();
         return $this->todo()->whereNotIn('id', $used);

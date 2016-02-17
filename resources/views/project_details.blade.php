@@ -73,7 +73,7 @@
                     <dd>@{{ project.updated_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Betrokkenen:</dt>
                     <dd>
-                        <a href="">-</a>
+                        <span class="text-navy">@{{ project.involved.join(", ") }}</span>
                     </dd>
                 </dl>
             </div>

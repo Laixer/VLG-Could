@@ -123,11 +123,11 @@
                 <div class="feed-activity-list">
                     <div class="feed-element" ng-repeat="message in thread">
                         <a href="" class="@{{ message.pull }}">
-                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                            <img alt="image" class="img-circle" src="img/default-user-icon-profile.png">
                         </a>
 
                         <div class="media-body @{{ message.text }}">
-                            <strong>Mark Johnson</strong> voegde het volgende bericht toe <br>
+                            <strong>@{{ message.name }}</strong> voegde het volgende bericht toe <br>
                             <small class="text-muted">@{{ message.created_at | date: 'd MMMM, yyyy' }}</small>
                             <div>@{{ message.message }}</div>
                         </div>

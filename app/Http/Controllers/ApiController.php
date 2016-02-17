@@ -106,7 +106,19 @@ class ApiController extends Controller
 		if (!$obj)
 			return response()->json([]);
 
-		return response()->json($obj->thread()->orderBy('created_at')->get());
+        $arr = [];
+        foreach ($obj->thread()->orderBy('created_at')->get() as $message) {
+        	$obj = $message;
+        	$obj['isme'] = $obj->user_id == Auth::id();
+        	if ($obj['isme']) {
+        		$obj['name'] = 'Ik';
+        	} else {
+        		$obj['name'] = $obj->resolveUser();
+        	}
+        	array_push($arr, $obj);
+        }
+
+		return response()->json($arr);
 	}
 
 	public function getProjectTodo(Request $request, $id)

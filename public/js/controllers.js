@@ -412,9 +412,13 @@ function threadCtrl($scope,$stateParams,$http) {
             angular.forEach($scope.thread, function(value, key) {
                 value.updated_at = new Date(value.updated_at);
                 value.created_at = new Date(value.created_at);
-                value.pull = 'pull-left';
-                value.text = '';
-
+                if (value.isme){
+                    value.pull = 'pull-right';
+                    value.text = 'text-right';
+                } else {
+                    value.pull = 'pull-left';
+                    value.text = '';
+                }
             });
 
         });
@@ -429,6 +433,7 @@ function threadCtrl($scope,$stateParams,$http) {
         $http.post("/api/v1/new_message", data).then(function(response) {
             response.data.pull = 'pull-right';
             response.data.text = 'text-right';
+            response.data.name = 'Ik'
             $scope.thread.push(response.data);
         });
 

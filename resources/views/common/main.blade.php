@@ -25,40 +25,29 @@
 
 {{-- ControllerAs syntax --}}
 {{-- Main controller with serveral data used in Inspinia theme on diferent view --}}
-<body ng-controller="MainCtrl as main" class="@{{ $state.current.data.specialClass }}" landing-scrollspy id="page-top">
+<body ng-controller="MainCtrl as main" landing-scrollspy id="page-top">
 
-{{-- Main view  --}}
-<div ui-view></div>
+    {{-- Main view  --}}
+    <div ui-view></div>
 
-{{-- jQuery and Bootstrap --}}
-<script src="/js/jquery/jquery-2.1.1.min.js"></script>
-<script src="/js/plugins/jquery-ui/jquery-ui.js"></script>
-<script src="/js/bootstrap/bootstrap.min.js"></script>
+    {{-- jQuery and Bootstrap --}}
+    <script src="/js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/js/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
 
-{{-- MetsiMenu -}}
-<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    {{-- Main Angular scripts--}}
+    <script src="/js/angular/angular.min.js"></script>
+    <script src="/js/angular/angular-sanitize.js"></script>
+    <script src="/js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="/js/ui-router/angular-ui-router.min.js"></script>
+    <script src="/js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
-{{-- SlimScroll -}}
-<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-{{-- Peace JS -}}
-<script src="/js/plugins/pace/pace.min.js"></script>
-
-{{-- Main Angular scripts--}}
-<script src="/js/angular/angular.min.js"></script>
-<script src="/js/angular/angular-sanitize.js"></script>
-<script src="/js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
-<script src="/js/angular-translate/angular-translate.min.js"></script>
-<script src="/js/ui-router/angular-ui-router.min.js"></script>
-<script src="/js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script src="/js/plugins/angular-idle/angular-idle.js"></script>
-
-{{-- Anglar App Script --}}
-<script src="/js/app.js"></script>
-<script src="/js/config.js"></script>
-<script src="/js/directives.js"></script>
-<script src="/js/controllers.js"></script>
-<script src="/js/services.js"></script>
+    {{-- Anglar App Script --}}
+    <script src="/js/app.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/directives.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/services.js"></script>
 
 </body>
 </html>

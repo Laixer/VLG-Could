@@ -40,11 +40,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }
         })
-        .state('validation', {
-            url: "/validation",
-            templateUrl: "/validation",
-            data: { pageTitle: 'Validation' }
-        })
 }
 
 angular

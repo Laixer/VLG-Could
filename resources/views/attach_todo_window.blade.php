@@ -5,10 +5,10 @@
     </div>
     <div class="modal-body">
 
-        <div class="form-group">
+        <div class="form-group" ng-show="write">
             <label><input icheck2 type="checkbox" ng-model="done"> Definitief</label>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-show="write">
             <label>Versie</label>
             <input type="number" min="1" placeholder="Documentversie" ng-disabled="done" ng-model="version" class="form-control">
         </div>

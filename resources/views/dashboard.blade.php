@@ -31,7 +31,7 @@
                 <h5>Alle projecten</h5>
 
                 <div class="ibox-tools">
-                    <button class="btn btn-primary btn-xs" ng-click="open1()">Nieuw project</button>
+                    <button class="btn btn-primary btn-xs" ng-show="auth.write" ng-click="open1()">Nieuw project</button>
                 </div>
             </div>
             <div class="ibox-content">

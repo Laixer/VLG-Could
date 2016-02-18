@@ -3,7 +3,7 @@
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
+function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window, authService) {
 
     $ocLazyLoad.load([
         {
@@ -18,7 +18,11 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
     });
 
     function checkLogin() {
-        $http.get("/api/v1/auth/check").then(function(){},
+        $http.get("/api/v1/auth/check").then(function(response){
+            $scope.auth = response.data;
+            authService.name = response.data.name;
+            authService.write = response.data.write;
+        },
         function(response){
             $interval.cancel($scope.checkAuth);
             if (response.status == 401) {
@@ -64,6 +68,8 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window) {
             }
         });
     };
+
+    checkLogin();
 
     /**
      * initial run for random stacked value
@@ -116,9 +122,11 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 };
 
-function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
+function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, authService) {
 
     $scope.report = file;
+
+    $scope.write = authService.write;
 
     $http.get("/api/v1/project/" + file.project_id + "/todo_available").then(function(response) {
         $scope.todos = response.data;
@@ -170,15 +178,12 @@ function formValidation($scope) {
 
 function loadingCtrl($scope, $timeout){
 
-    // Demo purpose actions
     $scope.runLoading1 = function () {
-        // start loading
         $scope.loading1 = true;
 
         $timeout(function () {
-            // Simulate some service
             $scope.loading1 = false;
-        }, 2000)
+        }, 2000);
     };
 }
 
@@ -250,7 +255,6 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             else
                 $scope.project.status.label = 'label-primary';
         });
-
     }
 
     $scope.showStatus = function(status) {
@@ -439,7 +443,7 @@ function threadCtrl($scope,$stateParams,$http) {
         });
 
         $scope.message = '';        
-    }
+    };
 
 }
 
@@ -469,7 +473,7 @@ function todoCtrl($scope,$stateParams,$http,todoService) {
         });
 
         $scope.item = '';
-    }
+    };
 
     $scope.showTodo = function(id) {
         if (id == 2)
@@ -482,7 +486,7 @@ function todoCtrl($scope,$stateParams,$http,todoService) {
             return true;
 
         return false;
-    }
+    };
 
 }
 

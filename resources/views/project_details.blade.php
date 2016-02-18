@@ -31,7 +31,7 @@
             <div class="col-lg-12">
                 <div class="m-b-md">
 
-                    <div class="dropdown pull-right" ng-if="showStatus(5)">
+                    <div class="dropdown pull-right" ng-if="showStatus(5) && auth.write">
                         <button class="btn btn-white dropdown-toggle" type="button" data-toggle="dropdown">Status <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li ng-if="showStatus(2)"><a href="javascript:void(0);" ng-click="setStatus(2)">Verzoek om informatie</a></li>
@@ -145,17 +145,17 @@
                     </form>
                 </div>
             </tab>
-            <tab heading="Notities" active="isActive[2].active">
+            <tab heading="Notities" active="isActive[2].active" ng-show="auth.write">
                 <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
             </tab>
             <tab heading="Opgevraagde informatie" active="isActive[3].active" ng-controller="todoCtrl" ng-init="init()" ng-show="showTodo(project.status.id)">
                 <ul class="todo-list m-t">
                     <li ng-repeat="todo in todos">
-                        <input icheck type="checkbox" ng-disabled="todo.checked" data-id="@{{ todo.id }}" ng-model="todo.checked">
+                        <input icheck type="checkbox" ng-disabled="todo.checked || !auth.write" data-id="@{{ todo.id }}" ng-model="todo.checked">
                         <span class="m-l-xs">@{{ todo.message }}</span>
                         <a ng-show="todo.report" href="javascript:void(0);" ng-click="gotoReport(todo.report.id)" class="label label-warning"><i class="fa fa-file-o"></i> @{{ todo.report.name }}</a>
                     </li>
-                    <li>
+                    <li ng-show="auth.write">
                         <form ng-submit="addItem()">
                             <div class="input-group">
                                 <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
@@ -164,7 +164,6 @@
                                 </span>
                             </div>
                         </form>
-
                     </li>
                 </ul>
             </tab>

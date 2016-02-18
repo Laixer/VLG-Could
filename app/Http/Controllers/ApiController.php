@@ -52,6 +52,10 @@ class ApiController extends Controller
 			$obj = $project;
 			$obj['status'] = $project->status;
 			$obj['field'] = $obj->field;
+
+			if (!Auth::user()->canWrite())
+				unset($obj['note']);
+
 			array_push($arr, $obj);
 		}
 
@@ -87,6 +91,9 @@ class ApiController extends Controller
 			$obj['owner'] = $obj->resolveOwner();
 			$obj['client'] = $obj->resolveClient();
 			$obj['involved'] = $obj->resolveInvolved();
+
+			if (!Auth::user()->canWrite())
+				unset($obj['note']);
 		}
 
 		return response()->json($obj);
@@ -328,7 +335,13 @@ class ApiController extends Controller
 
 	public function getAuthStatus(Request $request)
 	{
-		return response()->json(['auth' => true]);
+		$obj = array(
+			'auth' => true,
+			'write' => Auth::user()->canWrite() ? true : false,
+			'name' => Auth::user()->formalName(),
+		);
+
+		return response()->json($obj);
 	}
 
 }

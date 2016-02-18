@@ -128,6 +128,11 @@ function todoService() {
     };
 };
 
+function authService() {
+    var name;
+    var write = false;
+};
+
 /**
  *
  * Pass all functions into module
@@ -136,4 +141,5 @@ angular
     .module('inspinia')
     .service('projectService', projectService)
     .service('reportService', reportService)
-    .service('todoService', todoService);
+    .service('todoService', todoService)
+    .service('authService', authService);

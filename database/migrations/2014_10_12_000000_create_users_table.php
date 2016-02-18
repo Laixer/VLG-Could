@@ -63,6 +63,7 @@ class CreateUsersTable extends Migration
             $table->string('location', 120);
             $table->string('mime', 60);
             $table->boolean('done')->default(0);
+            $table->integer('version')->unsigned()->nullable();
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('todo_id')->unsigned()->nullable();

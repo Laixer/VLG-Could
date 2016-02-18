@@ -250,11 +250,20 @@ class ApiController extends Controller
 		$this->validate($request, [
 			'report' => 'required|integer',
 			'todo' => 'required|integer',
+			'version' => 'integer',
 		]);
 
 		$raport = Report::find($request->input('report'));
 		if (!$raport)
 			return response()->json(['error' => 'resource not found'], 404);
+
+		if ($request->input('done'))
+			$raport->done = true;
+
+		if ($request->input('version')) {
+			$raport->version = $request->input('version');
+			$raport->name = 'v' . $raport->version . '-' . $raport->name;
+		}
 
 		$raport->todo_id = $request->input('todo');
 		$raport->save();

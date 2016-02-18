@@ -108,7 +108,7 @@
                             <div class="forum-icon">
                                 <i class="fa @{{ report.icon }}"></i>
                             </div>
-                            <a ng-click="download( report.id )" class="forum-item-title">@{{ report.name }}</a>
+                            <a ng-click="download( report.id )" class="forum-item-title">@{{ report.name }} <span ng-show="report.version" class="text-navy">(revisie @{{ report.version }})</span></a>
                             <div class="forum-sub-title">@{{ report.created_at | date: 'd MMMM, yyyy' }}</div>
                         </div>
                         <div class="col-md-3 text-right">

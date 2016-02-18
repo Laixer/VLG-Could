@@ -5,14 +5,12 @@
     </div>
     <div class="modal-body">
 
-        <!--<div class="form-group">
-            <input icheck type="checkbox" ng-model="done">
-            <label>Definitief</label>
-        </div>-->
-        
+        <div class="form-group">
+            <label><input icheck2 type="checkbox" ng-model="done"> Definitief</label>
+        </div>
         <div class="form-group">
             <label>Versie</label>
-            <input type="number" min="1" placeholder="Documentversie" ng-model="version" class="form-control">
+            <input type="number" min="1" placeholder="Documentversie" ng-disabled="done" ng-model="version" class="form-control">
         </div>
         <div class="form-group">
             <label>Opgevraagde informatie</label>

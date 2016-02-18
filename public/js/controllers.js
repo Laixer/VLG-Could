@@ -130,6 +130,8 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService) {
         data = {
             report: file.id,
             todo: todo_id,
+            done: $scope.done,
+            version: $scope.version,
         };
 
         $http.post("/api/v1/update_report", data).then(function(response) {

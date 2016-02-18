@@ -75,7 +75,6 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window, aut
      * initial run for random stacked value
      */
     $scope.checkAuth = $interval(checkLogin, 60000);
-
 };
 
 function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectService) {
@@ -89,6 +88,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
     });
 
     $scope.ok = function () {
+
         data = {
             name: $scope.name,
             number: $scope.number,
@@ -105,13 +105,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
             }
         }, function(response){
             if (response.data.name)
-                $scope.error = response.data.name[0];
-            if (response.data.number)
-                $scope.error = response.data.number[0];
-            if (response.data.reference)
-                $scope.error = response.data.number[0];
-            if (response.data.field)
-                $scope.error = response.data.field[0];
+              $scope.newproject.name.used = true;
         });
 
     };
@@ -209,6 +203,33 @@ function projectCtrl($scope,$modal,$http,projectService) {
     };
 
     $scope.projects = projectService.getProjects();
+
+    function fix_height() {
+        var heightWithoutNavbar = $("body > #wrapper").height() - 61;
+        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
+
+        var navbarHeigh = $('nav.navbar-default').height();
+        var wrapperHeigh = $('#page-wrapper').height();
+
+        if (navbarHeigh > wrapperHeigh) {
+            $('#page-wrapper').css("min-height", navbarHeigh + "px");
+        }
+
+        if (navbarHeigh < wrapperHeigh) {
+            $('#page-wrapper').css("min-height", $(window).height() + "px");
+        }
+
+        if ($('body').hasClass('fixed-nav')) {
+            if (navbarHeigh > wrapperHeigh) {
+                $('#page-wrapper').css("min-height", navbarHeigh - 60 + "px");
+            } else {
+                $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+            }
+        }
+
+    }
+
+    fix_height();
 };
 
 function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportService,todoService) {
@@ -292,6 +313,32 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         $http.post("/api/v1/update_note", data);
     };
 
+    function fix_height() {
+        var heightWithoutNavbar = $("body > #wrapper").height() - 61;
+        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
+
+        var navbarHeigh = $('nav.navbar-default').height();
+        var wrapperHeigh = $('#page-wrapper').height();
+
+        if (navbarHeigh > wrapperHeigh) {
+            $('#page-wrapper').css("min-height", navbarHeigh + "px");
+        }
+
+        if (navbarHeigh < wrapperHeigh) {
+            $('#page-wrapper').css("min-height", $(window).height() + "px");
+        }
+
+        if ($('body').hasClass('fixed-nav')) {
+            if (navbarHeigh > wrapperHeigh) {
+                $('#page-wrapper').css("min-height", navbarHeigh - 60 + "px");
+            } else {
+                $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+            }
+        }
+
+    }
+
+    fix_height();
 };
 
 function reportCtrl($scope,$stateParams,$http,reportService) {

@@ -1,13 +1,13 @@
-<!-- Wrapper-->
+{{-- Wrapper--}}
 <div id="wrapper">
 
-    <!-- Page wraper -->
+    {{-- Page wraper --}}
     <div id="page-wrapper" class="gray-bg @{{ $state.current.name }}">
 
-        <!-- Page wrapper -->
+        {{-- Page wrapper --}}
         <div ng-include="'/common/header'"></div>
 
-        <!-- Content -->
+        {{-- Content --}}
         <toaster-container></toaster-container>
 
         <div class="row wrapper border-bottom white-bg page-heading">
@@ -73,7 +73,7 @@
                             <small>Gewijzigd op: @{{ project.updated_at | date: 'd MMMM, yyyy' }}</small>
                         </td>
                         <td class="project-actions">
-                            <a ui-sref="project({ name: project.name, id: project.id })" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Project details </a>
+                            <a ui-sref="project({ name: project.name, id: project.id })" class="btn btn-white btn-sm"> Project details </a>
                         </td>
                     </tr>
                     <tr ng-if="resultsx.length == 0">
@@ -91,13 +91,13 @@
         </div>
 
         </div>
-        <!-- /Content -->
+        {{-- /Content --}}
 
-        <!-- Footer -->
+        {{-- Footer --}}
         <div ng-include="'/common/footer'"></div>
 
     </div>
-    <!-- End page wrapper-->
+    {{-- End page wrapper--}}
 
 </div>
-<!-- End wrapper
+{{-- End wrapper --}}

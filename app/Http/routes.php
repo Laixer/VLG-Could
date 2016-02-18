@@ -51,11 +51,14 @@ Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function ()
     Route::get('project/{id}/todo_available', 'ApiController@getProjectTodoAvailable');
     Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
     Route::post('upload', 'ApiController@doNewFile');
-    Route::post('new_project', 'ApiController@doNewProject');
     Route::post('new_message', 'ApiController@doNewMessage');
     Route::post('new_todo', 'ApiController@doNewTodo');
     Route::post('update_report', 'ApiController@doUpdateReport');
-    Route::post('update_note', 'ApiController@doUpdateNote');
+});
+
+Route::group(['middleware' => ['web', 'auth.edit'],'prefix' => 'api/v1'], function () {
+    Route::post('new_project', 'ApiController@doNewProject');
     Route::post('update_status', 'ApiController@doUpdateStatus');
+    Route::post('update_note', 'ApiController@doUpdateNote');
     Route::post('update_todo', 'ApiController@doUpdateTodo');
 });

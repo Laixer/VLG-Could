@@ -264,10 +264,10 @@ class ApiController extends Controller
 		if (!$raport)
 			return response()->json(['error' => 'resource not found'], 404);
 
-		if ($request->input('done'))
+		if ($request->input('done') && Auth::user()->canWrite())
 			$raport->done = true;
 
-		if ($request->input('version')) {
+		if ($request->input('version') && Auth::user()->canWrite()) {
 			$raport->version = $request->input('version');
 			$raport->name = 'v' . $raport->version . '-' . $raport->name;
 		}
@@ -308,6 +308,7 @@ class ApiController extends Controller
 		if (!$project)
 			return response()->json(['error' => 'invalid project'], 406);
 
+		//TODO
 		// if ($project->status->priority > $request->input('status'))
 			// return response()->json(['error' => 'invalid status'], 406);
 

@@ -40,65 +40,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }
         })
-        .state('modal_window', {
-            url: "/modal_window",
-            templateUrl: "/modal_window",
-            data: { pageTitle: 'Modal window' }
-        })
-        .state('sweet_alert', {
-            url: "/sweet_alert",
-            templateUrl: "/sweet_alert",
-            data: { pageTitle: 'Sweet alert' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
-                        },
-                        {
-                            name: 'oitozero.ngSweetAlert',
-                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
         .state('validation', {
             url: "/validation",
             templateUrl: "/validation",
             data: { pageTitle: 'Validation' }
-        })
-        .state('toastr', {
-            url: "/toastr",
-            templateUrl: "/toastr",
-            data: { pageTitle: 'Toastr' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            insertBefore: '#loadBefore',
-                            name: 'toaster',
-                            files: ['js/plugins/toastr/toastr.min.js', 'css/plugins/toastr/toastr.min.css']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('loading_buttons', {
-            url: "/loading_buttons",
-            templateUrl: "/loading_buttons",
-            data: { pageTitle: 'Loading buttons' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            name: 'angular-ladda',
-                            files: ['js/plugins/ladda/spin.min.js', 'js/plugins/ladda/ladda.min.js', 'css/plugins/ladda/ladda-themeless.min.css','js/plugins/ladda/angular-ladda.min.js']
-                        }
-                    ]);
-                }
-            }
         })
 }
 

@@ -78,10 +78,21 @@ function reportService() {
         reportList = [];
     };
 
+    var update = function(obj){
+        for (var i in reportList) {
+            if (reportList[i].id == obj.id) {
+                if (obj.done > 0)
+                    reportList[i].label = 'active';
+                reportList[i].version = obj.version;
+            }
+        }
+    };
+
     return {
         addReport: addReport,
         getReport: getReport,
-        clear: clear
+        clear: clear,
+        update: update,
     };
 };
 

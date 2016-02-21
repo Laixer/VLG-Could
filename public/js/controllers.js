@@ -116,7 +116,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 };
 
-function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, authService) {
+function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, authService, reportService) {
 
     $scope.report = file;
 
@@ -138,6 +138,8 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
 
         $http.post("/api/v1/update_report", data).then(function(response) {
             todoService.attach(todo_id, response.data);
+            reportService.update(response.data);
+            // console.log(response);
             $modalInstance.close();
         });
 

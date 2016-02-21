@@ -18,7 +18,7 @@ class AuthenticateEdit
     {
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
-                return response()->json(['error' => 'unauthorized'], 401);
+                return response()->json(['error' => 'unauthorized 2'], 401);
             } else {
                 return redirect()->guest('/auth');
             }

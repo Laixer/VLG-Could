@@ -12,6 +12,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->unique();
+            $table->integer('user_id')->nullable();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('payload');
+            $table->integer('last_activity');
+        });
+
         Schema::create('project_fields', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30);
@@ -94,5 +103,6 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('projects');
         Schema::dropIfExists('project_statuses');
         Schema::dropIfExists('project_fields');
+        Schema::dropIfExists('sessions');
     }
 }

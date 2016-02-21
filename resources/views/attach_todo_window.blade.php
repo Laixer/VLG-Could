@@ -5,6 +5,7 @@
     </div>
     <div class="modal-body">
 
+        <h4>Document beschikbaar stellen als rapportage</h4>
         <div class="form-group" ng-show="write">
             <label><input icheck2 type="checkbox" ng-model="done"> Definitief</label>
         </div>
@@ -14,7 +15,7 @@
         </div>
         <hr ng-show="showTodo()" />
         <div class="form-group" ng-show="showTodo()">
-            <label>Opgevraagde informatie</label>
+            <label>Document koppelen aan opgevraagde informatie</label>
             <select class="form-control" ng-model="todo">
                 <option ng-repeat="todo in todos" value="@{{ todo.id }}">@{{ todo.message }}</option>
             </select>
@@ -23,6 +24,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" ng-click="cancel()">Sluiten</button>
-        <button type="button" class="btn btn-primary" ng-click="ok()">Koppelen</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">Opslaan</button>
     </div>
 </div>

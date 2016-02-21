@@ -263,7 +263,6 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
                 value.highlight = 'forum-highlight';
             }
         });
-
     };
 
     $http.get("/api/v1/project/" + $stateParams.id).then(function(response) {
@@ -294,6 +293,13 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
                 $scope.project.status.label = 'label-default';
             else
                 $scope.project.status.label = 'label-primary';
+        });
+    }
+
+    $scope.setProjectClose = function() {
+        $http.post("/api/v1/project_close", { project: $scope.project.id }).then(function(response) {
+            $scope.project.status = response.data;
+            $scope.project.status.label = 'label-primary';
         });
     }
 
@@ -329,6 +335,26 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
 
         $http.post("/api/v1/update_note", data);
     };
+
+    $scope.canCloseProject = function() {
+        if (!$scope.project)
+            return false;
+
+        if ($scope.project.status.priority == 5)
+            return false;
+
+        var count = 0;
+        angular.forEach(reportService.getReport(), function(value, key) {
+            if (value.done > 0) {
+                count++;
+            }
+        });
+
+        if (count > 0)
+            return true;
+
+        return false;
+    }
 
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;

@@ -40,6 +40,9 @@
                             <li><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
+                    <div class="pull-right" ng-if="canCloseProject() && !auth.write" >
+                        <button ng-click="setProjectClose()" class="btn btn-primary" type="button"><span class="bold">Project sluiten</span></button>
+                    </div>
                     <h2>Project @{{ project.name }}</h2>
 
                 </div>

@@ -353,10 +353,6 @@ class ApiController extends Controller
 		if (!$project)
 			return response()->json(['error' => 'invalid project'], 406);
 
-		//TODO
-		// if ($project->status->priority > $request->input('status'))
-			// return response()->json(['error' => 'invalid status'], 406);
-
 		$project->status_id = $request->input('status');
 		$project->save();
 
@@ -383,6 +379,26 @@ class ApiController extends Controller
 		(new Audit('Todo ' . $todo->message . ' afgevinkt', $todo->project_id))->save();
 
 		return response()->json(['saved' => true]);
+	}
+
+	public function doProjectClose(Request $request)
+	{
+		$this->validate($request, [
+			'project' => 'required',
+		]);
+
+		$project = Project::find($request->input('project'));
+		if (!$project)
+			return response()->json(['error' => 'invalid project'], 406);
+
+		$project->status_id = 5;
+		$project->save();
+
+		(new Audit('Project ' . $project->status->name . ' gesloten', $project->id))->save();
+
+		event(new ProjectStatusChange($project));
+
+		return response()->json($project->status);
 	}
 
 	public function getAuthStatus(Request $request)

@@ -109,7 +109,7 @@ class Project extends Model
      */
     public function resolveInvolved() {
         $arr = [];
-        foreach ($this->thread()->get() as $user) {
+        foreach ($this->audit()->get() as $user) {
             $username = $user->resolveUser();
             if (!in_array($username, $arr))
                 array_push($arr, $user->resolveUser());

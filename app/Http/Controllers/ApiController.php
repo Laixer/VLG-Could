@@ -148,6 +148,9 @@ class ApiController extends Controller
 
 	public function getProjectAudit(Request $request, $id)
 	{
+		if (!Auth::user()->isAdmin())
+			return response()->json([]);			
+
 		$project = Project::find($id);
 		if (!$project)
 			return response()->json([]);

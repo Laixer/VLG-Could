@@ -12,8 +12,8 @@
             <label>Versie</label>
             <input type="number" min="1" placeholder="Documentversie" ng-disabled="done" ng-model="version" class="form-control">
         </div>
-        <hr />
-        <div class="form-group" ng-if="!version && !done">
+        <hr ng-show="showTodo()" />
+        <div class="form-group" ng-show="showTodo()">
             <label>Opgevraagde informatie</label>
             <select class="form-control" ng-model="todo">
                 <option ng-repeat="todo in todos" value="@{{ todo.id }}">@{{ todo.message }}</option>

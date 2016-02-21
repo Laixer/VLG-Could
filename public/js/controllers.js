@@ -127,6 +127,22 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
         $scope.todos = response.data;
     });
 
+    $scope.showTodo = function() {
+        if ($scope.done)
+            return false;
+
+        if ($scope.version)
+            return false;
+
+        if (!$scope.todos)
+            return false;
+
+        if (!$scope.todos.length)
+            return false;
+
+        return true;
+    };
+
     $scope.ok = function() {
         var todo_id = parseInt($scope.todo);
 
@@ -292,17 +308,15 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
     }
 
     $scope.addReport = function(json) {
-        if (todoService.getUnattachedCount() > 0) {
-            var modalInstance = $modal.open({
-                templateUrl: '/attach_todo_window',
-                controller: ModalAttachTodoCtrl,
-                resolve: {
-                    file: function(){
-                        return json;
-                    }
+        var modalInstance = $modal.open({
+            templateUrl: '/attach_todo_window',
+            controller: ModalAttachTodoCtrl,
+            resolve: {
+                file: function(){
+                    return json;
                 }
-            });
-        }
+            }
+        });
 
         reportService.addReport(json);
     }
@@ -442,12 +456,10 @@ function reportCtrl($scope,$stateParams,$http,reportService) {
             }
 
             if(!success) {
-                // Fallback to window.open method
                 window.open(httpPath, '_blank', '');
             }
         })
         .error(function(data, status) {
-            // Optionally write the error out to scope
             $scope.errorDetails = "Request failed with status: " + status;
         });
     };

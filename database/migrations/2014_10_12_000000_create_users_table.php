@@ -12,7 +12,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-
         Schema::create('project_fields', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30);
@@ -70,6 +69,15 @@ class CreateUsersTable extends Migration
             $table->foreign('todo_id')->references('id')->on('project_todos');
             $table->timestamps();
         });
+
+        Schema::create('audits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('project_id')->unsigned()->nullable();
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->string('action');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -79,6 +87,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('audits');
         Schema::dropIfExists('reports');
         Schema::dropIfExists('project_todos');
         Schema::dropIfExists('project_threads');

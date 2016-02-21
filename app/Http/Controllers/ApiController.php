@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Storage;
 use Portal;
+use App\Audit;
 use App\Project;
 use App\ProjectThread;
 use App\ProjectTodo;
@@ -131,8 +132,12 @@ class ApiController extends Controller
 
 	public function getProjectTodo(Request $request, $id)
 	{
+		$project = Project::find($id);
+		if (!$project)
+			return response()->json([]);
+
 		$arr = [];
-		foreach (Project::find($id)->todo as $todo) {
+		foreach ($project->todo as $todo) {
 			$obj = $todo;
 			$obj['report'] = $todo->report()->select(['id','name'])->first();
 			array_push($arr, $obj);
@@ -187,6 +192,8 @@ class ApiController extends Controller
 		if ($project->field->name == 'Asfalt')
 			$project->loadDefaultTodo();
 
+		(new Audit('Project ' . $project->name . ' aangemaakt', $project->id))->save();
+
 		return response()->json($project);
 	}
 
@@ -202,6 +209,8 @@ class ApiController extends Controller
 		$todo->project_id = $request->input('project');
 
 		$todo->save();
+
+		(new Audit('Todo ' . $todo->message . ' toegevoegd', $todo->project_id))->save();
 
 		return response()->json($todo);
 	}
@@ -219,6 +228,8 @@ class ApiController extends Controller
 		$message->user_id = Auth::id();
 
 		$message->save();
+
+		(new Audit('Bericht ' . $message->message . ' toegevoegd', $message->project_id))->save();
 
 		return response()->json($message);
 	}
@@ -245,6 +256,8 @@ class ApiController extends Controller
 			$report->project_id = $project->id;
 
 			$report->save();
+
+			(new Audit('Rapport ' . $report->name . ' geupload', $report->project_id))->save();
 
 			return response()->json($report);
 		}
@@ -277,6 +290,8 @@ class ApiController extends Controller
 
 		$report->save();
 
+		(new Audit('Rapport ' . $report->name . ' gekoppeld', $report->project_id))->save();
+
 		return response()->json($report);
 	}
 
@@ -295,6 +310,8 @@ class ApiController extends Controller
 
 		$project->note = $request->input('note');
 		$project->save();
+
+		(new Audit('Notitie aangepast', $project->id))->save();
 
 		return response()->json(['saved' => true]);
 	}
@@ -317,6 +334,8 @@ class ApiController extends Controller
 		$project->status_id = $request->input('status');
 		$project->save();
 
+		(new Audit('Status naar ' . $project->status->name . ' aangepast', $project->id))->save();
+
 		return response()->json($project->status);
 	}
 
@@ -332,6 +351,8 @@ class ApiController extends Controller
 
 		$todo->done = true;
 		$todo->save();
+
+		(new Audit('Todo ' . $todo->message . ' afgevinkt', $todo->project_id))->save();
 
 		return response()->json(['saved' => true]);
 	}

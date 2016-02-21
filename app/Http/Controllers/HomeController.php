@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Mail;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -57,6 +58,12 @@ class HomeController extends Controller
 
     public function about(Request $request)
     {
-        dd(Auth::user());
+        // dd(Auth::user());
+
+        Mail::raw('Kaas, gewoon kaas', function ($message) {
+            $message->subject('Test');
+            $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+            $message->to('yorick17@outlook.com', 'Yorick de Wid');
+        });
     }
 }

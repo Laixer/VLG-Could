@@ -142,6 +142,7 @@ function todoService() {
 function authService() {
     var name;
     var write = false;
+    var admin = false;
 };
 
 /**

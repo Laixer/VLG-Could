@@ -48,6 +48,7 @@ Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function ()
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');
     Route::get('project/{id}/thread', 'ApiController@getProjectThread');
     Route::get('project/{id}/todo', 'ApiController@getProjectTodo');
+    Route::get('project/{id}/audit', 'ApiController@getProjectAudit');
     Route::get('project/{id}/todo_available', 'ApiController@getProjectTodoAvailable');
     Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
     Route::post('upload', 'ApiController@doNewFile');

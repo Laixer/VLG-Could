@@ -168,6 +168,28 @@
                 </ul>
             </tab>
 
+            <tab heading="Acties" active="isActive[4].active" ng-controller="auditCtrl" ng-init="init()" ng-show="auth.admin">
+
+                <h3>Laatste 25 acties</h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Gebruiker</th>
+                            <th>Actie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="action in audits">
+                            <td>@{{ action.created_at | date: 'd MMMM, yyyy HH:mm:ss' }}</td>
+                            <td>@{{ action.name }}</td>
+                            <td>@{{ action.action }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+
         </tabset>
 
         </div>

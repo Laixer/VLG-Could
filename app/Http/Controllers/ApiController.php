@@ -139,7 +139,23 @@ class ApiController extends Controller
 		$arr = [];
 		foreach ($project->todo as $todo) {
 			$obj = $todo;
-			$obj['report'] = $todo->report()->select(['id','name'])->first();
+			$obj['report'] = $obj->report()->select(['id','name'])->first();
+			array_push($arr, $obj);
+		}
+
+		return response()->json($arr);
+	}
+
+	public function getProjectAudit(Request $request, $id)
+	{
+		$project = Project::find($id);
+		if (!$project)
+			return response()->json([]);
+
+		$arr = [];
+		foreach($project->audit()->orderBy('created_at', 'desc')->limit(25)->get() as $audit) {
+			$obj = $audit;
+			$obj['name'] = $obj->resolveUser();
 			array_push($arr, $obj);
 		}
 
@@ -362,6 +378,7 @@ class ApiController extends Controller
 		$obj = array(
 			'auth' => true,
 			'write' => Auth::user()->canWrite() ? true : false,
+			'admin' => Auth::user()->isAdmin() ? true : false,
 			'name' => Auth::user()->formalName(),
 		);
 

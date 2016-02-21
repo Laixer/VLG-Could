@@ -3,6 +3,7 @@
 namespace App;
 
 use Auth;
+use Portal;
 use Illuminate\Database\Eloquent\Model;
 
 class Audit extends Model

@@ -68,6 +68,13 @@ class Project extends Model
     /**
      * Get the phone record associated with the user.
      */
+    public function audit() {
+        return $this->hasMany('App\Audit');
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
     public function resolveOwner() {
         $portal = Portal::driver('vlgportal');
         $portal->setToken(Auth::token());

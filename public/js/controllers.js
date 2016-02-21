@@ -22,6 +22,7 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window, aut
             $scope.auth = response.data;
             authService.name = response.data.name;
             authService.write = response.data.write;
+            authService.admin = response.data.admin;
         },
         function(response){
             $interval.cancel($scope.checkAuth);
@@ -539,6 +540,21 @@ function todoCtrl($scope,$stateParams,$http,todoService) {
 
 }
 
+function auditCtrl($scope,$stateParams,$http,todoService) {
+
+    $scope.init = function() {
+
+        $http.get("/api/v1/project/" + $stateParams.id + "/audit").then(function(response) {
+            $scope.audits = response.data;
+            angular.forEach($scope.audits, function(value, key) {
+                value.updated_at = new Date(value.updated_at);
+                value.created_at = new Date(value.created_at);
+            });
+        });
+    };
+
+}
+
 /**
  *
  * Pass all functions into module
@@ -552,4 +568,5 @@ angular
     .controller('projectDetailCtrl', projectDetailCtrl)
     .controller('reportCtrl', reportCtrl)
     .controller('threadCtrl', threadCtrl)
-    .controller('todoCtrl', todoCtrl);
+    .controller('todoCtrl', todoCtrl)
+    .controller('auditCtrl', auditCtrl);

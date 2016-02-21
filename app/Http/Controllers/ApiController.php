@@ -13,6 +13,9 @@ use App\ProjectThread;
 use App\ProjectTodo;
 use App\ProjectField;
 use App\Report;
+use App\Events\ProjectStatusChange;
+use App\Events\ProjectUploadReport;
+use App\Events\ProjectUpdateReport;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -278,6 +281,8 @@ class ApiController extends Controller
 
 			(new Audit('Rapport ' . $report->name . ' geupload', $report->project_id))->save();
 
+			event(new ProjectUploadReport($report));
+
 			return response()->json($report);
 		}
 
@@ -310,6 +315,8 @@ class ApiController extends Controller
 		$report->save();
 
 		(new Audit('Rapport ' . $report->name . ' gekoppeld', $report->project_id))->save();
+
+		event(new ProjectUpdateReport($report));
 
 		return response()->json($report);
 	}
@@ -354,6 +361,8 @@ class ApiController extends Controller
 		$project->save();
 
 		(new Audit('Status naar ' . $project->status->name . ' aangepast', $project->id))->save();
+
+		event(new ProjectStatusChange($project));
 
 		return response()->json($project->status);
 	}

@@ -14,7 +14,15 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\ProjectStatusChange' => [
-            'App\Listeners\EventListener',
+            'App\Listeners\ProjectStatusNotification',
+            'App\Listeners\ProjectClose',
+        ],
+        'App\Events\ProjectUploadReport' => [
+            'App\Listeners\ProjectReportTodoComplete',
+        ],
+        'App\Events\ProjectUpdateReport' => [
+            'App\Listeners\ProjectReportConcept',
+            'App\Listeners\ProjectReportFinal',
         ],
     ];
 

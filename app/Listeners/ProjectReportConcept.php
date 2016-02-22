@@ -34,7 +34,7 @@ class ProjectReportConcept
                 $message->to($email, $contact);
             });
 
-            (new Audit('Email concept geupload', $project->id))->save();
+            (new Audit('Email concept geupload verstuurd', $project->id))->save();
         }
 
     }

@@ -34,7 +34,7 @@ class ProjectReportFinal
                 $message->to($email, $contact);
             });
 
-            (new Audit('Email definitief geupload', $project->id))->save();
+            (new Audit('Email definitief geupload verstuurd', $project->id))->save();
         }
 
     }

@@ -34,7 +34,7 @@ class ProjectReportTodoComplete
                 $message->to($email, $contact);
             });
 
-            (new Audit('Email alle bestanden aanwezig', $project->id))->save();
+            (new Audit('Email alle bestanden aanwezig verstuurd', $project->id))->save();
         }
     }
 }

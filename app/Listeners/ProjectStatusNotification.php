@@ -26,12 +26,14 @@ class ProjectStatusNotification
         if (!$email || !$contact)
             return;
 
-        Mail::raw('Email A', function ($message) use ($project, $email, $contact) {
-            $message->subject('Subject email A');
-            $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-            $message->to($email, $contact);
-        });
+        if ($project->status->priority == 2) {
+            Mail::raw('Email A', function ($message) use ($project, $email, $contact) {
+                $message->subject('Subject email A');
+                $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                $message->to($email, $contact);
+            });
 
-        (new Audit('Email nieuwe projectstatus verstuurd', $project->id))->save();
+            (new Audit('Email nieuwe verzoek tot informatie verstuurd', $project->id))->save();
+        }
     }
 }

@@ -8,7 +8,7 @@ use App\Events\ProjectUpdateReport;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ProjectReportFinal
+class ProjectReportConcept
 {
     /**
      * Handle the event.

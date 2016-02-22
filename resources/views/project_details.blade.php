@@ -112,7 +112,7 @@
                     <h3>@{{ reports.length }} Bestanden beschikbaar</h3>
                 </div>
 
-                <div class="forum-item @{{ report.label }} @{{ report.highlight }}" ng-repeat="report in reports | orderBy: '-updated_at'" ng-mouseenter="report.highlight=''">
+                <div class="forum-item @{{ report.label }} @{{ report.highlight }}" ng-repeat="report in reports | orderBy: '-created_at'" ng-mouseenter="report.highlight=''">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="forum-icon">

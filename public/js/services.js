@@ -84,6 +84,7 @@ function reportService() {
                 if (obj.done > 0)
                     reportList[i].label = 'active';
                 reportList[i].version = obj.version;
+                reportList[i].name = obj.name;
             }
         }
     };

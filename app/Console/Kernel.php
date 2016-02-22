@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
             $projects = Project::where('status_id', '!=', 5)->get();
             event(new ProjectReminder($projects));
         // })->dailyAt('08:00');
-        })->everyMinute();
+        // })->everyMinute();
+        })->everyTenMinutes();
     }
 }

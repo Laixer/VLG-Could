@@ -116,13 +116,13 @@ class ProjectReminderNotification
              * - Todo items available
              */
             if ($project->status->priority == 2 && $project->todoAvailableForAttach()->count() > 0) {
-                if (Carbon::now()->gt($expire3))
+                // if (Carbon::now()->gt($expire3))
                     $this->InformationRequestLast($project, $email, $contact);
 
-                else if (Carbon::now()->gt($expire2))
+                // else if (Carbon::now()->gt($expire2))
                     $this->InformationRequestSecond($project, $email, $contact);
 
-                else if (Carbon::now()->gt($expire))
+                // else if (Carbon::now()->gt($expire))
                     $this->InformationRequestFirst($project, $email, $contact);
             }
 
@@ -133,13 +133,13 @@ class ProjectReminderNotification
              * - Project condition is not set
              */
             if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->whereNotNull('done')->count() == 0 && $project->confirmed == -1) {
-                if (Carbon::now()->gt($expire3))
+                // if (Carbon::now()->gt($expire3))
                     $this->ConceptRemindertLast($project, $email, $contact);
 
-                else if (Carbon::now()->gt($expire2))
+                // else if (Carbon::now()->gt($expire2))
                     $this->ConceptReminderSecond($project, $email, $contact);
 
-                else if (Carbon::now()->gt($expire))
+                // else if (Carbon::now()->gt($expire))
                     $this->ConceptReminderFirst($project, $email, $contact);
             }
         }

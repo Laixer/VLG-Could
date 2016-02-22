@@ -99,7 +99,6 @@ class ProjectReminderNotification
     public function handle(ProjectReminder $event)
     {
         foreach ($event->projects as $project) {
-
             $email = $project->resolveContactEmail();
             $contact = $project->resolveContact();
 
@@ -115,7 +114,7 @@ class ProjectReminderNotification
              * - Project status is Request For information
              * - Todo items available
              */
-            if ($project->status->priority == 2 && $project->todoAvailableForAttach()->count() > 0) {
+            if ($project->status->priority == 2 && !$project->todoAllDone()) {
                 // if (Carbon::now()->gt($expire3))
                     $this->InformationRequestLast($project, $email, $contact);
 

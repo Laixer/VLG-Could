@@ -158,6 +158,13 @@ class Project extends Model
         return $this->todo()->whereNotIn('id', $used);
     }
 
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function todoAllDone() {
+        return $this->todo()->count() == $this->todo()->where('done', true)->count();
+    }
+
     public function loadDefaultTodo() {
         $todo = new ProjectTodo;
         $todo->message = 'Bestek (met opbouw van asfalt) ';

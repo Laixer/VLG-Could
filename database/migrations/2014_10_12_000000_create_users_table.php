@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration
             $table->text('note');
             $table->integer('owner_user_id')->unsigned();
             $table->integer('client_company_id')->unsigned();
+            $table->integer('contact_client_id')->unsigned();
             $table->integer('field_id')->unsigned();
             $table->foreign('field_id')->references('id')->on('project_fields');
             $table->integer('status_id')->unsigned();

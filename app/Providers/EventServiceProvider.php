@@ -17,10 +17,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\ProjectStatusNotification',
             'App\Listeners\ProjectClose',
         ],
-        'App\Events\ProjectUploadReport' => [
-            'App\Listeners\ProjectReportTodoComplete',
-        ],
         'App\Events\ProjectUpdateReport' => [
+            'App\Listeners\ProjectReportTodoComplete',
             'App\Listeners\ProjectReportConcept',
             'App\Listeners\ProjectReportFinal',
         ],

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use Mail;
+use App\Audit;
 use App\Events\ProjectStatusChange;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,12 +19,19 @@ class ProjectStatusNotification
     public function handle(ProjectStatusChange $event)
     {
         $project = $event->project;
-        return;
 
-        Mail::raw($project->name . ' , gewoon kaas', function ($message) use ($project) {
-            $message->subject('Project is geupdatet');
+        $email = $project->resolveContactEmail();
+        $contact = $project->resolveContact();
+
+        if (!$email || !$contact)
+            return;
+
+        Mail::raw('Email A', function ($message) use ($project) {
+            $message->subject('Subject email A');
             $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-            $message->to('yorick17@outlook.com', 'Yorick de Wid');
+            $message->to($email, $contact);
         });
+
+        (new Audit('Email nieuwe projectstatus verstuurd', $project->id))->save();
     }
 }

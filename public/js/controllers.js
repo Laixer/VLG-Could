@@ -88,6 +88,12 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
         $scope.companies = response.data;
     });
 
+    $scope.reloadClients = function() {
+        $http.get("/api/v1/project_company/" + parseInt($scope.client) + "/users").then(function(response) {
+            $scope.contacts = response.data;
+        });
+    }
+
     $scope.ok = function () {
 
         data = {
@@ -96,6 +102,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
             reference: $scope.reference,
             field: parseInt($scope.workfield),
             client: parseInt($scope.client),
+            contact: parseInt($scope.client_contact),
         };
 
         $http.post("/api/v1/new_project", data).then(function(response) {
@@ -156,7 +163,6 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
         $http.post("/api/v1/update_report", data).then(function(response) {
             todoService.attach(todo_id, response.data);
             reportService.update(response.data);
-            // console.log(response);
             $modalInstance.close();
         });
 
@@ -168,51 +174,19 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
 
 };
 
-/**
- * formValidation - Controller for validation example
- */
-function formValidation($scope) {
-
-    $scope.signupForm = function() {
-        if ($scope.signup_form.$valid) {
-            // Submit as normal
-        } else {
-            $scope.signup_form.submitted = true;
-        }
-    }
-
-    $scope.signupForm2 = function() {
-        if ($scope.signup_form.$valid) {
-            // Submit as normal
-        }
-    }
-
-};
-
-function loadingCtrl($scope, $timeout){
-
-    $scope.runLoading1 = function () {
-        $scope.loading1 = true;
-
-        $timeout(function () {
-            $scope.loading1 = false;
-        }, 2000);
-    };
-}
-
 function projectCtrl($scope,$modal,$http,projectService) {
 
-    $scope.open1 = function() {
+    $scope.newProject = function() {
         var modalInstance = $modal.open({
             templateUrl: '/new_project_window',
             controller: ModalInstanceCtrl
         });
     };
 
-    $scope.init = function() {
+    $scope.init = function(all) {
         $scope.projects.splice(0,$scope.projects.length);
 
-        $http.get("/api/v1/projects").then(function(response) {
+        $http.get(all ? "/api/v1/projects_all" : "/api/v1/projects").then(function(response) {
 
             angular.forEach(response.data, function(value, key) {
                 projectService.addProject(value);
@@ -600,8 +574,6 @@ function auditCtrl($scope,$stateParams,$http,todoService) {
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
-    .controller('loadingCtrl', loadingCtrl)
-    .controller('formValidation', formValidation)
     .controller('projectCtrl', projectCtrl)
     .controller('projectDetailCtrl', projectDetailCtrl)
     .controller('reportCtrl', reportCtrl)

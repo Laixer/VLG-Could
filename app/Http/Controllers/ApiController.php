@@ -14,7 +14,6 @@ use App\ProjectTodo;
 use App\ProjectField;
 use App\Report;
 use App\Events\ProjectStatusChange;
-use App\Events\ProjectUploadReport;
 use App\Events\ProjectUpdateReport;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -66,6 +65,23 @@ class ApiController extends Controller
 		return response()->json($arr);
 	}
 
+	public function getProjectsAll()
+	{
+		$arr = [];
+		foreach (Project::all() as $project) {
+			$obj = $project;
+			$obj['status'] = $project->status;
+			$obj['field'] = $obj->field;
+
+			if (!Auth::user()->canWrite())
+				unset($obj['note']);
+
+			array_push($arr, $obj);
+		}
+
+		return response()->json($arr);
+	}
+
 	public function getProjectFields()
 	{
 		return response()->json(ProjectField::all());
@@ -86,6 +102,22 @@ class ApiController extends Controller
 		return response()->json($arr);
 	}
 
+	public function getProjectCompanyUsers(Request $request, $id)
+	{
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        $arr = [];
+        foreach ($portal->portalCompanyUsers($id)['users'] as $users) {
+        	// $obj['id'] = $users['id'];
+        	// $obj['name'] = $users['name'];
+        	$obj = $users;
+        	array_push($arr, $obj);
+        }
+
+		return response()->json($arr);
+	}
+
 	public function getProjectFromId(Request $request, $id)
 	{
 		$obj = Project::find($id);
@@ -95,6 +127,7 @@ class ApiController extends Controller
 			$obj['owner'] = $obj->resolveOwner();
 			$obj['client'] = $obj->resolveClient();
 			$obj['involved'] = $obj->resolveInvolved();
+			$obj['contact'] = $obj->resolveContact();
 
 			if (!Auth::user()->canWrite())
 				unset($obj['note']);
@@ -196,6 +229,7 @@ class ApiController extends Controller
 			'reference' => 'required|max:30',
 			'field' => 'required:integer',
 			'client' => 'required:integer',
+			'contact' => 'required:integer',
 		]);
 
 		$project = new Project;
@@ -206,6 +240,7 @@ class ApiController extends Controller
 		$project->field_id = $request->input('field');
 		$project->owner_user_id = Auth::id();
 		$project->client_company_id = $request->input('client');
+		$project->contact_client_id = $request->input('contact');
 
 		$project->save();
 		$project['status'] = $project->status;
@@ -280,8 +315,6 @@ class ApiController extends Controller
 			$report->save();
 
 			(new Audit('Rapport ' . $report->name . ' geupload', $report->project_id))->save();
-
-			event(new ProjectUploadReport($report));
 
 			return response()->json($report);
 		}

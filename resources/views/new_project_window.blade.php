@@ -41,8 +41,14 @@
                 </div>
                 <div class="form-group">
                     <label>Opdrachtgever</label>
-                    <select class="form-control" ng-model="client" required>
+                    <select class="form-control" ng-model="client" ng-change="reloadClients()" required>
                         <option ng-repeat="company in companies" value="@{{ company.id }}">@{{ company.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Contact</label>
+                    <select class="form-control" ng-model="client_contact" required>
+                        <option ng-repeat="contact in contacts" value="@{{ contact.id }}">@{{ contact.name }}</option>
                     </select>
                 </div>
             </form>

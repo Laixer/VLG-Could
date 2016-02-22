@@ -42,8 +42,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function () {
 	Route::get('auth/check', 'ApiController@getAuthStatus');
     Route::get('projects', 'ApiController@getProjects');
+    Route::get('projects_all', 'ApiController@getProjectsAll');
     Route::get('project_fields', 'ApiController@getProjectFields');
     Route::get('project_companies', 'ApiController@getProjectCompanies');
+    Route::get('project_company/{id}/users', 'ApiController@getProjectCompanyUsers');
     Route::get('project/{id}', 'ApiController@getProjectFromId');
     Route::get('project/{id}/reports', 'ApiController@getProjectReports');
     Route::get('project/{id}/thread', 'ApiController@getProjectThread');

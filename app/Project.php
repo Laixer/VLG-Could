@@ -107,6 +107,38 @@ class Project extends Model
     /**
      * Get the phone record associated with the user.
      */
+    public function resolveContact() {
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        foreach ($portal->portalUsers()['users'] as $user) {
+            if ($this->contact_client_id == $user['id']) {
+                return $user['name'] . ' ' . $user['last_name'];
+            }
+        }
+
+        return "Onbekend";
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function resolveContactEmail() {
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        foreach ($portal->portalUsers()['users'] as $user) {
+            if ($this->contact_client_id == $user['id']) {
+                return $user['email'];
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
     public function resolveInvolved() {
         $arr = [];
         foreach ($this->audit()->get() as $user) {

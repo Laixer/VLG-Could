@@ -64,6 +64,8 @@
                     <dd>@{{ project.owner }}</dd>
                     <dt>Opdrachtgever:</dt>
                     <dd><span class="text-navy">@{{ project.client }}</span></dd>
+                    <dt>Contact:</dt>
+                    <dd><span class="text-navy">@{{ project.contact }}</span></dd>
                 </dl>
             </div>
             <div class="col-lg-7" id="cluster_info">

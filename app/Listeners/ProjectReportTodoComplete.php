@@ -28,7 +28,7 @@ class ProjectReportTodoComplete
             return;
 
         if (!$project->todoAvailableForAttach()->count()) {
-            Mail::raw('Email E', function ($message) use ($project) {
+            Mail::raw('Email E', function ($message) use ($project, $email, $contact) {
                 $message->subject('Subject email E');
                 $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
                 $message->to($email, $contact);

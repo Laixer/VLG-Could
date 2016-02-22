@@ -27,7 +27,7 @@ class ProjectClose
             return;
 
         if ($project->status->priority == 5) {
-            Mail::raw('Email M', function ($message) use ($project) {
+            Mail::raw('Email M', function ($message) use ($project, $email, $contact) {
                 $message->subject('Subject email M');
                 $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
                 $message->to($email, $contact);

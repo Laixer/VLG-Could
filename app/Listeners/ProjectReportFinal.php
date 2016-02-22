@@ -28,7 +28,7 @@ class ProjectReportFinal
             return;
 
         if ($report->version) {
-            Mail::raw('Email F', function ($message) use ($project) {
+            Mail::raw('Email F', function ($message) use ($project, $email, $contact) {
                 $message->subject('Subject email F');
                 $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
                 $message->to($email, $contact);

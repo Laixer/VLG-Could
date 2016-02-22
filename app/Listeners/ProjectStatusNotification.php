@@ -26,7 +26,7 @@ class ProjectStatusNotification
         if (!$email || !$contact)
             return;
 
-        Mail::raw('Email A', function ($message) use ($project) {
+        Mail::raw('Email A', function ($message) use ($project, $email, $contact) {
             $message->subject('Subject email A');
             $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
             $message->to($email, $contact);

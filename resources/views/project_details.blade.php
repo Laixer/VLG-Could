@@ -40,6 +40,9 @@
                             <li><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
+                    <div class="pull-right" ng-if="auth.write" style="margin-right: 5px">
+                        <button ng-click="projectOptions()" class="btn btn-white" type="button"><span class="bold">Opties</span></button>
+                    </div>
                     <div class="pull-right" ng-if="canCloseProject() && !auth.write" >
                         <button ng-click="setProjectClose()" class="btn btn-primary" type="button"><span class="bold">Project sluiten</span></button>
                     </div>
@@ -76,6 +79,8 @@
                     <dd>@{{ project.created_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Laatst aangepast:</dt>
                     <dd>@{{ project.updated_at | date: 'd MMMM, yyyy' }}</dd>
+                    <dt>Bevestigd:</dt>
+                    <dd>@{{ project.confirmed==1 ? 'Ja' : 'Nee' }}</dd>
                     <dt>Betrokkenen:</dt>
                     <dd>
                         <span class="text-navy">@{{ project.involved.join(", ") }}</span>
@@ -172,11 +177,8 @@
                     </li>
                 </ul>
             </tab>
-
             <tab heading="Acties" active="isActive[4].active" ng-controller="auditCtrl" ng-init="init()" ng-show="auth.admin">
-
                 <h3>Laatste 25 acties</h3>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -194,7 +196,6 @@
                     </tbody>
                 </table>
             </tab>
-
         </tabset>
 
         </div>

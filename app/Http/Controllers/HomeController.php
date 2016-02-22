@@ -55,6 +55,11 @@ class HomeController extends Controller
     	return view('attach_todo_window');
     }
 
+    public function getOptionsWindow()
+    {
+        return view('options_window');
+    }
+
     public function about(Request $request)
     {
         dd(Auth::user());

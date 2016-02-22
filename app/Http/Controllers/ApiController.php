@@ -414,6 +414,31 @@ class ApiController extends Controller
 		return response()->json(['saved' => true]);
 	}
 
+	public function doUpdateOptions(Request $request)
+	{
+		$this->validate($request, [
+			'project' => 'required',
+			'interval1' => 'integer',
+			'interval2' => 'integer',
+		]);
+
+		$project = Project::find($request->input('project'));
+		if (!$project)
+			return response()->json(['error' => 'invalid project'], 406);
+
+		if ($request->input('interval1'))
+			$project->email_interval_1 = $request->input('interval1');
+
+		if ($request->input('interval2'))
+			$project->email_interval_2 = $request->input('interval2');
+
+		$project->save();
+
+		(new Audit('Mailopties aangepast', $project->id))->save();
+
+		return response()->json($project);
+	}
+
 	public function doProjectClose(Request $request)
 	{
 		$this->validate($request, [

@@ -35,7 +35,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('dashboard', 'HomeController@getDashboard');
 	Route::get('project_details', 'HomeController@getProjectDetails');
 	Route::get('new_project_window', 'HomeController@getNewProjectWindow');
-	Route::get('attach_todo_window', 'HomeController@getAttachTodoWindow');
+    Route::get('attach_todo_window', 'HomeController@getAttachTodoWindow');
+	Route::get('options_window', 'HomeController@getOptionsWindow');
     Route::get('principal', 'HomeController@about');
 });
 
@@ -65,4 +66,5 @@ Route::group(['middleware' => ['web', 'auth.edit'],'prefix' => 'api/v1'], functi
     Route::post('update_status', 'ApiController@doUpdateStatus');
     Route::post('update_note', 'ApiController@doUpdateNote');
     Route::post('update_todo', 'ApiController@doUpdateTodo');
+    Route::post('update_options', 'ApiController@doUpdateOptions');
 });

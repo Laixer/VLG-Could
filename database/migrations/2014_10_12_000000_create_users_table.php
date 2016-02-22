@@ -38,6 +38,9 @@ class CreateUsersTable extends Migration
             $table->string('number', 30);
             $table->string('reference', 30);
             $table->text('note');
+            $table->boolean('confirmed')->default(0);
+            $table->integer('email_interval_1')->default(2);
+            $table->integer('email_interval_2')->default(11);
             $table->integer('owner_user_id')->unsigned();
             $table->integer('client_company_id')->unsigned();
             $table->integer('contact_client_id')->unsigned();

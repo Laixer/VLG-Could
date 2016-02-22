@@ -174,6 +174,32 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
 
 };
 
+function ModalOptionsCtrl($scope, $modalInstance, $http, projectService, project) {
+
+    $scope.interval1 = parseInt(project.email_interval_1);
+    $scope.interval2 = parseInt(project.email_interval_2);
+
+    $scope.ok = function() {
+        if ($scope.interval1 != project.email_interval_1 || $scope.interval2 != project.email_interval_2) {
+
+            data = {
+                project: project.id,
+                interval1: $scope.interval1,
+                interval2: $scope.interval2,
+            };
+
+            $http.post("/api/v1/update_options", data);
+        }
+
+        $modalInstance.close();
+    }
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
 function projectCtrl($scope,$modal,$http,projectService) {
 
     $scope.newProject = function() {
@@ -268,14 +294,14 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             else
                 $scope.project.status.label = 'label-primary';
         });
-    }
+    };
 
     $scope.setProjectClose = function() {
         $http.post("/api/v1/project_close", { project: $scope.project.id }).then(function(response) {
             $scope.project.status = response.data;
             $scope.project.status.label = 'label-primary';
         });
-    }
+    };
 
     $scope.showStatus = function(status) {
         if (!$scope.project)
@@ -285,7 +311,19 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             return true;
 
         return false;
-    }
+    };
+
+    $scope.projectOptions = function() {
+        $modal.open({
+            templateUrl: '/options_window',
+            controller: ModalOptionsCtrl,
+            resolve: {
+                project: function(){
+                    return $scope.project;
+                }
+            }
+        });
+    };
 
     $scope.addReport = function(json) {
         var modalInstance = $modal.open({
@@ -299,7 +337,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         });
 
         reportService.addReport(json);
-    }
+    };
 
     $scope.blur = function(e) {
         data = {
@@ -328,7 +366,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             return true;
 
         return false;
-    }
+    };
 
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
@@ -353,7 +391,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             }
         }
 
-    }
+    };
 
     fix_height();
 };

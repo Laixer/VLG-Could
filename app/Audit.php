@@ -17,7 +17,8 @@ class Audit extends Model
         if ($project_id)
             $this->project_id = $project_id;
 
-        $this->user_id =  Auth::id();
+        if (Auth::check())
+            $this->user_id = Auth::id();
     }
 
     /**

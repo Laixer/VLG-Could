@@ -79,8 +79,8 @@
                     <dd>@{{ project.created_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Laatst aangepast:</dt>
                     <dd>@{{ project.updated_at | date: 'd MMMM, yyyy' }}</dd>
-                    <dt>Bevestigd:</dt>
-                    <dd>@{{ project.confirmed==1 ? 'Ja' : 'Nee' }}</dd>
+                    <dt>Goedkeuring:</dt>
+                    <dd>@{{ project.confirmed==-1 ? '-' : (project.confirmed==1 ? 'Ja' : 'Nee') }}</dd>
                     <dt>Betrokkenen:</dt>
                     <dd>
                         <span class="text-navy">@{{ project.involved.join(", ") }}</span>

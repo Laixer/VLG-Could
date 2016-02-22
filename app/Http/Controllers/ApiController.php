@@ -334,10 +334,9 @@ class ApiController extends Controller
 		if (!$report)
 			return response()->json(['error' => 'resource not found'], 404);
 
-		if ($request->input('done') && Auth::user()->canWrite())
+		if ($request->input('done') && Auth::user()->canWrite()) {
 			$report->done = true;
-
-		if ($request->input('version') && Auth::user()->canWrite()) {
+		} else if ($request->input('version') && Auth::user()->canWrite()) {
 			$report->version = $request->input('version');
 			$report->name = 'v' . $report->version . '-' . $report->name;
 		}

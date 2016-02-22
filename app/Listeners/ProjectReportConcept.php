@@ -8,7 +8,7 @@ use App\Events\ProjectUpdateReport;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ProjectReportConcept
+class ProjectReportFinal
 {
     /**
      * Handle the event.
@@ -27,14 +27,14 @@ class ProjectReportConcept
         if (!$email || !$contact)
             return;
 
-        if ($report->done) {
-            Mail::raw('Email J', function ($message) use ($project, $email, $contact) {
-                $message->subject('Subject email J');
+        if ($report->version) {
+            Mail::raw('Email F', function ($message) use ($project, $email, $contact) {
+                $message->subject('Subject email F');
                 $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
                 $message->to($email, $contact);
             });
 
-            (new Audit('Email definitief geupload', $project->id))->save();
+            (new Audit('Email concept geupload', $project->id))->save();
         }
 
     }

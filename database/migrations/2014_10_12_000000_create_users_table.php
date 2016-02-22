@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
             $table->string('number', 30);
             $table->string('reference', 30);
             $table->text('note');
-            $table->boolean('confirmed')->default(0);
+            $table->integer('confirmed')->default(-1);
             $table->integer('email_interval_1')->default(2);
             $table->integer('email_interval_2')->default(11);
             $table->integer('owner_user_id')->unsigned();
@@ -85,7 +85,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('audits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('project_id')->unsigned()->nullable();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->string('action');

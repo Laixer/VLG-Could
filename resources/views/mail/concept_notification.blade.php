@@ -150,7 +150,7 @@ ol li {
       <table>
         <tr>
           <td>
-            <p>Beste [voornaam] [achternaam],</p>
+            <p>Beste {{ $contact }},</p>
             <p>Graag verzoeken wij u voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} de navolgende documenten ter beschikking te stellen:</p>
               <br>
                 <li>{{TODO item}}</li>

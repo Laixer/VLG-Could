@@ -150,7 +150,7 @@ ol li {
       <table>
         <tr>
           <td>
-            <p>Beste [voornaam] [achternaam],</p>
+            <p>Beste {{ $contact }},</p>
             <br>
             <p>1e HERINNERING</p>
             <p>U heeft nog geen / niet alle documenten geüpload in uw RotterdamCloud. Graag verzoeken wij u voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} de navolgende documenten ter beschikking te stellen:</p>

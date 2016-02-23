@@ -22,6 +22,7 @@ class ProjectConfirmationNotification
         $project_contact = $project->resolveContactObject();
 
         foreach ($project->resolveInvolvedObjects() as $user) {
+            /* Everyone except client */
             if ($project_contact['id'] != $user['id']) {
 
                 $email = $user['email'];

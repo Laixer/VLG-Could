@@ -22,7 +22,11 @@ class ProjectReportTodoComplete
         $project = $report->project;
         $project_contact = $project->resolveContactObject();
 
+        if ($project->todoAvailableForAttach()->count() > 0)
+            return;
+
         foreach ($project->resolveInvolvedObjects() as $user) {
+            /* Everyone except client */
             if ($project_contact['id'] != $user['id']) {
 
                 $email = $user['email'];

@@ -150,27 +150,20 @@ ol li {
       <table>
         <tr>
           <td>
-
             <p>Beste {{ $contact }},</p>
             <br>
             <p>PROJECT OP HOLD</p>
-            <p>U heeft nog geen / niet alle gevraagde documenten geüpload in uw RotterdamCloud voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }}</p>
             <br>
-            <p>Wij hebben het project op on-hold gezet. Zodra u de gevaagde gegevens hebt geüpload wordt het project verder opgepakt.</p>
-             <br>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-              <br>
-            <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
+            <p>De concept rapportage voor project{{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} is klaargezet in uw RotterdamCloud.</p>
+            <br>
+            <p>U heeft hierop nog niet gerageerd en hebben daaromhet project op on-hold gezet. Zodra u heeft ereageerd op de concept-rapportage wordt het project verder opgepakt.</p>
+            <p>Indien u opmerkingen heeft of de rapportage aanpassing behoeft, kunt u die hier dat in de RotterCloud onder "conversatie" doorgeven.</p>
+            <p>Indien u de definitieve rapportage wenst te ontvangen kunt u hier de concept rapportage in de RotterCloud tevens goedkeuren.</p>
+            <br>
             <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
-         
+            <br>
             <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>   
+            <p>Veldmeet & laboratorium Groep Rotterdam</p>  
 
           </td>
         </tr>

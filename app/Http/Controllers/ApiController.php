@@ -339,6 +339,8 @@ class ApiController extends Controller
 		} else if ($request->input('version') && Auth::user()->canWrite()) {
 			$report->version = $request->input('version');
 			$report->name = 'v' . $report->version . '-' . $report->name;
+
+			$report->project->touch();
 		}
 
 		if ($request->input('todo'))

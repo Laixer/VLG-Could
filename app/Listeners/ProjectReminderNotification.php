@@ -71,7 +71,7 @@ class ProjectReminderNotification
     private function ConceptReminderSecond($project, $email, $contact)
     {
         Mail::raw('Email H', function ($message) use ($project, $email, $contact) {
-            $message->subject('Subject email G');
+            $message->subject('Subject email H');
             $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
             $message->to($email, $contact);
         });

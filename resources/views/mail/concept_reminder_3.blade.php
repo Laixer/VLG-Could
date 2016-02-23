@@ -150,14 +150,28 @@ ol li {
       <table>
         <tr>
           <td>
-            <p>Hi {{ $contact }},</p>
-            <p>Email I [TEXT]</p>
-            <!-- <h1>Really simple HTML email template</h1> -->
-            <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
-            <!-- <h2>How do I use it?</h2> -->
-            <!-- <p>All the information you need is on GitHub.</p> -->
+
+            <p>Beste {{ $contact }},</p>
+            <br>
+            <p>PROJECT OP HOLD</p>
+            <p>U heeft nog geen / niet alle gevraagde documenten geüpload in uw RotterdamCloud voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }}</p>
+            <br>
+            <p>Wij hebben het project op on-hold gezet. Zodra u de gevaagde gegevens hebt geüpload wordt het project verder opgepakt.</p>
+             <br>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+                <li>{{TODO item}}</li>
+              <br>
+            <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
+            <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
+         
             <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>
+            <p>Veldmeet & laboratorium Groep Rotterdam</p>   
+
           </td>
         </tr>
       </table>

@@ -19,21 +19,40 @@ class ProjectClose
     public function handle(ProjectStatusChange $event)
     {
         $project = $event->project;
-
-        $email = $project->resolveContactEmail();
-        $contact = $project->resolveContact();
-
-        if (!$email || !$contact)
-            return;
+        $project_contact = $project->resolveContactObject();
 
         if ($project->status->priority == 5) {
-            Mail::raw('Email M', function ($message) use ($project, $email, $contact) {
-                $message->subject('Subject email M');
-                $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-                $message->to($email, $contact);
-            });
 
-            (new Audit('Email project gesloten verstuurd', $project->id))->save();
+            $exist = false;
+            $users = $project->resolveInvolvedObjects();
+            foreach ($users as $user) {
+                if ($project_contact['id'] == $user['id']) {
+                    $exist = true;
+                    break;
+                }
+            }
+
+            if (!$exist)
+                array_push($users, $project_contact);
+
+            foreach ($users as $user) {
+                $email = $user['email'];
+                $contact = $user['name'] . ' ' . $user['last_name'];
+
+                $data = array(
+                    'project' => $project,
+                    'email' => $email,
+                    'contact' => $contact,
+                );
+
+                Mail::send('mail.project_close', $data, function ($message) use ($email, $contact) {
+                    $message->subject('Subject email M');
+                    $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                    $message->to($email, $contact);
+                });
+
+                (new Audit('Email project gesloten verstuurd', $project->id))->save();
+            }
         }
     }
 }

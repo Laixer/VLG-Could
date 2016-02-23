@@ -20,21 +20,28 @@ class ProjectReportTodoComplete
     {
         $report = $event->report;
         $project = $report->project;
+        $project_contact = $project->resolveContactObject();
 
-        $email = $project->resolveContactEmail();
-        $contact = $project->resolveContact();
+        foreach ($project->resolveInvolvedObjects() as $user) {
+            if ($project_contact['id'] != $user['id']) {
 
-        if (!$email || !$contact)
-            return;
+                $email = $user['email'];
+                $contact = $user['name'] . ' ' . $user['last_name'];
 
-        if (!$project->todoAvailableForAttach()->count()) {
-            Mail::raw('Email E', function ($message) use ($project, $email, $contact) {
-                $message->subject('Subject email E');
-                $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-                $message->to($email, $contact);
-            });
+                $data = array(
+                    'project' => $project,
+                    'email' => $email,
+                    'contact' => $contact,
+                );
 
-            (new Audit('Email alle bestanden aanwezig verstuurd', $project->id))->save();
+                Mail::send('mail.todo_complete', $data, function ($message) use ($email, $contact) {
+                    $message->subject('Subject email E');
+                    $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                    $message->to($email, $contact);
+                });
+
+                (new Audit('Email alle bestanden aanwezig verstuurd', $project->id))->save();
+            }
         }
     }
 }

@@ -36,46 +36,6 @@ a {
   color: #348eda;
 }
 
-.btn-primary {
-  Margin-bottom: 10px;
-  width: auto !important;
-}
-
-.btn-primary td {
-  background-color: #348eda; 
-  border-radius: 25px;
-  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  font-size: 14px; 
-  text-align: center;
-  vertical-align: top; 
-}
-
-.btn-primary td a {
-  background-color: #348eda;
-  border: solid 1px #348eda;
-  border-radius: 25px;
-  border-width: 10px 20px;
-  display: inline-block;
-  color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-  line-height: 2;
-  text-decoration: none;
-}
-
-.last {
-  margin-bottom: 0;
-}
-
-.first {
-  margin-top: 0;
-}
-
-.padding {
-  padding: 10px 0;
-}
-
-
 /* -------------------------------------
     BODY
 ------------------------------------- */
@@ -196,15 +156,6 @@ ol li {
             <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
             <!-- <h2>How do I use it?</h2> -->
             <!-- <p>All the information you need is on GitHub.</p> -->
-            <!-- button -->
-            <!-- <table class="btn-primary" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td>
-                  <a href="https://github.com/leemunroe/html-email-template">View the source and instructions on GitHub</a>
-                </td>
-              </tr>
-            </table> -->
-            <!-- /button -->
             <p>Met vriendelijk groet,</p>
             <p>Veldmeet & laboratorium Groep Rotterdam</p>
           </td>

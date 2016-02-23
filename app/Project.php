@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    public function __construct()
-    {
-        $this->token = sha1(mt_rand());
-    }
-
     /**
      * Get the user's first name.
      *
@@ -128,6 +123,22 @@ class Project extends Model
     /**
      * Get the phone record associated with the user.
      */
+    public function resolveContactObject() {
+        $portal = Portal::driver('vlgportal');
+        $portal->setToken(Auth::token());
+
+        foreach ($portal->portalUsers()['users'] as $user) {
+            if ($this->contact_client_id == $user['id']) {
+                return $user;
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
     public function resolveContactEmail() {
         $portal = Portal::driver('vlgportal');
         $portal->setToken(Auth::token());
@@ -149,7 +160,23 @@ class Project extends Model
         foreach ($this->audit()->get() as $user) {
             $username = $user->resolveUser();
             if (!in_array($username, $arr))
-                array_push($arr, $user->resolveUser());
+                array_push($arr, $username);
+        }
+
+        return $arr;
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function resolveInvolvedObjects() {
+        $arr = [];
+        foreach ($this->audit()->get() as $user) {
+            $username = $user->resolveUserObject();
+            if (!$username)
+                continue;
+            if (!in_array($username, $arr))
+                array_push($arr, $username);
         }
 
         return $arr;

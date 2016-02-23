@@ -52,21 +52,40 @@ class ProjectReminderNotification
         (new Audit('Email 2de herinnering verzoek tot informatie verstuurd', $project->id))->save();
     }
 
-    private function InformationRequestLast($project, $email, $contact)
+    private function InformationRequestLast($project)
     {
-        $data = array(
-            'project' => $project,
-            'email' => $email,
-            'contact' => $contact,
-        );
+        $project_contact = $project->resolveContactObject();
 
-        Mail::send('mail.information_request_3', $data, function ($message) use ($email, $contact) {
-            $message->subject('Subject email D');
-            $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-            $message->to($email, $contact);
-        });
+        $exist = false;
+        $users = $project->resolveInvolvedObjects();
+        foreach ($users as $user) {
+            if ($project_contact['id'] == $user['id']) {
+                $exist = true;
+                break;
+            }
+        }
 
-        (new Audit('Email laatste herinnering verzoek tot informatie verstuurd', $project->id))->save();
+        if (!$exist)
+            array_push($users, $project_contact);
+
+        foreach ($users as $user) {
+                $email = $user['email'];
+                $contact = $user['name'] . ' ' . $user['last_name'];
+
+            $data = array(
+                'project' => $project,
+                'email' => $email,
+                'contact' => $contact,
+            );
+
+            Mail::send('mail.information_request_3', $data, function ($message) use ($email, $contact) {
+                $message->subject('Subject email D');
+                $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                $message->to($email, $contact);
+            });
+
+            (new Audit('Email laatste herinnering verzoek tot informatie verstuurd', $project->id))->save();
+        }
     }
 
     /**
@@ -109,21 +128,40 @@ class ProjectReminderNotification
         (new Audit('Email 2de herinnering concept verstuurd', $project->id))->save();
     }
 
-    private function ConceptRemindertLast($project, $email, $contact)
+    private function ConceptRemindertLast($project)
     {
-        $data = array(
-            'project' => $project,
-            'email' => $email,
-            'contact' => $contact,
-        );
+        $project_contact = $project->resolveContactObject();
 
-        Mail::send('mail.concept_reminder_3', $data, function ($message) use ($email, $contact) {
-            $message->subject('Subject email I');
-            $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-            $message->to($email, $contact);
-        });
+        $exist = false;
+        $users = $project->resolveInvolvedObjects();
+        foreach ($users as $user) {
+            if ($project_contact['id'] == $user['id']) {
+                $exist = true;
+                break;
+            }
+        }
 
-        (new Audit('Email laatste herinnering concept verstuurd', $project->id))->save();
+        if (!$exist)
+            array_push($users, $project_contact);
+
+        foreach ($users as $user) {
+            $email = $user['email'];
+            $contact = $user['name'] . ' ' . $user['last_name'];
+
+            $data = array(
+                'project' => $project,
+                'email' => $email,
+                'contact' => $contact,
+            );
+
+            Mail::send('mail.concept_reminder_3', $data, function ($message) use ($email, $contact) {
+                $message->subject('Subject email I');
+                $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                $message->to($email, $contact);
+            });
+
+            (new Audit('Email laatste herinnering concept verstuurd', $project->id))->save();
+        }
     }
 
     /**
@@ -152,10 +190,10 @@ class ProjectReminderNotification
              */
             if ($project->status->priority == 2 && !$project->todoAllDone()) {
                 // if (Carbon::now()->gt($expire3))
-                    // $this->InformationRequestLast($project, $email, $contact);
+                    $this->InformationRequestLast($project);
 
                 // else if (Carbon::now()->gt($expire2))
-                    // $this->InformationRequestSecond($project, $email, $contact);
+                    $this->InformationRequestSecond($project, $email, $contact);
 
                 // else if (Carbon::now()->gt($expire))
                     $this->InformationRequestFirst($project, $email, $contact);
@@ -169,10 +207,10 @@ class ProjectReminderNotification
              */
             if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->where('done', true)->count() == 0 && $project->confirmed == -1) {
                 // if (Carbon::now()->gt($expire3))
-                    // $this->ConceptRemindertLast($project, $email, $contact);
+                    $this->ConceptRemindertLast($project);
 
                 // else if (Carbon::now()->gt($expire2))
-                    // $this->ConceptReminderSecond($project, $email, $contact);
+                    $this->ConceptReminderSecond($project, $email, $contact);
 
                 // else if (Carbon::now()->gt($expire))
                     $this->ConceptReminderFirst($project, $email, $contact);

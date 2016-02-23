@@ -19,19 +19,28 @@ class ProjectConfirmationNotification
     public function handle(ProjectConfirmation $event)
     {
         $project = $event->project;
+        $project_contact = $project->resolveContactObject();
 
-        $email = $project->resolveContactEmail();
-        $contact = $project->resolveContact();
+        foreach ($project->resolveInvolvedObjects() as $user) {
+            if ($project_contact['id'] != $user['id']) {
 
-        if (!$email || !$contact)
-            return;
+                $email = $user['email'];
+                $contact = $user['name'] . ' ' . $user['last_name'];
 
-        Mail::raw('Email P', function ($message) use ($project, $email, $contact) {
-            $message->subject('Subject email P');
-            $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
-            $message->to($email, $contact);
-        });
+                $data = array(
+                    'project' => $project,
+                    'email' => $email,
+                    'contact' => $contact,
+                );
 
-        (new Audit('Email project bevestiging verstuurd', $project->id))->save();
+                Mail::send('mail.project_confirmed', $data, function ($message) use ($email, $contact) {
+                    $message->subject('Subject email P');
+                    $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
+                    $message->to($email, $contact);
+                });
+
+                (new Audit('Email project bevestiging verstuurd', $project->id))->save();
+            }
+        }
     }
 }

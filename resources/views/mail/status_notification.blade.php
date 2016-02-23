@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Email B</title>
+<title>Email A</title>
 <style>
 /* -------------------------------------
     GLOBAL
@@ -151,7 +151,7 @@ ol li {
         <tr>
           <td>
             <p>Hi {{ $contact }},</p>
-            <p>Email B [TEXT]</p>
+            <p>Email A [TEXT]</p>
             <!-- <h1>Really simple HTML email template</h1> -->
             <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
             <!-- <h2>How do I use it?</h2> -->

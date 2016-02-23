@@ -27,7 +27,13 @@ class ProjectStatusNotification
             return;
 
         if ($project->status->priority == 2) {
-            Mail::raw('Email A', function ($message) use ($project, $email, $contact) {
+            $data = array(
+                'project' => $project,
+                'email' => $email,
+                'contact' => $contact,
+            );
+
+            Mail::send('mail.status_notification', $data, function ($message) use ($email, $contact) {
                 $message->subject('Subject email A');
                 $message->from('no-reply@rotterdam-cloud.com', 'Rotterdam Cloud');
                 $message->to($email, $contact);

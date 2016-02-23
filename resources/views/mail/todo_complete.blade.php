@@ -151,7 +151,7 @@ ol li {
         <tr>
           <td>
             <p>Beste {{ $contact }},</p>
-            <p>Email E</p>
+            <br>
             <p>Bedankt voor het uploaden van gevraagde documenten in uw RotterdamCloud.</p>
             <br>
             <p>Wij kunnen hiermee de uitgevraagde onderzoeken starten voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }}.</p>

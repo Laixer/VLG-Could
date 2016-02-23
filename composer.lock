@@ -1950,7 +1950,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yorickdewid/VLGPortal",
-                "reference": "3d620f1269cb00757b41302640624eb912ac8588"
+                "reference": "c8ab89d3e69519fd95b06b9c4aa2f86c4c640e37"
             },
             "require": {
                 "guzzlehttp/guzzle": "~5.0|~6.0",
@@ -1988,7 +1988,7 @@
                 "auth",
                 "laravel"
             ],
-            "time": "2016-02-17 16:02:44"
+            "time": "2016-02-22 11:30:53"
         },
         {
             "name": "vlucas/phpdotenv",

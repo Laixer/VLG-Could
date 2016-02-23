@@ -25,7 +25,8 @@
 Route::group(['middleware' => ['web']], function () {
 	Route::get('auth', 'AuthController@redirectToProvider');
 	Route::get('auth/callback', 'AuthController@handleProviderCallback');
-	Route::get('unauth', 'AuthController@unauth');
+    Route::get('unauth', 'AuthController@unauth');
+	Route::get('project/{token}/confirm', 'HomeController@getProjectConfirm');
 });
 
 Route::group(['middleware' => ['web', 'auth']], function () {

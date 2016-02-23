@@ -24,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ProjectReminder' => [
             'App\Listeners\ProjectReminderNotification',
-        ]
+        ],
+        'App\Events\ProjectConfirmation' => [
+            'App\Listeners\ProjectConfirmationNotification',
+        ],
     ];
 
     /**

@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    public function __construct()
+    {
+        $this->token = sha1(mt_rand());
+    }
+
     /**
      * Get the user's first name.
      *

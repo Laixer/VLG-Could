@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        $router->pattern('token', '[0-9a-f]{40}');
 
         parent::boot($router);
     }

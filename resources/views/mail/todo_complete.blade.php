@@ -150,14 +150,16 @@ ol li {
       <table>
         <tr>
           <td>
-            <p>Hi {{ $contact }},</p>
-            <p>Email E [TEXT]</p>
-            <!-- <h1>Really simple HTML email template</h1> -->
-            <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
-            <!-- <h2>How do I use it?</h2> -->
-            <!-- <p>All the information you need is on GitHub.</p> -->
+            <p>Beste {{ $contact }},</p>
+            <p>Email E</p>
+            <p>Bedankt voor het uploaden van gevraagde documenten in uw RotterdamCloud.</p>
+            <br>
+            <p>Wij kunnen hiermee de uitgevraagde onderzoeken starten voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }}.</p>
+            <p>Zodra de conceptrapportage beschikbaar is wordt deze klaargezet in uw RotterdamCloud en wordt u hierover middels de email geïnformeerd.</p>
+            <br>
             <p>Met vriendelijk groet,</p>
             <p>Veldmeet & laboratorium Groep Rotterdam</p>
+          
           </td>
         </tr>
       </table>

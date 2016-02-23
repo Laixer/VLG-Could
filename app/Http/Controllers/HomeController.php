@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Audit;
 use App\Project;
-use App\Events\ProjectConfirmation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -61,35 +60,6 @@ class HomeController extends Controller
     public function getOptionsWindow()
     {
         return view('options_window');
-    }
-
-    public function getProjectConfirm(Request $request)
-    {
-        // $project = project::where('token', $token)->first();
-        $project = project::find(2);//where('token', $token)->first();
-        if (!$project)
-            return redirect('/');
-
-        // if ($project->confirmed != -1)
-            // return redirect('/');
-
-        // if ($request->get('accept') == 'true') {
-        if (1) {
-            $project->confirmed = true;
-            $project->save();
-            // (new Audit('Project akkoord', $project->id))->save();
-
-            event(new ProjectConfirmation($project));
-        } else if ($request->get('accept') == 'false') {
-            $project->confirmed = false;
-            $project->save();
-
-            // (new Audit('Project afgewezen', $project->id))->save();
-
-            event(new ProjectConfirmation($project));
-        }
-
-        // return redirect('/');
     }
 
     public function about(Request $request)

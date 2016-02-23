@@ -15,6 +15,7 @@ use App\ProjectField;
 use App\Report;
 use App\Events\ProjectStatusChange;
 use App\Events\ProjectUpdateReport;
+use App\Events\ProjectConfirmation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -458,6 +459,26 @@ class ApiController extends Controller
 		event(new ProjectStatusChange($project));
 
 		return response()->json($project->status);
+	}
+
+	public function doProjectConfirm(Request $request)
+	{
+		$this->validate($request, [
+			'project' => 'required',
+		]);
+
+		$project = Project::find($request->input('project'));
+		if (!$project)
+			return response()->json(['error' => 'invalid project'], 406);
+
+		$project->confirmed = true;
+		$project->save();
+
+		(new Audit('Project akkoord', $project->id))->save();
+
+		event(new ProjectConfirmation($project));
+
+		return response()->json($project);
 	}
 
 	public function getAuthStatus(Request $request)

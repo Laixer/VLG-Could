@@ -205,7 +205,7 @@ class ProjectReminderNotification
              * - Project has no final
              * - Project condition is not set
              */
-            if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->where('done', true)->count() == 0 && $project->confirmed == -1) {
+            if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->where('done', true)->count() == 0 && !$project->confirmed) {
                 // if (Carbon::now()->gt($expire3))
                     $this->ConceptRemindertLast($project);
 

@@ -303,6 +303,12 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         });
     };
 
+    $scope.setProjectConfirm = function() {
+        $http.post("/api/v1/project_confirm", { project: $scope.project.id }).then(function(response) {
+            $scope.project.confirmed = true;
+        });
+    }
+
     $scope.showStatus = function(status) {
         if (!$scope.project)
             return false;
@@ -348,6 +354,32 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         $http.post("/api/v1/update_note", data);
     };
 
+    var contains = function(needle) {
+        var findNaN = needle !== needle;
+        var indexOf;
+
+        if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function(needle) {
+                var i = -1, index = -1;
+
+                for(i = 0; i < this.length; i++) {
+                    var item = this[i];
+
+                    if((findNaN && item !== item) || item === needle) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                return index;
+            };
+        }
+
+        return indexOf.call(this, needle) > -1;
+    };
+
     $scope.canCloseProject = function() {
         if (!$scope.project)
             return false;
@@ -367,6 +399,38 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
 
         return false;
     };
+
+    $scope.canConfirmProject = function() {
+        if (!$scope.project)
+            return false;
+
+        if ($scope.project.confirmed > 0)
+            return false;
+
+        if ($scope.project.status.priority != 3)
+            return false;
+
+        var ids = [];
+        angular.forEach(reportService.getReport(), function(value, key) {
+            if (value.version) {
+                ids.push(value.id);
+            }
+        });
+
+        var check = 0;
+        angular.forEach(todoService.getTodos(), function(value, key) {
+            if (value.report) {
+                if ($.inArray(value.report.id, ids) != -1) {
+                    check = 1;
+                }
+            }
+        });
+
+        if (check)
+            return true;
+
+        return false;
+    }
 
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;

@@ -43,6 +43,9 @@
                     <div class="pull-right" ng-if="auth.write" style="margin-right: 5px">
                         <button ng-click="projectOptions()" class="btn btn-white" type="button"><span class="bold">Opties</span></button>
                     </div>
+                    <div class="pull-right" ng-if="canConfirmProject() && !auth.write" >
+                        <button ng-click="setProjectConfirm()" class="btn btn-primary" type="button"><span class="bold">Project akkoord</span></button>
+                    </div>
                     <div class="pull-right" ng-if="canCloseProject() && !auth.write" >
                         <button ng-click="setProjectClose()" class="btn btn-primary" type="button"><span class="bold">Project sluiten</span></button>
                     </div>
@@ -80,7 +83,7 @@
                     <dt>Laatst aangepast:</dt>
                     <dd>@{{ project.updated_at | date: 'd MMMM, yyyy' }}</dd>
                     <dt>Goedkeuring:</dt>
-                    <dd>@{{ project.confirmed==-1 ? '-' : (project.confirmed==1 ? 'Ja' : 'Nee') }}</dd>
+                    <dd>@{{ project.confirmed==1 ? 'Ja' : 'Nee' }}</dd>
                     <dt>Betrokkenen:</dt>
                     <dd>
                         <span class="text-navy">@{{ project.involved.join(", ") }}</span>

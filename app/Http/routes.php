@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function ()
     Route::get('project/{id}/todo_available', 'ApiController@getProjectTodoAvailable');
     Route::get('report/{id}/download', 'ApiController@getDownloadRaport');
     Route::post('project_close', 'ApiController@doProjectClose');
+    Route::post('project_confirm', 'ApiController@doProjectConfirm');
     Route::post('upload', 'ApiController@doNewFile');
     Route::post('new_message', 'ApiController@doNewMessage');
     Route::post('new_todo', 'ApiController@doNewTodo');

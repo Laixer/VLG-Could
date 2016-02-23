@@ -150,24 +150,19 @@ ol li {
       <table>
         <tr>
           <td>
-          <p>Beste {{ $contact }},</p>
+            <p>Beste {{ $contact }},</p>
             <br>
-            <p>2e HERINNERING</p>
-            <p>U heeft nog geen / niet alle documenten geüpload in uw RotterdamCloud. Graag verzoeken wij u voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} de navolgende documenten ter beschikking te stellen:</p>
-              <br>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-                <li>{{TODO item}}</li>
-              <br>
-            <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
+            <p>2e HRINNERING</p>
+            <br>
+            <p>De concept rapportage voor project{{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} is klaargezet in uw RotterdamCloud.</p>
+            <br>
+            <p>Indien u opmerkingen heeft of de rapportage aanpassing behoeft, kunt u die hier dat in de RotterCloud onder "conversatie" doorgeven.</p>
+            <p>Indien u de definitieve rapportage wenst te ontvangen kunt u hier de concept rapportage in de RotterCloud tevens goedkeuren.</p>
+            <br>
             <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
             <br>
             <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>   
+            <p>Veldmeet & laboratorium Groep Rotterdam</p>  
           </tr>
       </table>
       </div>

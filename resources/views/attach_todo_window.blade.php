@@ -5,11 +5,11 @@
     </div>
     <div class="modal-body">
 
-        <h4 ng-show="write">Document beschikbaar stellen als rapportage</h4>
-        <div class="form-group" ng-show="write">
+        <h4 ng-show="showReportOptions() && write">Document beschikbaar stellen als rapportage</h4>
+        <div class="form-group" ng-show="showReportOptionsFinal() &&write">
             <label><input icheck2 type="checkbox" ng-model="done"> Definitief</label>
         </div>
-        <div class="form-group" ng-show="write">
+        <div class="form-group" ng-show="showReportOptionsConcept() &&write">
             <label>Versie</label>
             <input type="number" min="1" placeholder="Documentversie" ng-disabled="done" ng-model="version" class="form-control">
         </div>

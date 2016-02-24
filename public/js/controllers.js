@@ -124,7 +124,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
 
 };
 
-function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, authService, reportService) {
+function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, project, todoService, authService, reportService) {
 
     $scope.report = file;
 
@@ -148,6 +148,27 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, todoService, a
             return false;
 
         return true;
+    };
+
+    $scope.showReportOptions = function() {
+        if (project.status.priority == 2 || project.status.priority == 3 || project.status.priority == 4)
+            return true;
+
+        return false;
+    };
+
+    $scope.showReportOptionsConcept = function() {
+        if (project.status.priority == 3)
+            return true;
+
+        return false;
+    };
+
+    $scope.showReportOptionsFinal = function() {
+        if (project.status.priority == 4)
+            return true;
+
+        return false;
     };
 
     $scope.ok = function() {
@@ -340,6 +361,9 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
             resolve: {
                 file: function(){
                     return json;
+                },
+                project: function(){
+                    return $scope.project;
                 }
             }
         });

@@ -159,7 +159,6 @@ ol li {
             <br>
             <p>Met vriendelijk groet,</p>
             <p>Veldmeet & laboratorium Groep Rotterdam</p>
-          
           </td>
         </tr>
       </table>

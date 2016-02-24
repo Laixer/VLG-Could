@@ -151,13 +151,20 @@ ol li {
         <tr>
           <td>
             <p>Hi {{ $contact }},</p>
-            <p>Email D [TEXT]</p>
-            <!-- <h1>Really simple HTML email template</h1> -->
-            <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
-            <!-- <h2>How do I use it?</h2> -->
-            <!-- <p>All the information you need is on GitHub.</p> -->
+            <br>
+            <p>PROJECT OP HOLD</p>
+            <br>
+            <p>U heeft nog geen / niet alle documenten geüpload in uw RotterdamCloud. Graag verzoeken wij u voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} de navolgende documenten ter beschikking te stellen:</p>
+            <ul>
+              @foreach($project->todo as $todo)
+              <li>{{ $todo->message }}</li>
+              @endforeach
+            </ul>
+            <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
+            <p>Ga hiervoor naar <a href="https://www.rotterdam-cloud.com">www.rotterdam-cloud.com</a>.</p>
+            <br>
             <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>
+            <p>Veldmeet & laboratorium Groep Rotterdam</p>  
           </td>
         </tr>
       </table>

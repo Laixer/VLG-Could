@@ -41,6 +41,8 @@ class CreateUsersTable extends Migration
             $table->boolean('confirmed')->default(0);
             $table->integer('email_interval_1')->default(2);
             $table->integer('email_interval_2')->default(11);
+            $table->boolean('email_1')->default(1);
+            $table->boolean('email_2')->default(1);
             $table->integer('owner_user_id')->unsigned();
             $table->integer('client_company_id')->unsigned();
             $table->integer('contact_client_id')->unsigned();

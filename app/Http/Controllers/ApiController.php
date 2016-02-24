@@ -434,6 +434,16 @@ class ApiController extends Controller
 		if ($request->input('interval2'))
 			$project->email_interval_2 = $request->input('interval2');
 
+		if ($request->input('email1'))
+			$project->email_1 = true;
+		else
+			$project->email_1 = false;
+
+		if ($request->input('email2'))
+			$project->email_2 = true;
+		else
+			$project->email_2 = false;
+
 		$project->save();
 
 		(new Audit('Mailopties aangepast', $project->id))->save();

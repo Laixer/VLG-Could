@@ -187,8 +187,9 @@ class ProjectReminderNotification
              * Conditions:
              * - Project status is Request For information
              * - Todo items available
+             * - Email set 1 is enabled
              */
-            if ($project->status->priority == 2 && !$project->todoAllDone()) {
+            if ($project->status->priority == 2 && !$project->todoAllDone() && $project->email_1) {
                 // if (Carbon::now()->gt($expire3))
                     $this->InformationRequestLast($project);
 
@@ -204,8 +205,9 @@ class ProjectReminderNotification
              * - Project has concept
              * - Project has no final
              * - Project condition is not set
+             * - Email set 2 is enabled
              */
-            if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->where('done', true)->count() == 0 && !$project->confirmed) {
+            if ($project->reports()->whereNotNull('version')->count() > 0 && $project->reports()->where('done', true)->count() == 0 && !$project->confirmed && && $project->email_2) {
                 // if (Carbon::now()->gt($expire3))
                     $this->ConceptRemindertLast($project);
 

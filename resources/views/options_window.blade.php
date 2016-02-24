@@ -23,6 +23,13 @@
                         <small class="text-danger" ng-show="option.email_interval_2.$error.required">Geef een waarde op</small>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label><input icheck2 type="checkbox" ng-model="email1"> Emailset1</label>
+                </div>
+                <div class="form-group">
+                    <label><input icheck2 type="checkbox" ng-model="email2"> Emailset2</label>
+                </div>
             </form>
 
         </div>

@@ -200,17 +200,23 @@ function ModalOptionsCtrl($scope, $modalInstance, $http, projectService, project
     $scope.interval1 = parseInt(project.email_interval_1);
     $scope.interval2 = parseInt(project.email_interval_2);
 
+    $scope.email1 = project.email_1=="1" ? true : false;
+    $scope.email2 = project.email_2=="1" ? true : false;
+
     $scope.ok = function() {
-        if ($scope.interval1 != project.email_interval_1 || $scope.interval2 != project.email_interval_2) {
+        data = {
+            project: project.id,
+            interval1: $scope.interval1,
+            interval2: $scope.interval2,
+        };
 
-            data = {
-                project: project.id,
-                interval1: $scope.interval1,
-                interval2: $scope.interval2,
-            };
+        if ($scope.email1)
+            data.email1 = true;
 
-            $http.post("/api/v1/update_options", data);
-        }
+        if ($scope.email2)
+            data.email2 = true;
+
+        $http.post("/api/v1/update_options", data);
 
         $modalInstance.close();
     }

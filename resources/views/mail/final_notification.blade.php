@@ -151,11 +151,11 @@ ol li {
         <tr>
           <td>
             <p>Hi {{ $contact }},</p>
-            <p>Email J [TEXT]</p>
-            <!-- <h1>Really simple HTML email template</h1> -->
-            <!-- <p>This is a really simple email template. Its sole purpose is to get you to click the button below.</p> -->
-            <!-- <h2>How do I use it?</h2> -->
-            <!-- <p>All the information you need is on GitHub.</p> -->
+            <br />
+            <p>De definitieve rapportage voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} is klaargezet in uw RotterdamCloud.</p>
+            <br />
+            <p>Ga hiervoor naar <a href="https://www.rotterdam-cloud.com">www.rotterdam-cloud.com</a>.</p>
+            <br />
             <p>Met vriendelijk groet,</p>
             <p>Veldmeet & laboratorium Groep Rotterdam</p>
           </td>

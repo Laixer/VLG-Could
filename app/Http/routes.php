@@ -38,7 +38,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('attach_todo_window', 'HomeController@getAttachTodoWindow');
 	Route::get('options_window', 'HomeController@getOptionsWindow');
     Route::get('principal', 'HomeController@about');
-    // Route::get('xxx', 'HomeController@getProjectConfirm');
 });
 
 Route::group(['middleware' => ['web', 'auth'],'prefix' => 'api/v1'], function () {

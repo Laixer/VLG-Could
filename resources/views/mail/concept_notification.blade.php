@@ -151,12 +151,12 @@ ol li {
         <tr>
           <td>
             <p>Beste {{ $contact }},</p>
-            <p>De concept rapportage voor project{{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }} is klaargezet in uw RotterdamCloud.</p>
+            <p>De concept rapportage voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} is klaargezet in uw RotterdamCloud.</p>
             <br>
             <p>Indien u opmerkingen heeft of de rapportage aanpassing behoeft, kunt u die hier dat in de RotterCloud onder "conversatie" doorgeven.</p>
             <p>Indien u de definitieve rapportage wenst te ontvangen kunt u hier de concept rapportage in de RotterCloud tevens goedkeuren.</p>
             <br>
-            <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
+            <p>Ga hiervoor naar <a href="https://www.rotterdam-cloud.com">www.rotterdam-cloud.com</a>.</p>
             <br>
             <p>Met vriendelijk groet,</p>
             <p>Veldmeet & laboratorium Groep Rotterdam</p>            

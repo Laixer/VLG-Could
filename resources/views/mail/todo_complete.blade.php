@@ -154,7 +154,7 @@ ol li {
             <br>
             <p>Bedankt voor het uploaden van gevraagde documenten in uw RotterdamCloud.</p>
             <br>
-            <p>Wij kunnen hiermee de uitgevraagde onderzoeken starten voor project {{ $projectnumber }} {{ $project }} met uw referentie {{ $reference }}.</p>
+            <p>Wij kunnen hiermee de uitgevraagde onderzoeken starten voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }}.</p>
             <p>Zodra de conceptrapportage beschikbaar is wordt deze klaargezet in uw RotterdamCloud en wordt u hierover middels de email geïnformeerd.</p>
             <br>
             <p>Met vriendelijk groet,</p>

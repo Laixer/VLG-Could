@@ -472,13 +472,14 @@ class ApiController extends Controller
 			return response()->json(['error' => 'invalid project'], 406);
 
 		$project->confirmed = true;
+		$project->status_id = 4;
 		$project->save();
 
 		(new Audit('Project akkoord', $project->id))->save();
 
 		event(new ProjectConfirmation($project));
 
-		return response()->json($project);
+		return response()->json($project->status);
 	}
 
 	public function getAuthStatus(Request $request)

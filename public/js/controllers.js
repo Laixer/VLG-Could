@@ -306,6 +306,8 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
     $scope.setProjectConfirm = function() {
         $http.post("/api/v1/project_confirm", { project: $scope.project.id }).then(function(response) {
             $scope.project.confirmed = true;
+            $scope.project.status = response.data;
+            $scope.project.status.label = 'label-primary';
         });
     }
 
@@ -410,23 +412,26 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
         if ($scope.project.status.priority != 3)
             return false;
 
-        var ids = [];
+        var ids = 0;
         angular.forEach(reportService.getReport(), function(value, key) {
             if (value.version) {
-                ids.push(value.id);
+                ids++;
             }
         });
 
-        var check = 0;
-        angular.forEach(todoService.getTodos(), function(value, key) {
-            if (value.report) {
-                if ($.inArray(value.report.id, ids) != -1) {
-                    check = 1;
-                }
-            }
-        });
+        if (ids)
+            return true;
 
-        if (check)
+        // var check = 0;
+        // angular.forEach(todoService.getTodos(), function(value, key) {
+        //     if (value.report) {
+        //         if ($.inArray(value.report.id, ids) != -1) {
+        //             check = 1;
+        //         }
+        //     }
+        // });
+
+        // if (check)
             return true;
 
         return false;

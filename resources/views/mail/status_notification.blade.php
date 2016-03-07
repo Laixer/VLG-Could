@@ -147,25 +147,29 @@ ol li {
 
       <!-- content -->
       <div class="content">
-      <table>
-        <tr>
-          <td>
-            <p>Hi {{ $contact }},</p>
-            <br />
-            <p>Graag verzoeken wij u voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} de navolgende documenten ter beschikking te stellen:</p>
-            <ul>
-              @foreach($project->todo as $todo)
-              <li>{{ $todo->message }}</li>
-              @endforeach
-            </ul>
-            <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
-            <p>Ga hiervoor naar <a href="https://www.rotterdam-cloud.com">www.rotterdam-cloud.com</a>.</p>
-            <br />
-            <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>
-          </td>
-        </tr>
-      </table>
+        <table>
+          <tr>
+            <td>
+              <p>Beste {{ $contact }},</p>
+              <br>
+              <p>Bedankt voor het uploaden van gevraagde documenten in uw RotterdamCloud.</p>
+              <br>
+              <p>Graag verzoeken wij u voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} de navolgende documenten ter beschikking te stellen:</p>
+              <br>
+              <ul>
+                @foreach($project->todo as $todo)
+                  <li>{{ $todo->message }}</li>
+                @endforeach
+              </ul>
+              <br>
+              <p>U kunt dit doen door de documenten te uploaden in uw eigen RotterdamCloud.</p>
+              <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
+              <br>
+              <p>Met vriendelijk groet,</p>
+              <p>Veldmeet & laboratorium Groep Rotterdam</p>
+            </td>
+          </tr>
+        </table>
       </div>
       <!-- /content -->
       

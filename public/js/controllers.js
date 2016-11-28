@@ -248,6 +248,12 @@ function projectCtrl($scope,$modal,$http,projectService) {
         });
     };
 
+    $scope.setSort = function(mode) {
+        $scope.order = mode;
+    };
+
+    $scope.order = '-updated_at';
+
     $scope.projects = projectService.getProjects();
 
     function fix_height() {

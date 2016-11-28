@@ -40,9 +40,14 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <input type="text" placeholder="Zoek in projecten" ng-model="query" class="input-sm form-control">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-sm btn-primary"> Zoeken</button>
-                        </span>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projecten sorteren op <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" ng-click="setSort('-updated_at')">Laatste aanpassing</a></li>
+                                <li><a href="#" ng-click="setSort('number')">Projectnummer</a></li>
+                                <li><a href="#" ng-click="setSort('status.priority')">Status</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,8 +56,8 @@
 
             <table class="table table-hover">
                 <tbody>
-                    <tr ng-repeat="project in projects | filter: query | orderBy: '-updated_at' as resultsx">
-                        <td class="project-status">
+                    <tr ng-repeat="project in projects | filter: query | orderBy: order as resultsx">
+                        <td class="project-status" style="width:100px">
                             <span class="label @{{ project.status.label }}">@{{ project.status.name }}</span>
                         </td>
                         <td class="project-title">

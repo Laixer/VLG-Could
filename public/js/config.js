@@ -16,7 +16,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                         {
                             insertBefore: '#loadBefore',
                             name: 'toaster',
-                            files: ['js/plugins/toastr/toastr.min.js', 'css/plugins/toastr/toastr.min.css']
+                            files: [
+                                'js/plugins/toastr/toastr.min.js',
+                                'css/plugins/toastr/toastr.min.css'
+                            ]
                         }
                     ]);
                 }
@@ -31,10 +34,21 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                     return $ocLazyLoad.load([
                         {
                             name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js','css/plugins/dropzone/basic.css','css/plugins/dropzone/dropzone.css','js/plugins/dropzone/dropzone.js']
+                            files: [
+                                'css/plugins/summernote/summernote.css',
+                                'css/plugins/summernote/summernote-bs3.css',
+                                'js/plugins/summernote/summernote.min.js',
+                                'js/plugins/summernote/angular-summernote.min.js',
+                                'css/plugins/dropzone/basic.css',
+                                'css/plugins/dropzone/dropzone.css',
+                                'js/plugins/dropzone/dropzone.js'
+                            ]
                         },
                         {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                            files: [
+                                'css/plugins/iCheck/custom.css',
+                                'js/plugins/iCheck/icheck.min.js'
+                            ]
                         }
                     ]);
                 }

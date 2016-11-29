@@ -8,8 +8,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -24,7 +23,7 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login / registration.
@@ -61,7 +60,7 @@ class AuthController extends Controller
     public function handleProviderCallback(Request $request)
     {
         if (!Auth::callback()) {
-            echo 'Oops';
+            abort(500);
         }
 
         return redirect($this->redirectTo);

@@ -105,105 +105,122 @@
             </div>
         </div>
         <div class="row m-t-sm">
-        <div class="col-lg-12">
-        <div class="panel blank-panel ui-tab">
+            <div class="col-lg-12">
+                <div class="panel blank-panel ui-tab">
 
-        <tabset>
-            <tab heading="Projectbestanden" active="isActive[0].active" ng-controller="reportCtrl" ng-init="init()">
+                    <uib-tabset active="active">
 
-                <div class="forum-title">
-                    <h3>@{{ reports.length }} Bestanden beschikbaar</h3>
+                        {{-- Tab Projectbestanden --}}
+                        <uib-tab heading="Projectbestanden" active="isActive[0].active">
+                            <span ng-controller="reportCtrl" ng-init="init()">
+                                <div class="forum-title">
+                                    <h3>@{{ reports.length }} Bestanden beschikbaar</h3>
+                                </div>
+
+                                <div class="forum-item @{{ report.label }} @{{ report.highlight }}" ng-repeat="report in reports | orderBy: '-created_at'" ng-mouseenter="report.highlight=''">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="forum-icon">
+                                                <i class="fa @{{ report.icon }}"></i>
+                                            </div>
+                                            <a ng-click="download( report.id )" class="forum-item-title">@{{ report.name }} <span ng-show="report.version" class="text-navy">(revisie @{{ report.version }})</span></a>
+                                            <div class="forum-sub-title">@{{ report.created_at | date: 'd MMMM, yyyy' }}</div>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                            <button ng-click="download( report.id )" class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+                        </uib-tab>
+
+                        {{-- Tab Conversatie --}}
+                        <uib-tab heading="Conversatie" active="isActive[1].active">
+                            <span ng-controller="threadCtrl" ng-init="init()">
+                                <div class="feed-activity-list">
+                                    <div class="feed-element" ng-repeat="message in thread">
+                                        <a href="" class="@{{ message.pull }}">
+                                            <img alt="image" class="img-circle" src="img/default-user-icon-profile.png">
+                                        </a>
+
+                                        <div class="media-body @{{ message.text }}">
+                                            <strong>@{{ message.name }}</strong> voegde het volgende bericht toe <br>
+                                            <small class="text-muted">@{{ message.created_at | date: 'd MMMM, yyyy' }}</small>
+                                            <div>@{{ message.message }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="chat-form">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <textarea class="form-control" ng-model="message" placeholder="Bericht..."></textarea>
+                                        </div>
+                                        <div class="text-right">
+                                            <button class="btn btn-primary" ng-click="post()">Plaats</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </span>
+                        </uib-tab>
+
+                        {{-- Tab Notities --}}
+                        <uib-tab heading="Notities" active="isActive[2].active" ng-show="auth.write">
+                            <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
+                        </uib-tab>
+
+                        {{-- Tab Opgevraagde informatie --}}
+                        <uib-tab heading="Opgevraagde informatie" active="isActive[3].active" ng-show="showTodo(project.status.id)">
+                            <span ng-controller="todoCtrl" ng-init="init()">
+                                <ul class="todo-list m-t">
+                                    <li ng-repeat="todo in todos">
+                                        <input icheck type="checkbox" ng-disabled="todo.checked || !auth.write" data-id="@{{ todo.id }}" ng-model="todo.checked">
+                                        <span class="m-l-xs">@{{ todo.message }}</span>
+                                        <a ng-show="todo.report" href="javascript:void(0);" ng-click="gotoReport(todo.report.id)" class="label label-warning"><i class="fa fa-file-o"></i> @{{ todo.report.name }}</a>
+                                    </li>
+                                    <li ng-show="auth.write">
+                                        <form ng-submit="addItem()">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </span>
+                        </uib-tab>
+
+                        {{-- Tab Acties --}}
+                        <uib-tab heading="Acties" active="isActive[4].active" ng-show="auth.admin">
+                            <span ng-controller="auditCtrl" ng-init="init()">
+                                <h3>Laatste 25 acties</h3>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Datum</th>
+                                            <th>Gebruiker</th>
+                                            <th>Actie</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="action in audits">
+                                            <td>@{{ action.created_at | date: 'd MMMM, yyyy HH:mm:ss' }}</td>
+                                            <td>@{{ action.name }}</td>
+                                            <td>@{{ action.action }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </span>
+                        </uib-tab>
+
+                    </uib-tabset>
+
                 </div>
-
-                <div class="forum-item @{{ report.label }} @{{ report.highlight }}" ng-repeat="report in reports | orderBy: '-created_at'" ng-mouseenter="report.highlight=''">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="forum-icon">
-                                <i class="fa @{{ report.icon }}"></i>
-                            </div>
-                            <a ng-click="download( report.id )" class="forum-item-title">@{{ report.name }} <span ng-show="report.version" class="text-navy">(revisie @{{ report.version }})</span></a>
-                            <div class="forum-sub-title">@{{ report.created_at | date: 'd MMMM, yyyy' }}</div>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <button ng-click="download( report.id )" class="btn" type="button"><i class="fa fa-cloud-download"></i>&nbsp;&nbsp;<span class="bold">Download</span></button>
-                        </div>
-                    </div>
-                </div>
-
-            </tab>
-            <tab heading="Conversatie" active="isActive[1].active" ng-controller="threadCtrl" ng-init="init()">
-
-                <div class="feed-activity-list">
-                    <div class="feed-element" ng-repeat="message in thread">
-                        <a href="" class="@{{ message.pull }}">
-                            <img alt="image" class="img-circle" src="img/default-user-icon-profile.png">
-                        </a>
-
-                        <div class="media-body @{{ message.text }}">
-                            <strong>@{{ message.name }}</strong> voegde het volgende bericht toe <br>
-                            <small class="text-muted">@{{ message.created_at | date: 'd MMMM, yyyy' }}</small>
-                            <div>@{{ message.message }}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="chat-form">
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" ng-model="message" placeholder="Bericht..."></textarea>
-                        </div>
-                        <div class="text-right">
-                            <button class="btn btn-primary" ng-click="post()">Plaats</button>
-                        </div>
-                    </form>
-                </div>
-            </tab>
-            <tab heading="Notities" active="isActive[2].active" ng-show="auth.write">
-                <div summernote class="summernote" on-blur="blur(evt)" ng-model="project.note"></div>
-            </tab>
-            <tab heading="Opgevraagde informatie" active="isActive[3].active" ng-controller="todoCtrl" ng-init="init()" ng-show="showTodo(project.status.id)">
-                <ul class="todo-list m-t">
-                    <li ng-repeat="todo in todos">
-                        <input icheck type="checkbox" ng-disabled="todo.checked || !auth.write" data-id="@{{ todo.id }}" ng-model="todo.checked">
-                        <span class="m-l-xs">@{{ todo.message }}</span>
-                        <a ng-show="todo.report" href="javascript:void(0);" ng-click="gotoReport(todo.report.id)" class="label label-warning"><i class="fa fa-file-o"></i> @{{ todo.report.name }}</a>
-                    </li>
-                    <li ng-show="auth.write">
-                        <form ng-submit="addItem()">
-                            <div class="input-group">
-                                <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary">Opslaan</button>
-                                </span>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
-            </tab>
-            <tab heading="Acties" active="isActive[4].active" ng-controller="auditCtrl" ng-init="init()" ng-show="auth.admin">
-                <h3>Laatste 25 acties</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Datum</th>
-                            <th>Gebruiker</th>
-                            <th>Actie</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="action in audits">
-                            <td>@{{ action.created_at | date: 'd MMMM, yyyy HH:mm:ss' }}</td>
-                            <td>@{{ action.name }}</td>
-                            <td>@{{ action.action }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </tab>
-        </tabset>
-
+            </div>
         </div>
-        </div>
-        </div>
+
         </div>
         </div>
         </div>
@@ -221,7 +238,7 @@
             </div>
         </div>
         </div>
-        {{-- /Content --}}
+        {{-- End Content --}}
 
         {{-- Footer --}}
         <div ng-include="'/common/footer'"></div>

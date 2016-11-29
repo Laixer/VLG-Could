@@ -27,18 +27,7 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window, aut
         function(response){
             $interval.cancel($scope.checkAuth);
             if (response.status == 401) {
-                $scope.SweetAlert.swal({
-                    title: "Sessie verlopen",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Opnieuw inloggen",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function () {
-                    $window.location.href = '/auth';
-                });
+                location.reload();
             } else if (response.status == 403) {
                 $scope.SweetAlert.swal({
                     title: "Geen toegang",
@@ -75,11 +64,10 @@ function MainCtrl($scope, $interval, $http, $ocLazyLoad, $injector, $window, aut
     /**
      * initial run for random stacked value
      */
-    $scope.checkAuth = $interval(checkLogin, 60000);
+    $scope.checkAuth = $interval(checkLogin, 30000);
 };
 
-function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectService) {
-
+function ModalInstanceCtrl($scope, $uibModalInstance, $http, toaster, projectService) {
     $http.get("/api/v1/project_fields").then(function(response) {
         $scope.fields = response.data;
     });
@@ -109,7 +97,7 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
             if (response.data.id > 0) {
                 projectService.addProject(response.data);
                 toaster.success({ body: "Project " + response.data.name + " is aangemaakt."});
-                $modalInstance.close();
+                $uibModalInstance.close();
             }
         }, function(response){
             if (response.data.name)
@@ -119,12 +107,12 @@ function ModalInstanceCtrl($scope, $modalInstance, $http, toaster, projectServic
     };
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss();
     };
 
 };
 
-function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, project, todoService, authService, reportService) {
+function ModalAttachTodoCtrl($scope, $uibModalInstance, $http, file, project, todoService, authService, reportService) {
 
     $scope.report = file;
 
@@ -184,18 +172,18 @@ function ModalAttachTodoCtrl($scope, $modalInstance, $http, file, project, todoS
         $http.post("/api/v1/update_report", data).then(function(response) {
             todoService.attach(todo_id, response.data);
             reportService.update(response.data);
-            $modalInstance.close();
+            $uibModalInstance.close();
         });
 
     };
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss();
     };
 
 };
 
-function ModalOptionsCtrl($scope, $modalInstance, $http, projectService, project) {
+function ModalOptionsCtrl($scope, $uibModalInstance, $http, projectService, project) {
 
     $scope.interval1 = parseInt(project.email_interval_1);
     $scope.interval2 = parseInt(project.email_interval_2);
@@ -218,19 +206,19 @@ function ModalOptionsCtrl($scope, $modalInstance, $http, projectService, project
 
         $http.post("/api/v1/update_options", data);
 
-        $modalInstance.close();
+        $uibModalInstance.close();
     }
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss();
     };
 
 };
 
-function projectCtrl($scope,$modal,$http,projectService) {
+function projectCtrl($scope,$uibModal,$http,projectService) {
 
     $scope.newProject = function() {
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: '/new_project_window',
             controller: ModalInstanceCtrl
         });
@@ -284,7 +272,7 @@ function projectCtrl($scope,$modal,$http,projectService) {
     fix_height();
 };
 
-function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportService,todoService) {
+function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportService,todoService) {
 
     $scope.isActive = [{active:true},{active:false},{active:false},{active:false}];
 
@@ -355,7 +343,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
     };
 
     $scope.projectOptions = function() {
-        $modal.open({
+        $uibModal.open({
             templateUrl: '/options_window',
             controller: ModalOptionsCtrl,
             resolve: {
@@ -367,7 +355,7 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$modal,reportServic
     };
 
     $scope.addReport = function(json) {
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: '/attach_todo_window',
             controller: ModalAttachTodoCtrl,
             resolve: {

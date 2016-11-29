@@ -3,6 +3,6 @@
         'ui.router',                    // Routing
         'oc.lazyLoad',                  // ocLazyLoad
         'ui.bootstrap',                 // Ui Bootstrap
-        'ngSanitize',                    // ngSanitize
+        'ngSanitize',                   // ngSanitize
     ])
 })();

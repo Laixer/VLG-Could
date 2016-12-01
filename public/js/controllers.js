@@ -355,6 +355,11 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportSer
     };
 
     $scope.addReport = function(json) {
+        reportService.addReport(json);
+
+        if ($scope.project.field.id != 1)
+            return;
+
         var modalInstance = $uibModal.open({
             templateUrl: '/attach_todo_window',
             controller: ModalAttachTodoCtrl,
@@ -367,8 +372,6 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportSer
                 }
             }
         });
-
-        reportService.addReport(json);
     };
 
     $scope.blur = function(e) {

@@ -40,9 +40,9 @@
                             <li><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
-                    <div class="pull-right" ng-if="auth.write" style="margin-right: 5px">
+                    <!-- <div class="pull-right" ng-if="auth.write" style="margin-right: 5px">
                         <button ng-click="projectOptions()" class="btn btn-white" type="button"><span class="bold">Opties</span></button>
-                    </div>
+                    </div> -->
                     <div class="pull-right" ng-if="canConfirmProject() && !auth.write" >
                         <button ng-click="setProjectConfirm()" class="btn btn-primary" type="button"><span class="bold">Project akkoord</span></button>
                     </div>
@@ -170,9 +170,9 @@
                         </uib-tab>
 
                         {{-- Tab Opgevraagde informatie --}}
-                        <uib-tab heading="Opgevraagde informatie" active="isActive[3].active" ng-show="showTodo(project.status.id)">
+                        <uib-tab heading="Opgevraagde informatie" active="isActive[3].active">
                             <span ng-controller="todoCtrl" ng-init="init()">
-                                <ul class="todo-list m-t">
+                                <ul class="todo-list m-t" ng-show="showTodo(project.status.id)">
                                     <li ng-repeat="todo in todos">
                                         <input icheck type="checkbox" ng-disabled="todo.checked || !auth.write" data-id="@{{ todo.id }}" ng-model="todo.checked">
                                         <span class="m-l-xs">@{{ todo.message }}</span>
@@ -189,6 +189,9 @@
                                         </form>
                                     </li>
                                 </ul>
+                                <div ng-show="!showTodo(project.status.id)">
+                                    <h5>Dit project bevat geen opgevraagde informatie</h5>
+                                </div>
                             </span>
                         </uib-tab>
 

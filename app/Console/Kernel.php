@@ -26,11 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function() {
-            $projects = Project::where('status_id', '!=', 5)->get();
+        // $schedule->call(function() {
+            // $projects = Project::where('status_id', '!=', 5)->get();
             event(new ProjectReminder($projects));
         // })->dailyAt('08:00');
-        })->everyMinute();
+        // })->everyMinute();
         // })->everyTenMinutes();
     }
 }

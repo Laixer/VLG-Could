@@ -22,9 +22,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\ProjectReportConcept',
             'App\Listeners\ProjectReportFinal',
         ],
-        'App\Events\ProjectReminder' => [
-            'App\Listeners\ProjectReminderNotification',
-        ],
+        // 'App\Events\ProjectReminder' => [
+            // 'App\Listeners\ProjectReminderNotification',
+        // ],
         'App\Events\ProjectConfirmation' => [
             'App\Listeners\ProjectConfirmationNotification',
         ],

@@ -36,7 +36,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                             name: 'summernote',
                             files: [
                                 'css/plugins/summernote/summernote.css',
-                                'css/plugins/summernote/summernote-bs3.css',
                                 'js/plugins/summernote/summernote.min.js',
                                 'js/plugins/summernote/angular-summernote.min.js',
                                 'css/plugins/dropzone/basic.css',

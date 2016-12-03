@@ -13,6 +13,7 @@
             <label>Versie</label>
             <input type="number" min="1" placeholder="Documentversie" ng-disabled="done" ng-model="version" class="form-control">
         </div>
+        
         <hr ng-show="showTodo() && write" />
         <div class="form-group" ng-show="showTodo()">
             <label>Document koppelen aan opgevraagde informatie</label>

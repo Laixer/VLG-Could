@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use Mail;
+use Auth;
 use App\Audit;
 use App\Events\ProjectNewMessage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -25,6 +26,9 @@ class ProjectNewMessageNotification
         $contact = $project->resolveContact();
 
         if (!$email || !$contact)
+            return;
+
+        if ($message->user_id == Auth::id())
             return;
 
         $data = array(

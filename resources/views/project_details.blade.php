@@ -40,9 +40,6 @@
                             <li><a href="javascript:void(0);" ng-click="setStatus(5)">Sluiten</a></li>
                             </ul>
                     </div>
-                    <!-- <div class="pull-right" ng-if="auth.write" style="margin-right: 5px">
-                        <button ng-click="projectOptions()" class="btn btn-white" type="button"><span class="bold">Opties</span></button>
-                    </div> -->
                     <div class="pull-right" ng-if="canConfirmProject() && !auth.write" >
                         <button ng-click="setProjectConfirm()" class="btn btn-primary" type="button"><span class="bold">Project akkoord</span></button>
                     </div>
@@ -189,9 +186,20 @@
                                         </form>
                                     </li>
                                 </ul>
-                                <div ng-show="!showTodo(project.status.id)">
-                                    <h5>Dit project bevat geen opgevraagde informatie</h5>
-                                </div>
+                                <ul class="todo-list m-t" ng-show="!showTodo(project.status.id)">
+
+                                    <li ng-show="auth.write">
+                                        <form ng-submit="addItem()">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="item" placeholder="Nieuw item...">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </li>
+
+                                </ul>
                             </span>
                         </uib-tab>
 

@@ -16,6 +16,7 @@ use App\Report;
 use App\Events\ProjectStatusChange;
 use App\Events\ProjectUpdateReport;
 use App\Events\ProjectConfirmation;
+use App\Events\ProjectNewMessage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -288,6 +289,8 @@ class ApiController extends Controller
 		$message->save();
 
 		(new Audit('Bericht ' . $message->message . ' toegevoegd', $message->project_id))->save();
+
+		event(new ProjectNewMessage($message));
 
 		return response()->json($message);
 	}

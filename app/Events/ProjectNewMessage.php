@@ -6,19 +6,19 @@ use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ProjectReminder extends Event
+class ProjectNewMessage extends Event
 {
     use SerializesModels;
 
-    public $projects;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($projects)
+    public function __construct($message)
     {
-        $this->projects = $projects;
+        $this->message = $message;
     }
 }

@@ -23,4 +23,11 @@ class ProjectThread extends Model
 
         return "Onbekend";
     }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function project() {
+        return $this->hasOne('App\Project', 'id', 'project_id');
+    }
 }

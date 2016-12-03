@@ -183,38 +183,6 @@ function ModalAttachTodoCtrl($scope, $uibModalInstance, $http, file, project, to
 
 };
 
-function ModalOptionsCtrl($scope, $uibModalInstance, $http, projectService, project) {
-
-    $scope.interval1 = parseInt(project.email_interval_1);
-    $scope.interval2 = parseInt(project.email_interval_2);
-
-    $scope.email1 = project.email_1=="1" ? true : false;
-    $scope.email2 = project.email_2=="1" ? true : false;
-
-    $scope.ok = function() {
-        data = {
-            project: project.id,
-            interval1: $scope.interval1,
-            interval2: $scope.interval2,
-        };
-
-        if ($scope.email1)
-            data.email1 = true;
-
-        if ($scope.email2)
-            data.email2 = true;
-
-        $http.post("/api/v1/update_options", data);
-
-        $uibModalInstance.close();
-    }
-
-    $scope.cancel = function() {
-        $uibModalInstance.dismiss();
-    };
-
-};
-
 function projectCtrl($scope,$uibModal,$http,projectService) {
 
     $scope.newProject = function() {
@@ -273,8 +241,8 @@ function projectCtrl($scope,$uibModal,$http,projectService) {
 };
 
 function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportService,todoService) {
-
     $scope.isActive = [{active:true},{active:false},{active:false},{active:false}];
+    $scope.project = false;
 
     $scope.gotoReport = function(id) {
         $scope.isActive[0].active = true;
@@ -287,10 +255,12 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportSer
     };
 
     $http.get("/api/v1/project/" + $stateParams.id).then(function(response) {
-        $scope.project = response.data;
-
-        if (!$scope.project.id)
+        if (angular.equals(response.data, {})) {
             $window.location.href = '/#/dashboard';
+            return;
+        }
+
+        $scope.project = response.data;
         
         $scope.project.updated_at = new Date($scope.project.updated_at);
         $scope.project.created_at = new Date($scope.project.created_at);
@@ -342,23 +312,11 @@ function projectDetailCtrl($scope,$stateParams,$http,$window,$uibModal,reportSer
         return false;
     };
 
-    $scope.projectOptions = function() {
-        $uibModal.open({
-            templateUrl: '/options_window',
-            controller: ModalOptionsCtrl,
-            resolve: {
-                project: function(){
-                    return $scope.project;
-                }
-            }
-        });
-    };
-
     $scope.addReport = function(json) {
         reportService.addReport(json);
 
-        if ($scope.project.field.id != 1)
-            return;
+        // if ($scope.project.field.id != 1)
+            // return;
 
         var modalInstance = $uibModal.open({
             templateUrl: '/attach_todo_window',

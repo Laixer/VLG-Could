@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Email G</title>
+<title>Nieuw bericht bij project</title>
 <style>
 /* -------------------------------------
     GLOBAL
@@ -147,25 +147,23 @@ ol li {
 
       <!-- content -->
       <div class="content">
-      <table>
-        <tr>
-          <td>
-            <p>Beste {{ $contact }},</p>
-            <br>
-            <p>1e HRINNERING</p>
-            <br>
-            <p>De concept rapportage voor project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }} is klaargezet in uw RotterdamCloud.</p>
-            <br>
-            <p>Indien u opmerkingen heeft of de rapportage aanpassing behoeft, kunt u die hier dat in de RotterCloud onder "conversatie" doorgeven.</p>
-            <p>Indien u de definitieve rapportage wenst te ontvangen kunt u hier de concept rapportage in de RotterCloud tevens goedkeuren.</p>
-            <br>
-            <p>Ga hiervoor naar <a href="https://www.rotterdam-cloud.com">www.rotterdam-cloud.com</a>.</p>
-            <br>
-            <p>Met vriendelijk groet,</p>
-            <p>Veldmeet & laboratorium Groep Rotterdam</p>   
-          </td>
-        </tr>
-      </table>
+        <table>
+          <tr>
+            <td>
+              <p>Beste {{ $contact }},</p>
+              <br>
+              <p>Nieuw bericht geplaatst bij project {{ $project->number }} {{ $project->name }} met uw referentie {{ $project->reference }}. Bricht:</p>
+              <br>
+              <p>{{ $thread->message }}</p>
+              <br>
+              <p>U kunt via de applicatie reageren op dit bericht.</p>
+              <p>Ga hiervoor naar www.rotterdam-cloud.com.</p>
+              <br>
+              <p>Met vriendelijk groet,</p>
+              <p>Veldmeet & laboratorium Groep Rotterdam</p>
+            </td>
+          </tr>
+        </table>
       </div>
       <!-- /content -->
       

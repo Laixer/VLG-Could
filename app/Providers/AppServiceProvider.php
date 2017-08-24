@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use \Auth;
+use Auth;
 use Illuminate\Support\ServiceProvider;
+
+use VLG\GSSAuth\PortalUserProvider;
+use VLG\GSSAuth\PortalGuard;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,12 +27,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Auth::provider('portal', function() {
-            return new \VLG\GSSAuth\PortalUserProvider(new User());
+        Auth::provider('portal', function($app, array $config) {
+            return new PortalUserProvider;
         });
 
         Auth::extend('portal', function($app, $name, array $config) {
-            return new \VLG\GSSAuth\PortalGuard(Auth::createUserProvider($config['provider']));
+            return new PortalGuard(Auth::createUserProvider($config['provider']));
         });
     }
 }
